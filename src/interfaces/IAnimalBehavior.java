@@ -1,5 +1,4 @@
 package interfaces;
-
 public interface IAnimalBehavior {
     public String getAnimalName();
 	public int getSize();
