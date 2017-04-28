@@ -1,4 +1,4 @@
-package interfaces;
+package graphics;
 public interface IDrawable
 {
 	public final static String PICTURE_PATH = "...";

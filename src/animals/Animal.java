@@ -5,6 +5,14 @@ import mobility.Mobile;
 import mobility.Point;
 import food.EFoodType;
 import food.IEdible;
+import graphics.IAnimalBehavior;
+import graphics.IDrawable;
+import graphics.ZooPanel;
+
+import java.awt.image.BufferedImage;
+
+import com.sun.prism.paint.Color;
+
 import diet.IDiet;
 import utilities.MessageUtility;
 
@@ -14,9 +22,22 @@ import utilities.MessageUtility;
  * @author Mahdi
  *
  */
-public abstract class Animal extends Mobile implements IEdible{
+public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnimalBehavior, Runnable {
 	private static final String BigDecimal = null;
 	//Attributes:
+	protected final int EAT_DISTANCE = 5;
+	protected int size;
+	protected Color col;
+	protected int horSpeed;
+	protected int verSpeed;
+	protected boolean coordChanged;
+	protected Thread thread;
+	protected int x_dir;
+	protected int y_dir;
+	protected int eatCount;
+	protected ZooPanel pan;
+	protected boolean threadSuspended;	 
+	protected BufferedImage img1, img2;
 	/**
 	 * 
 	 */
@@ -37,12 +58,11 @@ public abstract class Animal extends Mobile implements IEdible{
 	 */
 	public Animal(String name, Point location)
 	{
-		//this.setName(name);
 		MessageUtility.logConstractor("Animal", name);
 		this.setName(name);
 		this.setLocation(location);
-		
 	}
+	
 	//Methods
 	/**
 	 * 	setName function

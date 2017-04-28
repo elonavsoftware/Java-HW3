@@ -9,12 +9,13 @@ import mobility.ILocatable;
 import mobility.Point;
 import food.EFoodType;
 import food.IEdible;
+import graphics.IDrawable;
 
 /**
  * @author baroh
  *
  */
-public abstract class Plant implements IEdible, ILocatable {
+public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	/**
 	 * 
 	 */
