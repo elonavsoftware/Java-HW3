@@ -1,8 +1,27 @@
 package graphics;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-public class ZooFrame extends JFrame{
+public class ZooFrame extends JFrame
+{
 	//Attributes:
-	ZooPanel MyZooPanel;
+	static ZooPanel MyZooPanel;
+	public static void main(String[] args)
+	{ 
+		JFrame frame = new JFrame("Zoo"); 
+		final JLabel label = new JLabel(); 
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.getContentPane().add(label); 
+		frame.setSize(1200, 800);
+		JButton button1 = new JButton();
+		button1.setName("File");
+		frame.getContentPane().add(button1, null);
+		//frame.getContentPane().add(MyZooPanel, 60);
+		//frame.pack(); 
+		frame.setVisible(true);
+		}
 }
