@@ -7,5 +7,4 @@ public class ZooPanel extends JPanel implements Runnable
 	{
 		//needs to do!
 	}
-	
-}
+} //class ZooPanel extends JPanel implements Runnable
