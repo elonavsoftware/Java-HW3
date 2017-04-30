@@ -1,15 +1,14 @@
 package graphics;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
 
 public class ZooFrame extends JFrame
 {
@@ -18,8 +17,8 @@ public class ZooFrame extends JFrame
 	public static void main(String[] args)
 	{ 
         JFrame frame = new JFrame(ZOO_FRAME_TEXT);
-        MyPanel contents = new MyPanel();
-        frame.add(contents, BorderLayout.CENTER);
+        MyPanel panel = new MyPanel();
+        frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 800);
         frame.setVisible(true);
@@ -42,30 +41,42 @@ class MyPanel extends JPanel implements ActionListener
 	JButton button1, button2, button3, button4, button5, button6, button7;
 	public MyPanel()
 	{
-		 menu1 = new JMenu(MENU_TEXT1);
-		 menu2 = new JMenu(MENU_TEXT2);
-		 menu3 = new JMenu(MENU_TEXT3);
-		 button1 = new JButton(BUTTON_TEXT1);
-		 button2 = new JButton(BUTTON_TEXT2);
-		 button3 = new JButton(BUTTON_TEXT3);
-		 button4 = new JButton(BUTTON_TEXT4);
-		 button5 = new JButton(BUTTON_TEXT5);
-		 button6 = new JButton(BUTTON_TEXT6);
-		 button7 = new JButton(BUTTON_TEXT7);
+		BorderLayout myBorderLayout = new BorderLayout();
+		//Sets the LayoutManager to the Layout
+		this.setLayout(myBorderLayout);
+		JPanel panel1 = new JPanel();
+		JPanel panel2 = new JPanel();
+		
+		menu1 = new JMenu(MENU_TEXT1);
+		menu2 = new JMenu(MENU_TEXT2);
+		menu3 = new JMenu(MENU_TEXT3);
+		button1 = new JButton(BUTTON_TEXT1);
+		button2 = new JButton(BUTTON_TEXT2);
+		button3 = new JButton(BUTTON_TEXT3);
+		button4 = new JButton(BUTTON_TEXT4);
+		button5 = new JButton(BUTTON_TEXT5);
+		button6 = new JButton(BUTTON_TEXT6);
+		button7 = new JButton(BUTTON_TEXT7);
 		 
-		 //up-left
-		 add(menu1);
-		 add(menu2);
-		 add(menu3);
-		 
-		 //down-left
-		 add(button1);
-		 add(button2);
-		 add(button3);
-		 add(button4);
-		 add(button5);
-		 add(button6);
-		 add(button7);
+		panel1.setLayout(new FlowLayout());
+		panel2.setLayout(new FlowLayout());
+		
+		//up-left
+		panel1.add(menu1);
+		panel1.add(menu2);
+		panel1.add(menu3);
+		
+		//down-left
+		panel2.add(button1);
+		panel2.add(button2);
+		panel2.add(button3);
+		panel2.add(button4);
+		panel2.add(button5);
+		panel2.add(button6);
+		panel2.add(button7);
+		
+		this.add(panel1, BorderLayout.NORTH);
+		this.add(panel2, BorderLayout.SOUTH);
 	}
 		
 	public void actionPerformed(ActionEvent event)
