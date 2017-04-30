@@ -1,7 +1,3 @@
-/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795,305370801)*/
-
-
-
 package animals;
 import food.EFoodType;
 import food.IEdible;
@@ -16,20 +12,20 @@ import diet.Carnivore;
  * @author Mahdi
  *
  */
-public class Lion extends AnimalThatRoars {
-
-//Attributes:
+public class Lion extends AnimalThatRoars
+{
 	/**
- * 
+ *
 	*/
 	private int scarCount;
 	/**
 	 * 
 	 * @param name
 	 */
-	public Lion(String name){
-		super(name,new Point(20,0));
-		scarCount=0;
+	public Lion(String name)
+	{
+		super(name,new Point(20, 0));
+		scarCount = 0;
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		setWeight(408.2);
 		this.setDiet(new Carnivore());
@@ -55,13 +51,13 @@ public class Lion extends AnimalThatRoars {
 	 */
 	public boolean setScars()
 	{
-		int x=(Math.random()<0.5)?0:1;
-		boolean res=false;
-		int tempscar=this.scarCount+1;
-		if(x==1)
+		int x = (Math.random() < 0.5) ? 0:1;
+		boolean res = false;
+		int tempscar = this.scarCount+1;
+		if(x == 1)
 		{
 			this.scarCount++;
-			res=true;
+			res = true;
 		}
 		MessageUtility.logSetter(name, "setScars", tempscar, res);
 		return res;
@@ -70,21 +66,13 @@ public class Lion extends AnimalThatRoars {
 	/**
 	 * getFoodtype-returns the animal food type.
 	 */
-	public EFoodType getFoodtype(){
+	public EFoodType getFoodtype()
+	{
 		MessageUtility.logGetter(name, "getFoodType", EFoodType.NOTFOOD);
 		return EFoodType.NOTFOOD;
 	}
 	/**
 	 * roar function.
 	 */
-	public void roar()
-	{
-		MessageUtility.logSound(name, "Roars, then stretches and shakes its mane");
-	}
-
-
-
-
-
-}
-
+	public void roar() {MessageUtility.logSound(name, "Roars, then stretches and shakes its mane");}
+} //public class Lion extends AnimalThatRoars

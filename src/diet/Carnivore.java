@@ -1,60 +1,47 @@
-/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795,305370801)*/
-
-
 package diet;
-
 import food.EFoodType;
-
-
 import food.IEdible;
-import utilities.MessageUtility;
 import animals.Animal;
 import animals.Lion;
-
 /**
  * Carnivore class
  * @author Mahdi
  *
  */
-public class Carnivore implements IDiet {
+public class Carnivore implements IDiet
+{
 	@Override
 	/**
 	 * eat function receive animal food as arguments and check if animal can eat food which received.
 	 */
- 	public boolean eat(Animal animal , IEdible food)
+ 	public boolean eat(Animal animal ,IEdible food)
  	{
-	boolean res=false;
-	if(this.canEat(food.getFoodtype()))
-	{
-	 double currweight=animal.getWeight();
-	 animal.setWeight(currweight*0.1+currweight);
-	 animal.makeSound();
-	 if(animal instanceof Lion)
-	 {
-		 ((Lion)animal).setScars();
-	 }
-	 res=true;
-	}
-	return res;
+		boolean res = false;
+		if(this.canEat(food.getFoodtype()))
+		{
+			double currweight = animal.getWeight();
+			animal.setWeight(currweight*0.1+currweight);
+			animal.makeSound();
+			if(animal instanceof Lion)
+				((Lion)animal).setScars();
+			res=true;
+		}
+		return res;
  	}
 	@Override
 	/**
 	 * 
 	 */
-	public String toString() {
-		return "[" + this.getClass().getSimpleName() + "] ";
-	}
+	public String toString() {return "[" + this.getClass().getSimpleName() + "]";}
 	@Override
 	/**
 	 * canEat checks if the food which recieved is meat if yes then return true else false;
 	 */
-	public boolean canEat(EFoodType food) {
-		boolean res=false;		
-		if(food==EFoodType.MEAT)
-		{
+	public boolean canEat(EFoodType food)
+	{
+		boolean res = false;		
+		if(food == EFoodType.MEAT)
 			res=true;
-		}
-		// TODO Auto-generated method stub
 		return res;
 	}
-}
+} //class Carnivore implements IDiet

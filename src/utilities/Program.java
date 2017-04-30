@@ -1,12 +1,10 @@
-/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795,305370801)*/
+/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795, 305370801)*/
 
 package utilities;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
 import animals.Animal;
 import animals.Bear;
 import animals.Elephant;
@@ -16,13 +14,12 @@ import animals.Turtle;
 import food.IEdible;
 import mobility.Point;
 import plants.Cabbage;
-
 /**
  * @author v
  *
  */
-public class Program {
-
+public class Program
+{
 	private static List<Animal> animals;
 	private static Bear bear;
 	private static Elephant elephant;
@@ -30,18 +27,18 @@ public class Program {
 	private static Giraffe giraffe;
 	private static Lion lion;
 	private static Turtle turtle;
-
-	private static void changeValues() {
+	private static void changeValues()
+	{
 		System.out.println("********************************************");
 		System.out.println("\t\tChange Values");
 		System.out.println("********************************************");
 		Random rand = new Random();
-		for (Animal animal : animals) {
+		for (Animal animal : animals)
+		{
 			animal.setWeight(-857);
 			animal.move(new Point(1, 700));
 			animal.move(new Point(-1, 50));
 		}
-
 		bear.setName("GreenBaloo");
 		((Bear) animals.get(1)).setFurColor("GREEN");
 		giraffe.setNeckLength(4356);
@@ -50,21 +47,20 @@ public class Program {
 		elephant.settrunkLength(5.76);
 		turtle.setAge(-8);
 		turtle.setAge(456);
-
 	}
-
-	private static void feed() {
+	private static void feed()
+	{
 		System.out.println("********************************************");
 		System.out.println("\t\tFeed");
 		System.out.println("********************************************");
-		for (Animal animal : animals) {
-			for (IEdible f : food) {
+		for (Animal animal : animals)
+		{
+			for (IEdible f : food)
 				animal.eat(f);
-			}
 		}
 	}
-
-	private static void init() {
+	private static void init()
+	{
 		System.out.println("********************************************");
 		System.out.println("\t\tInitilize");
 		System.out.println("********************************************");
@@ -88,8 +84,8 @@ public class Program {
 		food.add(animals.get(3)); // Giraffe
 
 	}
-
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		init();
 		testSound();
@@ -98,30 +94,26 @@ public class Program {
 		changeValues();
 
 	}
-
-	private static void move() {
+	private static void move()
+	{
 		System.out.println("********************************************");
 		System.out.println("\t\tMove");
 		System.out.println("********************************************");
 		int x = 10, y = 10;
-		for (Animal animal : animals) {
+		for (Animal animal : animals)
+		{
 			animal.move(new Point(x, y));
 			x += 5;
 			y += 10;
 		}
-
 		animals.get(0).move(new Point(10, 500));
-
 	}
-
-	private static void testSound() {
+	private static void testSound()
+	{
 		System.out.println("********************************************");
 		System.out.println("\t\tTest Sounds");
 		System.out.println("********************************************");
-		for (Animal animal : animals) {
+		for (Animal animal : animals)
 			animal.makeSound();
-		}
-
 	}
-
-}
+} //class Program

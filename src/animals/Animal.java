@@ -1,43 +1,18 @@
-/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795,305370801)*/
-
 package animals;
 import mobility.Mobile;
 import mobility.Point;
 import food.EFoodType;
 import food.IEdible;
-import graphics.IAnimalBehavior;
-import graphics.IDrawable;
-import graphics.ZooPanel;
-
-import java.awt.image.BufferedImage;
-
-import com.sun.prism.paint.Color;
-
 import diet.IDiet;
 import utilities.MessageUtility;
-
 
 /**
  * animal class - present all the animals.
  * @author Mahdi
  *
  */
-public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnimalBehavior, Runnable {
-	private static final String BigDecimal = null;
-	//Attributes:
-	protected final int EAT_DISTANCE = 5;
-	protected int size;
-	protected Color col;
-	protected int horSpeed;
-	protected int verSpeed;
-	protected boolean coordChanged;
-	protected Thread thread;
-	protected int x_dir;
-	protected int y_dir;
-	protected int eatCount;
-	protected ZooPanel pan;
-	protected boolean threadSuspended;	 
-	protected BufferedImage img1, img2;
+public abstract class Animal extends Mobile implements IEdible
+{
 	/**
 	 * 
 	 */
@@ -71,12 +46,10 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnima
 	 */
 	public boolean setName(String _name)
 	{
-		boolean res=true;
-		if(_name==null)
-		{
-			res=false;
-		}
-		this.name=_name;
+		boolean res = true;
+		if(_name == null)
+			res = false;
+		this.name = _name;
 		MessageUtility.logSetter(name, "setName", _name, res);
 		return res;
 	}
@@ -87,12 +60,12 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnima
 	 */
 	public boolean setDiet(IDiet _diet)
 	{
-		boolean res=false;
-		if(_diet!=null)
+		boolean res = false;
+		if(_diet != null)
 		{
 			res=true;
 		}
-		this.diet=_diet;
+		this.diet = _diet;
 		MessageUtility.logSetter(name, "setDiet", _diet, res);
 		return res;
 	}
@@ -100,16 +73,17 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnima
 	 * getDiet function
 	 * @return this.diet
 	 */
-	public IDiet getDiet(){
+	public IDiet getDiet()
+	{
 		MessageUtility.logGetter(name, "getDiet",this.diet);
 		return this.diet;
 	}
-	//////////////////////////////////////////////
 	/**
 	 * getWeight
 	 * @return weight
 	 */
-	public double getWeight(){
+	public double getWeight()
+	{
 		MessageUtility.logGetter(name, "getWeight", weight); 
 		return weight;
 	}
@@ -120,19 +94,17 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnima
 	 */
 	public boolean setWeight(double neweight)
 	{
-		boolean res=true;
-		if(neweight<0)
+		boolean res = true;
+		if(neweight < 0)
 			res=false;
-		this.weight=neweight;
+		this.weight = neweight;
 		MessageUtility.logSetter(name, "setWeight", neweight, res);
 		return res;
 	}
 	/**
 	 * 
 	 */
-	public String toString() {
-		return "[" + this.getClass().getSimpleName() + "]"+"("+name+")";
-	}
+	public String toString() {return "[" + this.getClass().getSimpleName() + "]"+"("+name+")";}
 	/**
 	 * 
 	 */
@@ -146,9 +118,8 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnima
 	{
 		boolean res=false;
 		boolean x=this.diet.canEat(type.getFoodtype());
-		if(x==true){
+		if(x == true)
 			res=this.diet.eat(this, type);
-		}
 		MessageUtility.logBooleanFunction(name, "eat", type, res);
 		return res;
 	}
@@ -156,7 +127,8 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnima
 	 * getName
 	 * @return this.name
 	 */
-	public String getName(){
+	public String getName()
+	{
 		MessageUtility.logGetter(name, "getName", name);
 		return this.name;
 	}
@@ -165,22 +137,21 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnima
 	 */
 	public double move(Point p)
 	{
-		double distance=super.move(p);
-		boolean flag2=false;
+		double distance = super.move(p);
+		boolean flag2 = false;
 		if(Point.cheackBounderies(p))
 		{
-			boolean flag=false;
-			if(distance!=0)
-				flag=true;
-			flag2=flag;
-			double getweight=this.getWeight();
-			this.setWeight(getweight-(distance*getweight*0.00025));
+			boolean flag = false;
+			if(distance != 0)
+				flag = true;
+			flag2 = flag;
+			double getweight = this.getWeight();
+			this.setWeight(getweight - (distance * getweight * 0.00025));
 			
 		}
 		MessageUtility.logBooleanFunction(name, "move", p,flag2);
 		return distance;
 	}
-	
 	
 	@Override
 	/**
@@ -191,5 +162,4 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable, IAnima
 		MessageUtility.logGetter(name, "getFoodtype", EFoodType.MEAT);
 		return EFoodType.MEAT;
 	}
-
-}
+} //abstract class Animal extends Mobile implements IEdible

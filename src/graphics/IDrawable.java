@@ -5,4 +5,4 @@ public interface IDrawable
 	public void loadImages(String nm);
 	public void drawObject(String g); //Graphics
 	public String getColor();
-}//IDrawable
+} //interface IDrawable

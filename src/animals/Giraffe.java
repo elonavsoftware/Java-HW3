@@ -1,17 +1,11 @@
-/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795,305370801)*/
-
-
-
 package animals;
 import diet.Herbivore;
 import diet.IDiet;
 import mobility.Point;
 import utilities.MessageUtility;
-public class Giraffe extends AnimalThatChews{
-//Attributes:
-	private double neckLenght;
-//Ctors:
-	
+public class Giraffe extends AnimalThatChews
+{
+	private double neckLength;
 	/**
 	 * Giraffe ctor
 	 * @param name
@@ -22,7 +16,7 @@ public class Giraffe extends AnimalThatChews{
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);	
 		super.setWeight(450);
 		this.setNeckLength(1.5);
-		IDiet _diet=new Herbivore();
+		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
 	}
 	/**
@@ -36,10 +30,9 @@ public class Giraffe extends AnimalThatChews{
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(450);
 		this.setNeckLength(_neckLenght);
-		IDiet _diet=new Herbivore();
+		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
 	}
-	///////////My Methods//////////
 	/**
 	 * setNeckLength boolean function, sets the new neck length of giraffe.
 	 * @param newNeckLen
@@ -47,23 +40,18 @@ public class Giraffe extends AnimalThatChews{
 	 */
 	public boolean setNeckLength(double newNeckLen)
 	{
-		boolean res=false;
-		if(newNeckLen>=1 && newNeckLen<=2.5)
+		boolean res = false;
+		if(newNeckLen >= 1 && newNeckLen <= 2.5)
 		{
-			this.neckLenght=newNeckLen;
-			res=true;
+			this.neckLength = newNeckLen;
+			res = true;
 		}
 		MessageUtility.logSetter(name, "setNeckLength", newNeckLen, res);
 		return res;
 		
 	}
-//Methods:
 	/**
 	 * chew function.
 	 */
-	public void chew(){
-		 MessageUtility.logSound(name, "Bleats and Stomps its legs, then chews");
-
-	}
-}
-
+	public void chew() {MessageUtility.logSound(name, "Bleats and Stomps its legs, then chews");}
+}//class Giraffe extends AnimalThatChews

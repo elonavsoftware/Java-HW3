@@ -1,7 +1,4 @@
-/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795,305370801)*/
-
 package animals;
-import diet.Carnivore;
 import diet.IDiet;
 import diet.Omnivore;
 import mobility.Point;
@@ -11,14 +8,12 @@ import utilities.MessageUtility;
  * @author Elon
  *
  */
-public class Bear extends AnimalThatRoars{
-	//Attributes
+public class Bear extends AnimalThatRoars
+{
 	/**
 	 * 
 	 */
 	private String furColor;
-	
-	//Ctors.
 	/**
 	 * Bear Constructor
 	 * @param name
@@ -30,28 +25,21 @@ public class Bear extends AnimalThatRoars{
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(308.2);
 		boolean res=this.setFurColor(newFurColor);
-		IDiet _diet=new Omnivore();
-		//IDiet _diet = new Carnivore();
+		IDiet _diet = new Omnivore();
 		if(!res)
-		{
 			this.setFurColor("GRAY");
-		}
 		this.setDiet(_diet);
 	}
 	/**
 	 * roar function prints a message of utility .
 	 */
-//Methods:
-	public void roar()
-	{
-		MessageUtility.logSound(name, "Stands on its hind legs, roars and scratches its belly");
-	}
-	///////////////My Methods///////////////
+	public void roar() {MessageUtility.logSound(name, "Stands on its hind legs, roars and scratches its belly");}
 	/**
 	 * getFurColor
 	 * @return this.furColor
 	 */
-	public String getFurColor(){
+	public String getFurColor()
+	{
 		MessageUtility.logGetter(name, "getFurColor", this.furColor);
 		return this.furColor;
 	}
@@ -62,18 +50,17 @@ public class Bear extends AnimalThatRoars{
 	 */
 	public boolean setFurColor(String newFurColor)
 	{
-		boolean res=false;
-		if(newFurColor=="BLACK" || newFurColor =="WHITE" || newFurColor == "GRAY")
+		boolean res = false;
+		if(newFurColor == "BLACK" || newFurColor == "WHITE" || newFurColor == "GRAY")
 		{
-			this.furColor=newFurColor;
-			res=true;
+			this.furColor = newFurColor;
+			res = true;
 		}
 		else
 		{
-			res=false;
+			res = false;
 		}
 		MessageUtility.logSetter(name, "setFurColor", newFurColor, res);
 		return res;
 	}
-}
-
+} //class Bear extends AnimalThatRoars

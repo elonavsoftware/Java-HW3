@@ -1,21 +1,16 @@
-/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795,305370801)*/
-
 package plants;
-
 import java.util.Random;
-
 import utilities.MessageUtility;
 import mobility.ILocatable;
 import mobility.Point;
 import food.EFoodType;
 import food.IEdible;
-import graphics.IDrawable;
-
 /**
  * @author baroh
  *
  */
-public abstract class Plant implements IEdible, ILocatable,IDrawable {
+public abstract class Plant implements IEdible, ILocatable
+{
 	/**
 	 * 
 	 */
@@ -32,7 +27,8 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	/**
 	 * 
 	 */
-	public Plant() {
+	public Plant()
+	{
 		Random rand = new Random();
 		int x = rand.nextInt(30);
 		int y = rand.nextInt(12);
@@ -48,7 +44,8 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	 * @see food.IFood#getFoodtype()
 	 */
 	@Override
-	public EFoodType getFoodtype() {
+	public EFoodType getFoodtype()
+	{
 		MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", EFoodType.VEGETABLE);
 		return EFoodType.VEGETABLE;
 	}
@@ -56,7 +53,8 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	/**
 	 * @return
 	 */
-	public double getHeight() {
+	public double getHeight()
+	{
 		MessageUtility.logGetter(this.getClass().getSimpleName(), "getHeight", this.height);
 		return this.height;
 	}
@@ -67,7 +65,8 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	 * @see mobility.ILocatable#getLocation()
 	 */
 	@Override
-	public Point getLocation() {
+	public Point getLocation()
+	{
 		MessageUtility.logGetter(this.getClass().getSimpleName(), "getLocation", this.location);
 		return this.location;
 	}
@@ -75,7 +74,8 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	/**
 	 * @return
 	 */
-	public double getWeight() {
+	public double getWeight()
+	{
 		MessageUtility.logGetter(this.getClass().getSimpleName(), "getWeight", this.weight);
 		return weight;
 	}
@@ -84,14 +84,14 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	 * @param height
 	 * @return
 	 */
-	public boolean setHeight(double height) {
+	public boolean setHeight(double height)
+	{
 
 		boolean isSuccess = (height >= 0);
-		if (isSuccess) {
+		if (isSuccess)
 			this.height = height;
-		} else {
+		else
 			this.height = 0;
-		}
 		MessageUtility.logSetter(this.getClass().getSimpleName(), "setHeight", height, isSuccess);
 		return isSuccess;
 	}
@@ -102,11 +102,11 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	 * @see mobility.ILocatable#setLocation(mobility.Point)
 	 */
 	@Override
-	public boolean setLocation(Point newLocation) {
+	public boolean setLocation(Point newLocation)
+	{
 		boolean isSuccess = Point.cheackBounderies(newLocation);
-		if (isSuccess) {
+		if (isSuccess)
 			this.location = newLocation;
-		}
 		MessageUtility.logSetter(this.getClass().getSimpleName(), "setLocation", newLocation, isSuccess);
 		return isSuccess;
 	}
@@ -115,15 +115,14 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	 * @param weight
 	 * @return
 	 */
-	public boolean setWeight(double weight) {
+	public boolean setWeight(double weight)
+	{
 		boolean isSuccess = (weight >= 0);
-		if (isSuccess) {
+		if (isSuccess)
 			this.weight = weight;
-		} else {
+		else
 			this.weight = 0;
-		}
 		MessageUtility.logSetter(this.getClass().getSimpleName(), "setWeight", weight, isSuccess);
-
 		return isSuccess;
 	}
 
@@ -133,8 +132,5 @@ public abstract class Plant implements IEdible, ILocatable,IDrawable {
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toString() {
-		return "[" + this.getClass().getSimpleName() + "] ";
-	}
-
-}
+	public String toString() {return "[" + this.getClass().getSimpleName() + "]";}
+} //abstract class Plant implements IEdible, ILocatable

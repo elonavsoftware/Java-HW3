@@ -1,15 +1,12 @@
-/*(Assignment: 2 || Campus: Beer Sheva || Author:  Mahdi Asali, Elon Avisror || ID: 206331795,305370801)*/
-
 package utilities;
-
 /**
  * A set of Logging functions to be used in appropriate classes
  * 
  * @author baroh
  *
  */
-public class MessageUtility {
-
+public class MessageUtility
+{
 	/**
 	 * Logs Boolean function calls.
 	 * 
@@ -22,15 +19,14 @@ public class MessageUtility {
 	 * @param isSuccess
 	 *            - Result of boolean function
 	 */
-	public static void logBooleanFunction(String name, String funcName, Object value, boolean isSuccess) {
+	public static void logBooleanFunction(String name, String funcName, Object value, boolean isSuccess)
+	{
 		String str = "[b]" + name + ":  \t" + funcName + "(" + value + ") => " + isSuccess;
-		if (isSuccess) {
+		if (isSuccess)
 			System.out.println(str);
-		} else {
+		else
 			System.err.println(str);
-		}
 	}
-
 	/**
 	 * Logs Constructor calls
 	 * 
@@ -40,11 +36,11 @@ public class MessageUtility {
 	 * @param name
 	 *            - Name of the Animal
 	 */
-	public static void logConstractor(String className, String name) {
+	public static void logConstractor(String className, String name)
+	{
 		String str = "[+]new " + className + "\tname: " + name;
 		System.out.println(str);
 	}
-
 	/**
 	 * @param name
 	 *            - Name of the Animal
@@ -53,11 +49,11 @@ public class MessageUtility {
 	 * @param value
 	 *            - Returned value
 	 */
-	public static void logGetter(String name, String funcName, Object value) {
+	public static void logGetter(String name, String funcName, Object value)
+	{
 		String str = "[g]" + name + ":  \t" + funcName + "() => " + value;
 		System.out.println(str);
 	}
-
 	/**
 	 * @param name
 	 *            - Name of the Animal
@@ -68,18 +64,17 @@ public class MessageUtility {
 	 * @param isSuccess
 	 *            - Did the assignment take place
 	 */
-	public static void logSetter(String name, String funcName, Object value, boolean isSuccess) {
+	public static void logSetter(String name, String funcName, Object value, boolean isSuccess)
+	{
 		String str = "[s]" + name + ":  \t" + funcName + "(" + value + ") => " + isSuccess;
-		if (isSuccess) {
+		if (isSuccess)
 			System.out.println(str);
-		} else {
+		else
 			System.err.println(str);
-		}
-
 	}
-
-	public static void logSound(String name, String message) {
+	public static void logSound(String name, String message)
+	{
 		String str = "[!]" + name + ":  \t" + message;
 		System.out.println(str);
 	}
-}
+} //class MessageUtility
