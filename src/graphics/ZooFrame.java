@@ -113,11 +113,14 @@ class MyPanel extends JPanel implements ActionListener
 		this.b_green.addActionListener(this);
 		this.b_none.addActionListener(this);
 		this.h_help.addActionListener(this);
+		
+		this.addAnimal.addActionListener(this);
 		this.exit.addActionListener(this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
+		//JMenu
 		if (event.getSource() == f_exit)
 		{
 			System.exit(0);	
@@ -145,6 +148,12 @@ class MyPanel extends JPanel implements ActionListener
 		if (event.getSource() == h_help)
 		{
 			JOptionPane.showMessageDialog(this, "Home Work 3\nGUI @ Threads");
+		}
+		
+		//JButton
+		if (event.getSource() == addAnimal)
+		{
+			
 		}
 		if (event.getSource() == exit)
 		{
