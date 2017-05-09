@@ -1,7 +1,9 @@
 package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -15,6 +17,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import com.sun.prism.Image;
+
+import animals.Animal;
+import animals.Lion;
 public class ZooPanel extends JPanel implements ActionListener, Runnable
 {
 	private static final long serialVersionUID = 1L;
@@ -29,11 +36,22 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	private final static String BUTTON_TEXT6 = "Info";
 	private final static String BUTTON_TEXT7 = "Exit";
 	private static final String BACKGROUND_PATH = "C://";
+	
+	//added fields of image path.
+    final static String IMAGES_PATH = "C:\\Users\\User\\Desktop\\pictures";
+    final static String IMAGES_SUFIX = ".gif";
+	//
+	
 	JPanel panel1, panel2;
 	JMenuBar menuBar;
 	JMenu file, background, help;
 	JMenuItem f_exit, b_image, b_green, b_none, h_help;
 	JButton addAnimal, sleep, wakeUp, clear, food, info, exit;
+	
+	
+	//added new
+	BufferedImage image;
+
 	
 	
 	//Constructor
@@ -133,20 +151,43 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		if (event.getSource() == h_help)
 		{
 			JOptionPane.showMessageDialog(this, "Home Work 3\nGUI @ Threads");
-		}
-		
+		}	
 		//JButton
 		if (event.getSource() == addAnimal)
 		{
 			//Adding animal
 	        AddAnimalDialog panel = new AddAnimalDialog(new JFrame(),"Add Animal Dialog","Test");
-
+	        
+	        
+	        //creating animal
+	        Animal a=new Lion("Lion1");
+	        String imageName=null;
+	        imageName=IMAGES_PATH+0+IMAGES_SUFIX;
+	        try {
+				image = ImageIO.read(new File(imageName));
+				((Lion)a).setImage(image);
+				repaint();
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 		if (event.getSource() == exit)
 		{
 			System.exit(0);
 		}
 	}
+	
+	public void paintComponent(Graphics g) {
+		
+	
+		super.paintComponent(g);
+        g.drawImage(image, 0, 0, this); // see javadoc for more info on the parameters            
+    
+   }
 	@Override
 	public void run()
 	{

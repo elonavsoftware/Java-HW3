@@ -6,6 +6,8 @@ import utilities.MessageUtility;
 
 import java.util.Random;
 
+import com.sun.prism.Image;
+
 import diet.Carnivore;
 /**
  * Lion class related to animal and AnimalThatRoars.
@@ -30,6 +32,12 @@ public class Lion extends AnimalThatRoars
 		setWeight(408.2);
 		this.setDiet(new Carnivore());
 
+	}
+	
+	//added this
+	public Boolean setImage(java.awt.Image img){
+		this.image1=img;
+		return true;
 	}
 	/**
 	 * eat function to check if the animal can eat specific food which is reiceved as argument 'type'.

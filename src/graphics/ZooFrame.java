@@ -6,10 +6,15 @@ public class ZooFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	private final static String ZOO_FRAME_TEXT = "Zoo";
+	
+	public ZooFrame(String title)
+	{
+		super(title);
+	}
 	static ZooPanel MyZooPanel;
 	public static void main(String[] args)
 	{ 
-        JFrame frame = new JFrame(ZOO_FRAME_TEXT);
+		ZooFrame frame = new ZooFrame(ZOO_FRAME_TEXT);
         ZooPanel panel = new ZooPanel();
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
