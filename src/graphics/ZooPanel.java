@@ -1,7 +1,6 @@
 package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -17,11 +16,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import com.sun.prism.Image;
-
 import animals.Animal;
 import animals.Lion;
+
 public class ZooPanel extends JPanel implements ActionListener, Runnable
 {
 	private static final long serialVersionUID = 1L;

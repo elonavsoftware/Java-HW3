@@ -8,6 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 public class AddAnimalDialog extends JDialog
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public AddAnimalDialog(JFrame parent,String title,String message)
 	{
 		super(parent, title);
