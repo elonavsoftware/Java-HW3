@@ -1,13 +1,10 @@
 package animals;
 import food.EFoodType;
+import java.awt.Image;
 import food.IEdible;
 import mobility.Point;
 import utilities.MessageUtility;
-
 import java.util.Random;
-
-import com.sun.prism.Image;
-
 import diet.Carnivore;
 /**
  * Lion class related to animal and AnimalThatRoars.
@@ -24,9 +21,9 @@ public class Lion extends AnimalThatRoars
 	 * 
 	 * @param name
 	 */
-	public Lion(String name)
+	public Lion(String name, Image rm, Image lm)
 	{
-		super(name,new Point(20, 0));
+		super(name, new Point(20, 0), rm, lm);
 		scarCount = 0;
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		setWeight(408.2);
@@ -35,8 +32,10 @@ public class Lion extends AnimalThatRoars
 	}
 	
 	//added this
-	public Boolean setImage(java.awt.Image img){
-		this.image1=img;
+	public Boolean setImage(Image rm, Image lm)
+	{
+		this.rImage = rm;
+		this.lImage = lm;
 		return true;
 	}
 	/**

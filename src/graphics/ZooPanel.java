@@ -38,9 +38,8 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	private static final String BACKGROUND_PATH = "C://";
 	
 	//added fields of image path.
-    final static String IMAGES_PATH = "C:\\Users\\User\\Desktop\\pictures";
+    final static String IMAGES_PATH = "Desktop\\pictures\\lion";
     final static String IMAGES_SUFIX = ".gif";
-	//
 	
 	JPanel panel1, panel2;
 	JMenuBar menuBar;
@@ -48,10 +47,8 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	JMenuItem f_exit, b_image, b_green, b_none, h_help;
 	JButton addAnimal, sleep, wakeUp, clear, food, info, exit;
 	
-	
 	//added new
 	BufferedImage image;
-
 	
 	
 	//Constructor
@@ -60,17 +57,17 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		BorderLayout myBorderLayout = new BorderLayout();
 		//Sets the LayoutManager to the Layout
 		this.setLayout(myBorderLayout);
-		////////////////////////////////////////
+
 		panel1 = new JPanel();
 		panel2 = new JPanel();
 		menuBar = new JMenuBar();
-		////////////////////////////////////////
+
 		f_exit = new JMenuItem("Exit");
 		b_image = new JMenuItem("Image");
 		b_green = new JMenuItem("Green");
 		b_none = new JMenuItem("None");
 		h_help = new JMenuItem("Help");
-		////////////////////////////////////////
+
 		file = new JMenu(MENU_TEXT1);
 		file.add(f_exit);
 		background = new JMenu(MENU_TEXT2);
@@ -160,17 +157,20 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	        
 	        
 	        //creating animal
-	        Animal a=new Lion("Lion1");
-	        String imageName=null;
-	        imageName=IMAGES_PATH+0+IMAGES_SUFIX;
-	        try {
-				image = ImageIO.read(new File(imageName));
-				((Lion)a).setImage(image);
+	        Animal simba = new Lion("Simba", null, null);
+	        String imageName1 = null, imageName2 = null;
+	        BufferedImage rm, lm;
+	        imageName1 = IMAGES_PATH + "lion_l" + IMAGES_SUFIX;
+	        imageName2 = IMAGES_PATH + "lion_r" + IMAGES_SUFIX;
+	        try
+	        {
+				rm = ImageIO.read(new File(imageName1));
+				lm = ImageIO.read(new File(imageName2));
+				((Lion)simba).setImage(rm, lm);
 				repaint();
-				
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			}
+	        catch (IOException e)
+	        {
 				e.printStackTrace();
 			}
 		}
@@ -181,11 +181,10 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		}
 	}
 	
-	public void paintComponent(Graphics g) {
-		
-	
+	public void paintComponent(Graphics g)
+	{
 		super.paintComponent(g);
-        g.drawImage(image, 0, 0, this); // see javadoc for more info on the parameters            
+        g.drawImage(image, 0, 0, this); //see javadoc for more info on the parameters            
     
    }
 	@Override

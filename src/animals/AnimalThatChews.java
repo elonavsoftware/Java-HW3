@@ -1,4 +1,5 @@
 package animals;
+import java.awt.Image;
 import mobility.Point;
 /**
  * an abstracted class that extends animal class.
@@ -12,11 +13,11 @@ public abstract class AnimalThatChews extends Animal
 	 * @param name
 	 * @param location
 	 */
-	public AnimalThatChews(String name, Point location) {super(name, location);}
+	public AnimalThatChews(String name, Point location, Image rm, Image lm) { super(name, location, rm, lm); }
 	/**
 	 * makeSound function
 	 */
-	public void makeSound() {chew();}
+	public void makeSound() { chew(); }
 	/**
 	 * an abstracted function - chew
 	 */

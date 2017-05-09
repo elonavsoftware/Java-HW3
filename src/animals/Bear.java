@@ -3,6 +3,7 @@ import diet.IDiet;
 import diet.Omnivore;
 import mobility.Point;
 import utilities.MessageUtility;
+import java.awt.Image;
 /**
  * Bear class ,extends 'AnimalThatRoars' class.
  * @author Elon
@@ -19,9 +20,9 @@ public class Bear extends AnimalThatRoars
 	 * @param name
 	 * @param newFurColor
 	 */
-	public Bear(String name, String newFurColor)
+	public Bear(String name, String newFurColor, Image rm, Image lm)
 	{
-		super(name,new Point(100,5));
+		super(name, new Point(100, 5), rm, lm);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(308.2);
 		boolean res=this.setFurColor(newFurColor);

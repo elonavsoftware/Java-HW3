@@ -2,6 +2,7 @@ package animals;
 import utilities.MessageUtility;
 import diet.IDiet;
 import mobility.Point;
+import java.awt.Image;
 import diet.Herbivore;
 /**
  * Elephant class
@@ -18,12 +19,12 @@ public class Elephant extends AnimalThatChews
 	 * Elephant constructor
 	 * @param name
 	 */
-	public Elephant(String name)
+	public Elephant(String name, Image rm, Image lm)
 	{
-		super(name, new Point(50,90));
+		super(name, new Point(50, 90), rm, lm);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(500);
-		this.settrunkLength(1);//By Default.
+		this.settrunkLength(1); //By Default.
 		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
 	}
@@ -32,9 +33,9 @@ public class Elephant extends AnimalThatChews
 	 * @param name
 	 * @param trunkLen
 	 */
-	public Elephant(String name,double trunkLen)
+	public Elephant(String name, double trunkLen, Image rm, Image lm)
 	{
-		super(name, new Point(50,90));
+		super(name, new Point(50, 90), rm, lm);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(500);
 		this.settrunkLength(trunkLen);

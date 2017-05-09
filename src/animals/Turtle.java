@@ -3,6 +3,7 @@ import diet.Herbivore;
 import diet.IDiet;
 import mobility.Point;
 import utilities.MessageUtility;
+import java.awt.Image;
 /**
  * Turtle Class contain's type,name,weight,position(X,Y),distance of the Turtle Object.
  * @author Mahdi Asali
@@ -15,9 +16,9 @@ public class Turtle extends AnimalThatChews
 	 * ctor of turtle
 	 * @param name
 	 */
-	public Turtle(String name)
+	public Turtle(String name, Image rm, Image lm)
 	{
-		super(name,new Point(0, 80));
+		super(name,new Point(0, 80), rm, lm);
 		super.setWeight(1);
 		this.setAge(1);
 		IDiet _diet = new Herbivore();
@@ -29,9 +30,9 @@ public class Turtle extends AnimalThatChews
 	 * @param name
 	 * @param age
 	 */
-	public Turtle(String name, int age)
+	public Turtle(String name, int age, Image rm, Image lm)
 	{
-		super(name,new Point(0, 80));
+		super(name,new Point(0, 80), rm, lm);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(), name);
 		super.setWeight(1);
 		this.setAge(age);

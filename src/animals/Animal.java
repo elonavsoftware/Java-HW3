@@ -3,9 +3,7 @@ import mobility.Mobile;
 import mobility.Point;
 import food.EFoodType;
 import food.IEdible;
-
 import java.awt.Image;
-
 import diet.IDiet;
 import utilities.MessageUtility;
 
@@ -16,8 +14,8 @@ import utilities.MessageUtility;
  */
 public abstract class Animal extends Mobile implements IEdible
 {
-	protected Image image1;
-	protected Image image2;
+	protected Image rImage;
+	protected Image lImage;
 
 	/**
 	 * 
@@ -37,13 +35,13 @@ public abstract class Animal extends Mobile implements IEdible
 	 * @param name
 	 * @param location
 	 */
-	public Animal(String name, Point location, Image im1, Image im2)
+	public Animal(String name, Point location, Image rm, Image lm)
 	{
 		MessageUtility.logConstractor("Animal", name);
 		this.setName(name);
 		this.setLocation(location);
-		this.image1=im1;
-		this.image2=im2;
+		this.rImage = rm;
+		this.lImage = lm;
 	}
 	
 	//Methods

@@ -3,6 +3,7 @@ import diet.Herbivore;
 import diet.IDiet;
 import mobility.Point;
 import utilities.MessageUtility;
+import java.awt.Image;
 public class Giraffe extends AnimalThatChews
 {
 	private double neckLength;
@@ -10,10 +11,10 @@ public class Giraffe extends AnimalThatChews
 	 * Giraffe ctor
 	 * @param name
 	 */
-	public Giraffe(String name)
+	public Giraffe(String name, Image rm, Image lm)
 	{
-		super(name, new Point(0,50));
-		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);	
+		super(name, new Point(0, 50), rm, lm);
+		MessageUtility.logConstractor(this.getClass().getSimpleName(), name);	
 		super.setWeight(450);
 		this.setNeckLength(1.5);
 		IDiet _diet = new Herbivore();
@@ -24,9 +25,9 @@ public class Giraffe extends AnimalThatChews
 	 * @param name
 	 * @param _neckLenght
 	 */
-	public Giraffe(String name,double _neckLenght)
+	public Giraffe(String name, double _neckLenght, Image rm, Image lm)
 	{
-		super(name, new Point(0,50));
+		super(name, new Point(0, 50), rm, lm);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(450);
 		this.setNeckLength(_neckLenght);
