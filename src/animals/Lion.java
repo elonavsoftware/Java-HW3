@@ -1,5 +1,7 @@
 package animals;
 import food.EFoodType;
+
+import java.awt.Graphics;
 import java.awt.Image;
 import food.IEdible;
 import mobility.Point;
@@ -28,16 +30,30 @@ public class Lion extends AnimalThatRoars
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		setWeight(408.2);
 		this.setDiet(new Carnivore());
-
+		//NEW Fields
+		this.setImage(rm, lm);
 	}
 	
 	//added this
-	public Boolean setImage(Image rm, Image lm)
+	//NEW Method.
+	public Boolean setImage(Image rm,Image lm)
 	{
-		this.rImage = rm;
-		this.lImage = lm;
-		return true;
+		boolean res=false;
+		if(rm !=null && lm!=null)
+		{
+			this.lImage=lm;
+			this.rImage=rm;
+			res=true;
+		}
+		return res;
 	}
+	//added this
+	public Image getImage(){
+		return this.lImage;
+	}
+	
+	
+	
 	/**
 	 * eat function to check if the animal can eat specific food which is reiceved as argument 'type'.
 	 */
@@ -82,4 +98,76 @@ public class Lion extends AnimalThatRoars
 	 * roar function.
 	 */
 	public void roar() {MessageUtility.logSound(name, "Roars, then stretches and shakes its mane");}
+
+	@Override
+	public void loadImages(String nm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawObject(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getAnimalName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void eatInc() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getEatCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean getChanges() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setSuspended() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setResumed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setChanges(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 } //public class Lion extends AnimalThatRoars

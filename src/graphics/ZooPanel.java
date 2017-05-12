@@ -1,193 +1,183 @@
 package graphics;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import animals.Animal;
-import animals.Lion;
+
+import com.sun.prism.Graphics;
+import com.sun.prism.Image;
+
 
 public class ZooPanel extends JPanel implements ActionListener, Runnable
 {
-	private static final long serialVersionUID = 1L;
-	private final static String MENU_TEXT1 = "File";
-	private final static String MENU_TEXT2 = "Background";
-	private final static String MENU_TEXT3 = "Help";
-	private final static String BUTTON_TEXT1 = "Add Animal";
-	private final static String BUTTON_TEXT2 = "Sleep";
-	private final static String BUTTON_TEXT3 = "Wake Up";
-	private final static String BUTTON_TEXT4 = "Clear";
-	private final static String BUTTON_TEXT5 = "Food";
-	private final static String BUTTON_TEXT6 = "Info";
-	private final static String BUTTON_TEXT7 = "Exit";
-	private static final String BACKGROUND_PATH = "C://";
-	
-	//added fields of image path.
-    final static String IMAGES_PATH = "Desktop\\pictures\\lion";
-    final static String IMAGES_SUFIX = ".gif";
-	
-	JPanel panel1, panel2;
-	JMenuBar menuBar;
-	JMenu file, background, help;
-	JMenuItem f_exit, b_image, b_green, b_none, h_help;
-	JButton addAnimal, sleep, wakeUp, clear, food, info, exit;
-	
-	//added new
-	BufferedImage image;
-	
-	
+	private BufferedImage Limg;
+
+	//BufferedImage Limg,Rimg;
+	//animal path:
+    final static String BearImg = "C:\\Users\\User\\Desktop\\animals\\bear\\0.gif";
+    final static String ElephantImg = "D:\\MihlalaSCE\\TihnutMitkadem\\labs\\lab06\\GUIExamples\\phases\\";
+    final static String LionImg = "D:\\MihlalaSCE\\TihnutMitkadem\\labs\\lab06\\GUIExamples\\phases\\";
+    final static String GirrafeImg = "D:\\MihlalaSCE\\TihnutMitkadem\\labs\\lab06\\GUIExamples\\phases\\";
+    final static String TurtleImg = "D:\\MihlalaSCE\\TihnutMitkadem\\labs\\lab06\\GUIExamples\\phases\\";
+
+
+	static int Counter=0;
+	private Boolean flag=false;
+	private String[]buttonNames={"Add Animal","Sleep","Wake Up","Clear","Food","Info","Exit"};
+	private JButton[] bi;
+	ZooFrame ZooFrm;
+	JDialog jdialog;
 	//Constructor
-	public ZooPanel()
+	public ZooPanel(ZooFrame zooframe)
 	{
-		BorderLayout myBorderLayout = new BorderLayout();
-		//Sets the LayoutManager to the Layout
+		bi=new JButton[buttonNames.length];// array of JButton
+		
+		createbtn();
+		this.ZooFrm=zooframe;
+		
+	}
+	public void createbtn(){
+		int i,x=0;
+		BorderLayout myBorderLayout = new BorderLayout(); 
+	
+		for(i=0;i<buttonNames.length;i++)
+		{
+			bi[i]=new JButton(buttonNames[i]);// the Button name
+			bi[i].setPreferredSize(new Dimension(110,23));// size of button
+			bi[i].setBounds(x, 515, 110, 23);// size of button
+			bi[i].addActionListener(this);// to set the button in Acttion lisetener
+			
+			x+=100;// this is about crodinat x in the panel (the palce of button)
+			this.add(bi[i],BorderLayout.SOUTH);
+
+		}
 		this.setLayout(myBorderLayout);
 
-		panel1 = new JPanel();
-		panel2 = new JPanel();
-		menuBar = new JMenuBar();
-
-		f_exit = new JMenuItem("Exit");
-		b_image = new JMenuItem("Image");
-		b_green = new JMenuItem("Green");
-		b_none = new JMenuItem("None");
-		h_help = new JMenuItem("Help");
-
-		file = new JMenu(MENU_TEXT1);
-		file.add(f_exit);
-		background = new JMenu(MENU_TEXT2);
-		background.add(b_image);
-		background.add(b_green);
-		background.add(b_none);
-		help = new JMenu(MENU_TEXT3);
-		help.add(h_help);
-		
-		addAnimal = new JButton(BUTTON_TEXT1);
-		sleep = new JButton(BUTTON_TEXT2);
-		wakeUp = new JButton(BUTTON_TEXT3);
-		clear = new JButton(BUTTON_TEXT4);
-		food = new JButton(BUTTON_TEXT5);
-		info = new JButton(BUTTON_TEXT6);
-		exit = new JButton(BUTTON_TEXT7);
-		 
-		panel1.setLayout(new FlowLayout());
-		panel2.setLayout(new FlowLayout());
-		
-		//up-left
-		menuBar.add(file);
-		menuBar.add(background);
-		menuBar.add(help);
-		
-		panel1.add(menuBar);
-		
-		//down-left
-		panel2.add(addAnimal);
-		panel2.add(sleep);
-		panel2.add(wakeUp);
-		panel2.add(clear);
-		panel2.add(food);
-		panel2.add(info);
-		panel2.add(exit);
-		
-		this.add(panel1, BorderLayout.NORTH);
-		this.add(panel2, BorderLayout.SOUTH);
-		this.setBackground(Color.WHITE);
-		
-		this.f_exit.addActionListener(this);
-		this.b_image.addActionListener(this);
-		this.b_green.addActionListener(this);
-		this.b_none.addActionListener(this);
-		this.h_help.addActionListener(this);
-		
-		this.addAnimal.addActionListener(this);
-		this.exit.addActionListener(this);
 	}
-	@Override
-	public void actionPerformed(ActionEvent event)
-	{
-		//JMenu
-		if (event.getSource() == f_exit)
+
+	public void setBackgr(int num){
+		if(num==1)// if we select the blue
 		{
-			System.exit(0);	
+			setLayout(null);
+			flag=false;
+			setBackground(null);// we clean the background
+			this.paintComponent(this.getGraphics());
+			setBackground(Color.GREEN);
+			
 		}
-		if (event.getSource() == b_image)
+		else if(num==2)//if we select the image
 		{
-			BufferedImage img = null;
-			try
-			{
-				img = ImageIO.read(new File(BACKGROUND_PATH));
-			}
-			catch (IOException e)
-			{
-				System.out.println("Error!");
-			}	
+			
+			setLayout(null);
+			flag=true;
+			setBackground(null);// clean the Background
+			this.paintComponent(this.getGraphics());
 		}
-		if (event.getSource() == b_green)
-		{
-			this.setBackground(Color.GREEN);
+		else{// if we select the None
+			flag=false;
+			setBackground(null);// set background none
 		}
-		if (event.getSource() == b_none)
+	}
+
+
+	public void setAnimal(String animal){
+		if(animal=="Bear")
 		{
-			this.setBackground(Color.WHITE);
-		}
-		if (event.getSource() == h_help)
-		{
-			JOptionPane.showMessageDialog(this, "Home Work 3\nGUI @ Threads");
-		}	
-		//JButton
-		if (event.getSource() == addAnimal)
-		{
-			//Adding animal
-	        AddAnimalDialog panel = new AddAnimalDialog(new JFrame(),"Add Animal Dialog","Test");
-	        
-	        
-	        //creating animal
-	        Animal simba = new Lion("Simba", null, null);
-	        String imageName1 = null, imageName2 = null;
-	        BufferedImage rm, lm;
-	        imageName1 = IMAGES_PATH + "lion_l" + IMAGES_SUFIX;
-	        imageName2 = IMAGES_PATH + "lion_r" + IMAGES_SUFIX;
-	        try
-	        {
-				rm = ImageIO.read(new File(imageName1));
-				lm = ImageIO.read(new File(imageName2));
-				((Lion)simba).setImage(rm, lm);
+			JOptionPane.showMessageDialog(this, "trying to paint animal:"+animal);
+	    	try {
+	    		Limg = ImageIO.read(new File(BearImg));
 				repaint();
-			}
-	        catch (IOException e)
-	        {
-				e.printStackTrace();
-			}
+				
+			} 
+	    	catch (IOException e) {
+				e.printStackTrace();				
+			}		}
+		else if(animal=="Girrafe")
+		{			
 		}
-		
-		if (event.getSource() == exit)
+		else if(animal=="Lion")
 		{
-			System.exit(0);
+
+		}
+		else if(animal=="Elephant")
+		{
+
+		}
+		else if(animal=="Turtle")
+		{
+
 		}
 	}
-	
-	public void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-        g.drawImage(image, 0, 0, this); //see javadoc for more info on the parameters            
-    
-   }
+
 	@Override
 	public void run()
 	{
 		//needs to be done!
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+			if(e.getSource()==bi[0]) //add animal button.
+			{
+				if(Counter<2)
+				{
+				Counter++;
+				jdialog=new AddAnimalDialog(this.ZooFrm,this);
+				jdialog.setSize(800, 550);
+				}
+				else{
+					//ERROR
+					JOptionPane.showMessageDialog(this, "ERROR:You have used the max number of animals!!");
+
+				}
+			}
+		
+		else if(e.getSource()==bi[1]) //Sleep
+		{
+
+		}
+		else if(e.getSource()==bi[2]) //Wake up
+		{
+			
+		}
+		else if(e.getSource()==bi[3]) //clear
+		{
+			
+		}
+		else if(e.getSource()==bi[4]) //food
+		{
+			
+		}
+		else if(e.getSource()==bi[5]) //info
+		{
+			
+		}
+		else if(e.getSource()==bi[6])//exit button
+		{
+			System.exit(0);
+		}
 	}	
+	public void paintComponent(Graphics g) {
+		
+	    super.paintComponent((java.awt.Graphics) g);
+	    Dimension dm = getSize();
+		
+		if(Limg != null)
+		    ((java.awt.Graphics) g).drawImage(Limg, 20, 35, dm.width-40, dm.height-55, this);
+   }
+
 } 
 //class ZooPanel extends JPanel implements Runnable

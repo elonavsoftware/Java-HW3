@@ -1,16 +1,37 @@
 package plants;
+import java.awt.Graphics;
 import java.util.Random;
 import utilities.MessageUtility;
 import mobility.ILocatable;
 import mobility.Point;
 import food.EFoodType;
 import food.IEdible;
+import graphics.IDrawable;
 /**
  * @author baroh
  *
  */
-public abstract class Plant implements IEdible, ILocatable
+public abstract class Plant implements IEdible, ILocatable,IDrawable
 {
+	//added these methods, care to implement it later!
+	@Override
+	public void loadImages(String nm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawObject(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	///////////////////////////////////////////////////
 	/**
 	 * 
 	 */
