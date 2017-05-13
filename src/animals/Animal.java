@@ -62,6 +62,9 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	//my ctor
 	public Animal(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
 	{		
+		x_dir=1;
+		y_dir=1;
+		coordChanged=false;
 	     thread= new Thread(this);
 	     thread.start();
 		this.setLocation(location);
@@ -244,27 +247,19 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 				synchronized(this){
 					if(this.threadSuspended==true)// sleep the Animals 
 						wait();
-				}
-				Thread.sleep(500);
-				this.getLocation().setX(this.getLocation().getX()+4);
-				this.getLocation().setY(this.getLocation().getY()+4);
+			}
+			Thread.sleep(500);			
+			 this.getLocation().setX(this.getLocation().getX() + horSpeed*x_dir);
+			 this.getLocation().setY(this.getLocation().getY() + verSpeed*y_dir);
+			 if(this.getLocation().getX() > pan.getWidth()+size/4){ x_dir = -1; }
+			 else if(this.getLocation().getX() < - size*0.25){ x_dir = 1;}
+		     if(this.getLocation().getY() > (int) (pan.getHeight()-30 - size*9/10)) { y_dir = -1;}
+		     else if(this.getLocation().getY() < size/10) {y_dir = 1;}		
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	//this function initilaizing the animal photos.
-	public Boolean  setImage(BufferedImage  limg,BufferedImage  rimg){
-		Boolean res=false;
-		if(limg!=null && rimg !=null)
-		{
-			this.img1=limg;
-			this.img2=rimg;
-			res=true;
-		}
-		return res;
 	}
 
 	@Override
@@ -294,7 +289,7 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	@Override
 	public boolean getChanges() {
 		// TODO Auto-generated method stub
-		return false;
+		return coordChanged;
 	}
 
 	@Override
@@ -311,8 +306,9 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	}
 
 	@Override
-	public void setChanges(boolean state) {
-		// TODO Auto-generated method stub	
+	synchronized public void setChanges(boolean state) {
+		// TODO Auto-generated method stub
+	     coordChanged = state	;
 	}
 
 
@@ -320,30 +316,57 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	public String getColor() {
 		// TODO Auto-generated method stub
 		return colorstr;
-	}
+	}	
 	@Override
 	public void loadImages(String nm) {
 		// TODO Auto-generated method stub	
-    	try {
-			this.img1 = ImageIO.read(new File(PICTURE_PATH+nm));
-			this.img2 = ImageIO.read(new File(PICTURE_PATH+nm));			
+		if(this.col==Color.red){
+    	try
+    	{
+			this.img1 = ImageIO.read(new File(PICTURE_PATH+nm+"r_1.png"));
+			this.img2 = ImageIO.read(new File(PICTURE_PATH+nm+"r_2.png"));
 		} 
     	catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("Unable to load the image!");
 		}
+    	}
+		else if(this.col==Color.blue)
+		{
+	    	try
+	    	{
+				this.img1 = ImageIO.read(new File(PICTURE_PATH+nm+"b_1.png"));
+				this.img2 = ImageIO.read(new File(PICTURE_PATH+nm+"b_2.png"));
+			} 
+	    	catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("Unable to load the image!");
+			}
+		}
+		else{
+	    	try
+	    	{
+				this.img1 = ImageIO.read(new File(PICTURE_PATH+nm+"n_1.png"));
+				this.img2 = ImageIO.read(new File(PICTURE_PATH+nm+"n_2.png"));
+			} 
+	    	catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("Unable to load the image!");
+			}
+		}
+		
 	}
-	
 	@Override
 	public void drawObject(Graphics g) {
 	   g.setColor(col);
 	   if(x_dir==1) // giraffe goes to the right side
+	   {
 		g.drawImage(img1, getLocation().getX()-size/2, getLocation().getY()-size/10, size/2, size, pan);
-	   else // giraffe goes to the left side
-		g.drawImage(img2, getLocation().getX(), getLocation().getY()-size/10, size/2, size, pan);
+	   }
+		else{ // giraffe goes to the left side
+		g.drawImage(img2, getLocation().getX(), getLocation().getY()-size/10, size/2, size, pan);}
 	}
 
-
-	
 	public boolean setSize(int _size)
 	{
 		Boolean res=true;

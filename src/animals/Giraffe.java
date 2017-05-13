@@ -15,9 +15,9 @@ public class Giraffe extends AnimalThatChews
 	
 	public Giraffe(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
 	{
-		 super(Size, HSpeed,VSpeed,color,panel,location); 
-		 this.loadImages("\\grf_n_1.png"); 
-
+		 super(Size, HSpeed,VSpeed,color,panel,location);
+		 this.setWeight(size*2.2);
+		 this.loadImages("grf_"); 
 	}
 	
 	/**

@@ -187,6 +187,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	    if(background != null)
 	    	g.drawImage(background, 0, 0, this);
 	    revalidate();
+	    repaint(); //added
     }
 
 

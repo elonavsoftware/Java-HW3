@@ -34,7 +34,8 @@ public class Bear extends AnimalThatRoars
 	public Bear(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
 	{
 		 super(Size, HSpeed,VSpeed,color,panel,location); 
-		 this.loadImages("\\bea_n_1.png"); //this is the bear folder.
+		 this.setWeight(size*1.5);
+		 this.loadImages("bea_"); //this is the bear folder.
 	}
 	
 	

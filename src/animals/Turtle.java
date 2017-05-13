@@ -20,7 +20,8 @@ public class Turtle extends AnimalThatChews
 	public Turtle(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
 	{
 		 super(Size, HSpeed,VSpeed,color,panel,location); 
-		 this.loadImages("\\trt_n_1.png"); 
+		 this.setWeight(0.5*size);
+		 this.loadImages("trt_"); 
 	}
 	
 	/**

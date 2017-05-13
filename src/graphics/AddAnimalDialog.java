@@ -128,27 +128,25 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 			}
 			
 			//choose the animal then add it to the main frame.
-			String animal=(String)c1.getSelectedItem();
-			this.HspeedCombo=new JComboBox<String>(HorizontalSpeed);		
-			this.VspeedCombo=new JComboBox<String>(VerticalSpeed);	
+			String animal=(String)c1.getSelectedItem();		
 			int hspeed,vspeed,size;
-			String clr;
-			hspeed=Integer.parseInt((String) HspeedCombo.getSelectedItem());
+			String clr;			
+			hspeed=Integer.parseInt((String) VspeedCombo.getSelectedItem());
 			vspeed=Integer.parseInt((String) VspeedCombo.getSelectedItem());
 			clr=c2.getSelectedItem().toString();
 			size=Integer.parseInt(AnimalSizeTextBox.getText());
 			if(animal=="Bear")
 			{
-		    	panel.addanimal(new Bear(size,hspeed,vspeed,clr,this.panel,new Point(2,2)));
+		    	panel.addanimal(new Bear(size,hspeed,vspeed,clr,this.panel,new Point(0,0)));
 			}
 			else if(animal=="Girrafe")
 			{		
-		    	panel.addanimal(new Giraffe(size,hspeed,vspeed,clr,this.panel,new Point(20,20)));
+		    	panel.addanimal(new Giraffe(size,hspeed,vspeed,clr,this.panel,new Point(0,0)));
 
 			}
 			else if(animal=="Lion")
 			{
-		    	panel.addanimal(new Lion(size,hspeed,vspeed,clr,this.panel,new Point(50,50)));
+		    	panel.addanimal(new Lion(size,hspeed,vspeed,clr,this.panel,new Point(0,0)));
 			}
 			else if(animal=="Elephant")
 			{
@@ -157,7 +155,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 			}
 			else if(animal=="Turtle")
 			{
-		    	panel.addanimal(new Turtle(size,hspeed,vspeed,clr,this.panel,new Point(200,200)));
+		    	panel.addanimal(new Turtle(size,hspeed,vspeed,clr,this.panel,new Point(0,0)));
 
 			}
 			this.dispose();
