@@ -1,11 +1,14 @@
 package animals;
 import diet.Herbivore;
 import diet.IDiet;
+import graphics.ZooPanel;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 public class Giraffe extends AnimalThatChews
 {
 	private double neckLength;
@@ -13,44 +16,29 @@ public class Giraffe extends AnimalThatChews
 	 * Giraffe ctor
 	 * @param name
 	 */
-	public Giraffe(String name, Image rm, Image lm)
+	public Giraffe(String name, Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg)
 	{
-		super(name, new Point(0, 50), rm, lm);
+		super(name, new Point(0, 50),clr,pan,limg,rimg);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(), name);	
 		super.setWeight(450);
 		this.setNeckLength(1.5);
 		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
-		//NEW Fields
-		this.setImage(rm, lm);
 	}
-	//NEW Method.
-	public Boolean setImage(Image rm,Image lm)
-	{
-		boolean res=false;
-		if(rm !=null && lm!=null)
-		{
-			this.lImage=lm;
-			this.rImage=rm;
-			res=true;
-		}
-		return res;
-	}
+
 	/**
 	 * Giraffe ctor
 	 * @param name
 	 * @param _neckLenght
 	 */
-	public Giraffe(String name, double _neckLenght, Image rm, Image lm)
+	public Giraffe(String name, double _neckLenght,Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg)
 	{
-		super(name, new Point(0, 50), rm, lm);
+		super(name, new Point(0, 50),clr,pan,limg,rimg);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(450);
 		this.setNeckLength(_neckLenght);
 		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
-		//NEW Fields
-		this.setImage(rm, lm);
 	}
 	/**
 	 * setNeckLength boolean function, sets the new neck length of giraffe.

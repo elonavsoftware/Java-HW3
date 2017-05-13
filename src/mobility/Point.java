@@ -8,7 +8,6 @@ package mobility;
 public class Point
 {
 	 private int x, y;
-
 	 /**
 	  * Class constructor to init the values of self object.
 	  * @param x

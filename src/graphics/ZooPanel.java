@@ -3,6 +3,9 @@ package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -19,19 +22,26 @@ import javax.swing.JPanel;
 import com.sun.prism.Graphics;
 import com.sun.prism.Image;
 
+import animals.Animal;
+import animals.Bear;
+import utilities.Point;
+
 
 public class ZooPanel extends JPanel implements ActionListener, Runnable
 {
-	private BufferedImage Limg;
+	private BufferedImage background;
+	 Animal bear;
 
 	//BufferedImage Limg,Rimg;
 	//animal path:
-    final static String BearImg = "C:\\Users\\User\\Desktop\\animals\\bear\\0.gif";
+    static String BearImg = "C:\\Users\\User\\Desktop\\animals\\bear\\bear_r.gif";
     final static String ElephantImg = "D:\\MihlalaSCE\\TihnutMitkadem\\labs\\lab06\\GUIExamples\\phases\\";
     final static String LionImg = "D:\\MihlalaSCE\\TihnutMitkadem\\labs\\lab06\\GUIExamples\\phases\\";
     final static String GirrafeImg = "D:\\MihlalaSCE\\TihnutMitkadem\\labs\\lab06\\GUIExamples\\phases\\";
     final static String TurtleImg = "D:\\MihlalaSCE\\TihnutMitkadem\\labs\\lab06\\GUIExamples\\phases\\";
+    final static String SafariImg = "C:\\Users\\User\\Desktop\\animals\\safari\\safari.gif";
 
+    
 
 	static int Counter=0;
 	private Boolean flag=false;
@@ -42,44 +52,54 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	//Constructor
 	public ZooPanel(ZooFrame zooframe)
 	{
-		bi=new JButton[buttonNames.length];// array of JButton
-		
+		bi=new JButton[buttonNames.length];// array of JButton		
 		createbtn();
-		this.ZooFrm=zooframe;
-		
+		this.ZooFrm=zooframe;		
 	}
 	public void createbtn(){
 		int i,x=0;
-		BorderLayout myBorderLayout = new BorderLayout(); 
-	
+		JPanel subpanel=new JPanel(); //adding to this subpanel the buttons to make it in SOUTH position.
+		this.setLayout( new BorderLayout() );
+		GridLayout GridL=new GridLayout(1,7);
+		subpanel.setLayout(GridL);
 		for(i=0;i<buttonNames.length;i++)
-		{
+		{			
 			bi[i]=new JButton(buttonNames[i]);// the Button name
-			bi[i].setPreferredSize(new Dimension(110,23));// size of button
-			bi[i].setBounds(x, 515, 110, 23);// size of button
-			bi[i].addActionListener(this);// to set the button in Acttion lisetener
-			
+			bi[i].setPreferredSize(new Dimension(110,23));
+			bi[i].setBounds(x, 610, 110, 23);
+			bi[i].addActionListener(this);// to set the button in Acttion lisetener			
 			x+=100;// this is about crodinat x in the panel (the palce of button)
-			this.add(bi[i],BorderLayout.SOUTH);
-
-		}
-		this.setLayout(myBorderLayout);
-
+			subpanel.add(bi[i]);  
+		}		
+		this.add(subpanel, BorderLayout.SOUTH);
 	}
-
 	public void setBackgr(int num){
+		if(num==0)// if we select the blue
+		{
+	    	try {
+
+	    		background = ImageIO.read(new File(SafariImg));
+	    		repaint();
+			} 
+	    	catch (IOException e) {
+				e.printStackTrace();
+			}
+			setLayout(null);
+			flag=false;
+			setBackground(null);// we clean the background
+			this.paintComponent(this.getGraphics());
+			setBackground(Color.GREEN);			
+		}
 		if(num==1)// if we select the blue
 		{
 			setLayout(null);
 			flag=false;
 			setBackground(null);// we clean the background
 			this.paintComponent(this.getGraphics());
-			setBackground(Color.GREEN);
-			
+			setBackground(Color.GREEN);			
 		}
 		else if(num==2)//if we select the image
-		{
-			
+		{			
 			setLayout(null);
 			flag=true;
 			setBackground(null);// clean the Background
@@ -90,22 +110,15 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			setBackground(null);// set background none
 		}
 	}
-
-
-	public void setAnimal(String animal){
+	public void setAnimal(String animal)
+	{
 		if(animal=="Bear")
 		{
-			JOptionPane.showMessageDialog(this, "trying to paint animal:"+animal);
-	    	try {
-	    		Limg = ImageIO.read(new File(BearImg));
-				repaint();
-				
-			} 
-	    	catch (IOException e) {
-				e.printStackTrace();				
-			}		}
+
+	    }
 		else if(animal=="Girrafe")
-		{			
+		{	
+
 		}
 		else if(animal=="Lion")
 		{
@@ -127,12 +140,13 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		//needs to be done!
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		// TODO Auto-generated method stub
 		
 			if(e.getSource()==bi[0]) //add animal button.
 			{
-				if(Counter<2)
+				if(Counter<10)
 				{
 				Counter++;
 				jdialog=new AddAnimalDialog(this.ZooFrm,this);
@@ -140,8 +154,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 				}
 				else{
 					//ERROR
-					JOptionPane.showMessageDialog(this, "ERROR:You have used the max number of animals!!");
-
+					JOptionPane.showMessageDialog(this, "You cannot add more than 10 animals");
 				}
 			}
 		
@@ -170,14 +183,13 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			System.exit(0);
 		}
 	}	
-	public void paintComponent(Graphics g) {
-		
-	    super.paintComponent((java.awt.Graphics) g);
-	    Dimension dm = getSize();
-		
-		if(Limg != null)
-		    ((java.awt.Graphics) g).drawImage(Limg, 20, 35, dm.width-40, dm.height-55, this);
-   }
+	public void paintComponent(java.awt.Graphics g)
+	{
+	    super.paintComponent(g);
+		if(background != null)
+		    g.drawImage(background, 20, 35, getWidth(),getHeight(), this);
+    }
+
 
 } 
 //class ZooPanel extends JPanel implements Runnable

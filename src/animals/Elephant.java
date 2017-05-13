@@ -1,10 +1,14 @@
 package animals;
 import utilities.MessageUtility;
 import diet.IDiet;
+import graphics.ZooPanel;
 import mobility.Point;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 import diet.Herbivore;
 /**
  * Elephant class
@@ -21,45 +25,30 @@ public class Elephant extends AnimalThatChews
 	 * Elephant constructor
 	 * @param name
 	 */
-	public Elephant(String name, Image rm, Image lm)
+	public Elephant(String name, Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg)
 	{
-		super(name, new Point(50, 90), rm, lm);
+		super(name, new Point(50, 90),clr,pan,limg,rimg);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(500);
 		this.settrunkLength(1); //By Default.
 		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
-		//NEW Fields
-		this.setImage(rm, lm);
 	}
 	/**
 	 * Elephant ctor receive two arguments
 	 * @param name
 	 * @param trunkLen
 	 */
-	public Elephant(String name, double trunkLen, Image rm, Image lm)
+	public Elephant(String name, double trunkLen, Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg)
 	{
-		super(name, new Point(50, 90), rm, lm);
+		super(name, new Point(50, 90),clr,pan,limg,rimg);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(500);
 		this.settrunkLength(trunkLen);
 		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
-		//NEW Fields
-		this.setImage(rm, lm);
 	}
-	//NEW Method.
-	public Boolean setImage(Image rm,Image lm)
-	{
-		boolean res=false;
-		if(rm !=null && lm!=null)
-		{
-			this.lImage=lm;
-			this.rImage=rm;
-			res=true;
-		}
-		return res;
-	}
+
 	/**
 	 * settrunkLength - boolean function which sents the the Elephant trunklen.
 	 * @param newtrunk

@@ -8,6 +8,7 @@ import graphics.IDrawable;
 import graphics.ZooPanel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
@@ -21,9 +22,6 @@ import utilities.MessageUtility;
  */
 public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimalBehavior,Runnable
 {
-	
-	//Don't forget to implement Run method and unimplemented methods.
-	
 	//Added Attributes
 	protected final int EAT_DISTANCE = 5;
 	protected int size;
@@ -37,13 +35,10 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	protected int eatCount;
 	protected ZooPanel pan;
 	protected boolean threadSuspended;	 
+
 	protected BufferedImage img1, img2;
 
-	
-	//both rImage,lImage added ,Check the validity!
-	protected Image rImage;
-	protected Image lImage;
-
+	protected String colorstr; //added
 	/**
 	 * 
 	 */
@@ -62,14 +57,29 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	 * @param name
 	 * @param location
 	 */
-	public Animal(String name, Point location, Image rm, Image lm)
+	public Animal(String name, Point location, Color color,ZooPanel panel, BufferedImage limg,BufferedImage rimg)
 	{
 		MessageUtility.logConstractor("Animal", name);
 		this.setName(name);
 		this.setLocation(location);
-		this.rImage = rm;
-		this.lImage = lm;
+		//////////////////////////////////////////////////////////////////////////////
+		if(color==Color.RED)
+		{
+			colorstr="RED";
+		}
+		else if(color==Color.BLUE)
+		{
+			colorstr="BLUE";
+		}
+		else{
+			colorstr="Natural";
+		}
+		this.pan=panel;
+		this.img1=limg;
+		this.img2=rimg;
 	}
+	
+
 	
 	//Methods
 	/**
@@ -179,13 +189,11 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 				flag = true;
 			flag2 = flag;
 			double getweight = this.getWeight();
-			this.setWeight(getweight - (distance * getweight * 0.00025));
-			
+			this.setWeight(getweight - (distance * getweight * 0.00025));			
 		}
 		MessageUtility.logBooleanFunction(name, "move", p,flag2);
 		return distance;
-	}
-	
+	}	
 	@Override
 	/**
 	 * getFoodtype - function getting the food type of animal.
@@ -194,5 +202,88 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	{
 		MessageUtility.logGetter(name, "getFoodtype", EFoodType.MEAT);
 		return EFoodType.MEAT;
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	 
+	
+	
+	//this function initilaizing the animal photos.
+	public Boolean  setImage(BufferedImage  limg,BufferedImage  rimg){
+		Boolean res=false;
+		if(limg!=null && rimg !=null)
+		{
+			this.img1=limg;
+			this.img2=rimg;
+			res=true;
+		}
+		return res;
+	}
+
+	@Override
+	public String getAnimalName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return size;
+	}
+
+	@Override
+	public void eatInc() {
+		// TODO Auto-generated method stub
+		this.eatCount++;
+	}
+
+	@Override
+	public int getEatCount() {
+		// TODO Auto-generated method stub
+		return this.eatCount;
+	}
+
+	@Override
+	public boolean getChanges() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setSuspended() {
+		// TODO Auto-generated method stub
+		this.threadSuspended=true;
+	}
+
+	@Override
+	public void setResumed() {
+		// TODO Auto-generated method stub		
+		this.threadSuspended=false;
+		this.notify();// to wakeup the Animals 
+	}
+
+	@Override
+	public void setChanges(boolean state) {
+		// TODO Auto-generated method stub	
+	}
+
+
+	@Override
+	public String getColor() {
+		// TODO Auto-generated method stub
+		return colorstr;
+	}
+	
+	public boolean setSize(int _size)
+	{
+		Boolean res=true;
+		if(_size>0)
+			this.size=_size;
+		else{
+			res=false;
+		}
+		return res;
 	}
 } //abstract class Animal extends Mobile implements IEdible

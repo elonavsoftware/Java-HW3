@@ -1,11 +1,14 @@
 package animals;
 import diet.IDiet;
 import diet.Omnivore;
+import graphics.ZooPanel;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 /**
  * Bear class ,extends 'AnimalThatRoars' class.
  * @author Elon
@@ -16,15 +19,16 @@ public class Bear extends AnimalThatRoars
 	/**
 	 * 
 	 */
+	
 	private String furColor;
 	/**
 	 * Bear Constructor
 	 * @param name
 	 * @param newFurColor
 	 */
-	public Bear(String name, String newFurColor, Image rm, Image lm,String Color)
+	public Bear(String name, String newFurColor,Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg)
 	{
-		super(name, new Point(100, 5), rm, lm);
+		super(name, new Point(100, 5),clr,pan,limg,rimg);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
 		super.setWeight(308.2);
 		boolean res=this.setFurColor(newFurColor);
@@ -32,33 +36,11 @@ public class Bear extends AnimalThatRoars
 		if(!res)
 			this.setFurColor("GRAY");
 		this.setDiet(_diet);
-		//NEW Fields
-		this.setImage(rm, lm);
-		this.setColor(Color);
+		//added this:
+		x_dir=1;
+		y_dir=1;
 	}
-	//NEW Method.
-	public boolean setColor(String C){
-		boolean res=false;
-		if(C!=null)
-		{
-			if(C=="Red")
-				this.col=col.red;
-			res=true;
-		}
-		return res;
-	}
-	//NEW Method.
-	public Boolean setImage(Image rm,Image lm)
-	{
-		boolean res=false;
-		if(rm !=null && lm!=null)
-		{
-			this.lImage=lm;
-			this.rImage=rm;
-			res=true;
-		}
-		return res;
-	}
+	
 	/**
 	 * roar function prints a message of utility .
 	 */
@@ -97,59 +79,76 @@ public class Bear extends AnimalThatRoars
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public void drawObject(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		   g.setColor(col);
+		   if(x_dir==1) // giraffe goes to the right side
+			g.drawImage(img1, getLocation().getX()-size/2, getLocation().getY()-size/10, size/2, size, pan);
+		   else // giraffe goes to the left side
+			g.drawImage(img2, getLocation().getX(), getLocation().getY()-size/10, size/2, size, pan);
 	}
+	
+
 	@Override
-	public String getColor() {
-		// TODO Auto-generated method stub
-		return null;
+	public void run()
+	{
+		/*while(true){
+			try {
+				synchronized(this){
+					if(this.threadSuspended==true)// sleep the Animals 
+						wait();
+				}
+				sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(ap.getIsFood()==false){
+				if(this.getLocation().getX()>ap.getWidth())
+					x_dir=-1;
+				else if(this.getLocation().getX()<0)
+					x_dir=1;
+				if(this.getLocation().getY()>ap.getHeight())
+					y_dir=-1;
+				else if(this.getLocation().getY()<0)
+					y_dir=1;
+				//x_front+=(int)horSpeed*x_dir;
+				//y_front+=(int)verSpeed*y_dir;
+				
+			}
+			else{
+					if(x_front>ap.getWidth()/2)
+						x_dir=-1;
+					else
+						x_dir=1;
+					if(y_front>ap.getHeight()/2)
+						y_dir=-1;
+					else
+						y_dir=1;
+					
+					newspeeds();
+					if(flag==true){
+						try{
+							barrier.await();
+						}
+						catch(Exception e)
+						{
+							System.out.println(e);
+						}
+						flag=false;
+					}
+					
+					x_front += (int)newhorSpeed*x_dir;
+					y_front += (int)newverSpeed*y_dir;
+					if((Math.abs(x_front-ap.getWidth()/2)<=5) && (Math.abs(y_front-ap.getHeight()/2)<=5)){
+						ap.setifFood(false);// to eat to Worm 
+						ap.callback(this);
+					}
+		}
+			ap.repaint();
+	}*/
 	}
-	@Override
-	public String getAnimalName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public int getSize() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public void eatInc() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public int getEatCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public boolean getChanges() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void setSuspended() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setResumed() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setChanges(boolean state) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
+
 } //class Bear extends AnimalThatRoars

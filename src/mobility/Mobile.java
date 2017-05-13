@@ -10,6 +10,7 @@ public abstract class Mobile implements ILocatable
 	 * 
 	 */
 	private Point location; //Current location
+
 	/**
 	 * 
 	 */

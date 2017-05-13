@@ -1,11 +1,14 @@
 package animals;
 import diet.Herbivore;
 import diet.IDiet;
+import graphics.ZooPanel;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 /**
  * Turtle Class contain's type,name,weight,position(X,Y),distance of the Turtle Object.
  * @author Mahdi Asali
@@ -18,44 +21,29 @@ public class Turtle extends AnimalThatChews
 	 * ctor of turtle
 	 * @param name
 	 */
-	public Turtle(String name, Image rm, Image lm)
+	public Turtle(String name, Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg)
 	{
-		super(name,new Point(0, 80), rm, lm);
+		super(name,new Point(0, 80),clr,pan,limg,rimg);
 		super.setWeight(1);
 		this.setAge(1);
 		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(),name);	
-		//NEW Fields
-		this.setImage(rm, lm);
 	}
-	//NEW Method.
-	public Boolean setImage(Image rm,Image lm)
-	{
-		boolean res=false;
-		if(rm !=null && lm!=null)
-		{
-			this.lImage=lm;
-			this.rImage=rm;
-			res=true;
-		}
-		return res;
-	}
+
 	/**
 	 * ctor of turtle
 	 * @param name
 	 * @param age
 	 */
-	public Turtle(String name, int age, Image rm, Image lm)
+	public Turtle(String name, int age,Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg)
 	{
-		super(name,new Point(0, 80), rm, lm);
+		super(name,new Point(0, 80), clr,pan,limg,rimg);
 		MessageUtility.logConstractor(this.getClass().getSimpleName(), name);
 		super.setWeight(1);
 		this.setAge(age);
 		IDiet _diet = new Herbivore();
 		this.setDiet(_diet);
-		//NEW Fields
-		this.setImage(rm, lm);
 	}
 	/**
 	 * setage function

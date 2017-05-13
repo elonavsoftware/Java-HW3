@@ -1,5 +1,9 @@
 package animals;
+import java.awt.Color;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+
+import graphics.ZooPanel;
 import mobility.Point;
 /**
  * an abstracted class that extends animal class.
@@ -13,7 +17,7 @@ public abstract class AnimalThatChews extends Animal
 	 * @param name
 	 * @param location
 	 */
-	public AnimalThatChews(String name, Point location, Image rm, Image lm) { super(name, location, rm, lm); }
+	public AnimalThatChews(String name, Point location,  Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg) { super(name, location,clr,pan,limg,rimg); }
 	/**
 	 * makeSound function
 	 */

@@ -58,7 +58,7 @@ public class ZooFrame extends JFrame implements ActionListener
 	{      
         ZooFrame frame = new ZooFrame();
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setSize(800,600);
+        frame.setSize(900,700);
         frame.setVisible(true);
 	}
 	@Override
@@ -67,7 +67,10 @@ public class ZooFrame extends JFrame implements ActionListener
 		if(e.getSource() == mi[0])
 			destroy();
 		else if(e.getSource() == mi[1])
-			panel.setBackgr(2);
+		{
+		//	panel.setBackgr(0);
+		panel.setBackgr(2);
+		}
 		else if(e.getSource() == mi[2])
 			panel.setBackgr(1);
 		else if(e.getSource() == mi[3])
