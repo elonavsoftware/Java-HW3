@@ -64,17 +64,16 @@ public class ZooFrame extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if(e.getSource() == mi[0])
+		if(e.getSource() == mi[0]) //exit
 			destroy();
-		else if(e.getSource() == mi[1])
+		else if(e.getSource() == mi[1]) //image
 		{
-		//	panel.setBackgr(0);
-		panel.setBackgr(2);
+		panel.setBackgr(0);
 		}
 		else if(e.getSource() == mi[2])
 			panel.setBackgr(1);
 		else if(e.getSource() == mi[3])
-			panel.setBackgr(0);
+			panel.setBackgr(2);
 		else if(e.getSource() == mi[4])
 			printHelp();
 

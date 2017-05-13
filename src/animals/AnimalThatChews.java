@@ -17,7 +17,8 @@ public abstract class AnimalThatChews extends Animal
 	 * @param name
 	 * @param location
 	 */
-	public AnimalThatChews(String name, Point location,  Color clr,ZooPanel pan, BufferedImage limg,BufferedImage rimg) { super(name, location,clr,pan,limg,rimg); }
+	//public AnimalThatChews(String name, Point location,  Color clr,ZooPanel pan) { super(name, location,clr,pan); }
+	public AnimalThatChews(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location) { super(Size, HSpeed,VSpeed,color,panel,location); }
 	/**
 	 * makeSound function
 	 */

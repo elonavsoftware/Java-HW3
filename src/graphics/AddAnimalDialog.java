@@ -15,7 +15,11 @@ import javax.swing.*;
 
 import animals.Animal;
 import animals.Bear;
-
+import animals.Elephant;
+import animals.Giraffe;
+import animals.Lion;
+import animals.Turtle;
+import mobility.Point;
 
 public class AddAnimalDialog extends JDialog implements ActionListener 
 { 
@@ -34,7 +38,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 	private JButton OK,Cancel;
 	private JTextField AnimalSizeTextBox;
 
-	private Animal Bear;
+	private Animal bear;
 	public AddAnimalDialog(ZooFrame parent,ZooPanel pan)
 	{
 		super(parent,"Add Animal Dialog");
@@ -125,25 +129,36 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 			
 			//choose the animal then add it to the main frame.
 			String animal=(String)c1.getSelectedItem();
+			this.HspeedCombo=new JComboBox<String>(HorizontalSpeed);		
+			this.VspeedCombo=new JComboBox<String>(VerticalSpeed);	
+			int hspeed,vspeed,size;
+			String clr;
+			hspeed=Integer.parseInt((String) HspeedCombo.getSelectedItem());
+			vspeed=Integer.parseInt((String) VspeedCombo.getSelectedItem());
+			clr=c2.getSelectedItem().toString();
+			size=Integer.parseInt(AnimalSizeTextBox.getText());
 			if(animal=="Bear")
 			{
-		    	panel.setAnimal("Bear");
+		    	panel.addanimal(new Bear(size,hspeed,vspeed,clr,this.panel,new Point(2,2)));
 			}
 			else if(animal=="Girrafe")
-			{			
-			    panel.setAnimal("Girrafe");
+			{		
+		    	panel.addanimal(new Giraffe(size,hspeed,vspeed,clr,this.panel,new Point(20,20)));
+
 			}
 			else if(animal=="Lion")
 			{
-				panel.setAnimal("Lion");
+		    	panel.addanimal(new Lion(size,hspeed,vspeed,clr,this.panel,new Point(50,50)));
 			}
 			else if(animal=="Elephant")
 			{
-				panel.setAnimal("Elephant");
+		    	panel.addanimal(new Elephant(size,hspeed,vspeed,clr,this.panel,new Point(0,0)));
+
 			}
 			else if(animal=="Turtle")
 			{
-				panel.setAnimal("Turtle");
+		    	panel.addanimal(new Turtle(size,hspeed,vspeed,clr,this.panel,new Point(200,200)));
+
 			}
 			this.dispose();
 		}

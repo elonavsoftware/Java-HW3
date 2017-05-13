@@ -11,6 +11,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import diet.IDiet;
 import utilities.MessageUtility;
@@ -51,32 +55,57 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	 * 
 	 */
 	private IDiet diet;
+	
+	
 	//Constructors
+
+	//my ctor
+	public Animal(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
+	{		
+	     thread= new Thread(this);
+	     thread.start();
+		this.setLocation(location);
+		this.setSize(Size);
+		this.horSpeed=HSpeed;
+		this.verSpeed=VSpeed;
+		if(color=="Red")
+		{
+			this.col=Color.RED;
+		}
+		else if(color=="Blue")
+		{
+			this.col=Color.BLUE;
+		}
+		else{
+			//nothing
+			this.col=null; //natural
+		}
+		this.pan=panel;
+	}
 	/**
 	 * Animal Constructor
 	 * @param name
 	 * @param location
 	 */
-	public Animal(String name, Point location, Color color,ZooPanel panel, BufferedImage limg,BufferedImage rimg)
+	public Animal(String name, Point location, String  color,ZooPanel panel)
 	{
 		MessageUtility.logConstractor("Animal", name);
 		this.setName(name);
 		this.setLocation(location);
 		//////////////////////////////////////////////////////////////////////////////
-		if(color==Color.RED)
+		if(color=="Red")
 		{
-			colorstr="RED";
+			this.col=Color.RED;
 		}
-		else if(color==Color.BLUE)
+		else if(color=="Blue")
 		{
-			colorstr="BLUE";
+			this.col=Color.BLUE;
 		}
 		else{
-			colorstr="Natural";
+			//nothing
+			this.col=null; //natural
 		}
 		this.pan=panel;
-		this.img1=limg;
-		this.img2=rimg;
 	}
 	
 
@@ -207,7 +236,24 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	 
-	
+	@Override
+	public void run()
+	{
+		while(true){
+			try {
+				synchronized(this){
+					if(this.threadSuspended==true)// sleep the Animals 
+						wait();
+				}
+				Thread.sleep(500);
+				this.getLocation().setX(this.getLocation().getX()+4);
+				this.getLocation().setY(this.getLocation().getY()+4);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	//this function initilaizing the animal photos.
 	public Boolean  setImage(BufferedImage  limg,BufferedImage  rimg){
@@ -275,6 +321,28 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 		// TODO Auto-generated method stub
 		return colorstr;
 	}
+	@Override
+	public void loadImages(String nm) {
+		// TODO Auto-generated method stub	
+    	try {
+			this.img1 = ImageIO.read(new File(PICTURE_PATH+nm));
+			this.img2 = ImageIO.read(new File(PICTURE_PATH+nm));			
+		} 
+    	catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void drawObject(Graphics g) {
+	   g.setColor(col);
+	   if(x_dir==1) // giraffe goes to the right side
+		g.drawImage(img1, getLocation().getX()-size/2, getLocation().getY()-size/10, size/2, size, pan);
+	   else // giraffe goes to the left side
+		g.drawImage(img2, getLocation().getX(), getLocation().getY()-size/10, size/2, size, pan);
+	}
+
+
 	
 	public boolean setSize(int _size)
 	{
