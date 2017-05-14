@@ -31,9 +31,9 @@ public class Lion extends AnimalThatRoars
 	
 	private int scarCount;
 	
-	public Lion(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
+	public Lion(int Size, int HSpeed, int VSpeed, String color, ZooPanel panel, Point location)
 	{
-		 super(Size, HSpeed,VSpeed,color,panel,location); 
+		 super(Size, HSpeed, VSpeed, color, panel, location); 
 		 this.loadImages("lio_");  
 	}
 	

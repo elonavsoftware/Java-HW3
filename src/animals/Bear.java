@@ -31,10 +31,10 @@ public class Bear extends AnimalThatRoars
 	
 	//myctor
 	
-	public Bear(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
+	public Bear(int Size, int HSpeed, int VSpeed, String color ,ZooPanel panel, Point location)
 	{
-		 super(Size, HSpeed,VSpeed,color,panel,location); 
-		 this.setWeight(size*1.5);
+		 super(Size, HSpeed, VSpeed, color, panel, location); 
+		 this.setWeight(size * 1.5);
 		 this.loadImages("bea_"); //this is the bear folder.
 	}
 	

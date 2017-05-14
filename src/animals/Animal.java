@@ -24,7 +24,7 @@ import utilities.MessageUtility;
  * @author Mahdi
  *
  */
-public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimalBehavior,Runnable
+public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior, Runnable
 {
 	//Added Attributes
 	protected final int EAT_DISTANCE = 5;
@@ -37,7 +37,7 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	protected int x_dir;
 	protected int y_dir;
 	protected int eatCount;
-	protected ZooPanel pan;
+	protected ZooPanel panel;
 	protected boolean threadSuspended;	 
 
 	protected BufferedImage img1, img2;
@@ -60,55 +60,42 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	//Constructors
 
 	//my ctor
-	public Animal(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
+	public Animal(int Size, int HSpeed, int VSpeed, String color, ZooPanel panel, Point location)
 	{		
-		x_dir=1;
-		y_dir=1;
-		coordChanged=false;
-	     thread= new Thread(this);
+		x_dir = 1;
+		y_dir = 1;
+		coordChanged = false;
+	     thread = new Thread(this);
 	     thread.start();
 		this.setLocation(location);
 		this.setSize(Size);
-		this.horSpeed=HSpeed;
-		this.verSpeed=VSpeed;
-		if(color=="Red")
-		{
-			this.col=Color.RED;
-		}
-		else if(color=="Blue")
-		{
-			this.col=Color.BLUE;
-		}
-		else{
-			//nothing
-			this.col=null; //natural
-		}
-		this.pan=panel;
+		this.horSpeed = HSpeed;
+		this.verSpeed = VSpeed;
+		if(color == "Red")
+			this.col = Color.RED;
+		else if(color == "Blue")
+			this.col = Color.BLUE;
+		else
+			this.col = null; //natural
+		this.panel = panel;
 	}
 	/**
 	 * Animal Constructor
 	 * @param name
 	 * @param location
 	 */
-	public Animal(String name, Point location, String  color,ZooPanel panel)
+	public Animal(String name, Point location, String color, ZooPanel panel)
 	{
 		MessageUtility.logConstractor("Animal", name);
 		this.setName(name);
 		this.setLocation(location);
-		//////////////////////////////////////////////////////////////////////////////
-		if(color=="Red")
-		{
-			this.col=Color.RED;
-		}
-		else if(color=="Blue")
-		{
-			this.col=Color.BLUE;
-		}
-		else{
-			//nothing
-			this.col=null; //natural
-		}
-		this.pan=panel;
+		if(color == "Red")
+			this.col = Color.RED;
+		else if(color == "Blue")
+			this.col = Color.BLUE;
+		else
+			this.col = null; //natural
+		this.panel = panel;
 	}
 	
 
@@ -179,7 +166,7 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	/**
 	 * 
 	 */
-	public String toString() {return "[" + this.getClass().getSimpleName() + "]"+"("+name+")";}
+	public String toString() {return "[" + this.getClass().getSimpleName() + "]" + "("+name+")";}
 	/**
 	 * 
 	 */
@@ -191,8 +178,8 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 	 */
 	public boolean eat(IEdible type)
 	{
-		boolean res=false;
-		boolean x=this.diet.canEat(type.getFoodtype());
+		boolean res = false;
+		boolean x = this.diet.canEat(type.getFoodtype());
 		if(x == true)
 			res=this.diet.eat(this, type);
 		MessageUtility.logBooleanFunction(name, "eat", type, res);
@@ -223,9 +210,10 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 			double getweight = this.getWeight();
 			this.setWeight(getweight - (distance * getweight * 0.00025));			
 		}
-		MessageUtility.logBooleanFunction(name, "move", p,flag2);
+		MessageUtility.logBooleanFunction(name, "move", p, flag2);
 		return distance;
 	}	
+	
 	@Override
 	/**
 	 * getFoodtype - function getting the food type of animal.
@@ -235,121 +223,107 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 		MessageUtility.logGetter(name, "getFoodtype", EFoodType.MEAT);
 		return EFoodType.MEAT;
 	}
-	
-	
-	//////////////////////////////////////////////////////////////////////////////////////////////////
 	 
 	@Override
 	public void run()
 	{
-		while(true){
-			try {
-				synchronized(this){
-					if(this.threadSuspended==true)// sleep the Animals 
+		while(true)
+		{
+			try
+			{
+				synchronized(this)
+				{
+					if(this.threadSuspended == true) //sleep the Animals 
 						wait();
+				}
+				Thread.sleep(125);			
+				this.getLocation().setX(this.getLocation().getX() + horSpeed * x_dir);
+				this.getLocation().setY(this.getLocation().getY() + verSpeed * y_dir);
+			 	if(this.getLocation().getX() >= panel.getWidth() - size)
+			 		x_dir = -1;
+			 	else if(this.getLocation().getX() <= size)
+			 		x_dir = 1;
+			 	if(this.getLocation().getY() >= (int)(panel.getHeight() - 30 - (size * 9 / 10)))
+			 		y_dir = -1;
+			 	else if(this.getLocation().getY() < size / 10)
+			 		y_dir = 1;		
 			}
-			Thread.sleep(500);			
-			 this.getLocation().setX(this.getLocation().getX() + horSpeed*x_dir);
-			 this.getLocation().setY(this.getLocation().getY() + verSpeed*y_dir);
-			 if(this.getLocation().getX() > pan.getWidth()+size/4){ x_dir = -1; }
-			 else if(this.getLocation().getX() < - size*0.25){ x_dir = 1;}
-		     if(this.getLocation().getY() > (int) (pan.getHeight()-30 - size*9/10)) { y_dir = -1;}
-		     else if(this.getLocation().getY() < size/10) {y_dir = 1;}		
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+			catch (InterruptedException e)
+			{
+				//e.printStackTrace();
+				return;
+			}
+		}
+	}
+
+	@Override
+	public String getAnimalName() {return name;}
+
+	@Override
+	public int getSize() {return size;}
+
+	@Override
+	public void eatInc() {this.eatCount++;}
+
+	@Override
+	public int getEatCount() {return this.eatCount;}
+
+	@Override
+	public boolean getChanges() {return coordChanged;}
+
+	@Override
+	public void setSuspended() {this.threadSuspended = true;}
+	
+	@Override
+	public synchronized void setResumed()
+	{
+		this.threadSuspended = false;
+		notify(); //to wakeup the Animals 
+	}
+
+	@Override
+	synchronized public void setChanges(boolean state) {coordChanged = state;}
+
+	@Override
+	public String getColor() {return colorstr;}	
+	@Override
+	public void loadImages(String nm)
+	{
+		if(this.col == Color.red)
+		{
+			try
+			{
+				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "r_1.png"));
+				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "r_2.png"));
+			} 
+			catch (IOException e)
+			{
 				e.printStackTrace();
+				System.out.println("Unable to load the image!");
 			}
-		}
-	}
-
-	@Override
-	public String getAnimalName() {
-		// TODO Auto-generated method stub
-		return name;
-	}
-
-	@Override
-	public int getSize() {
-		// TODO Auto-generated method stub
-		return size;
-	}
-
-	@Override
-	public void eatInc() {
-		// TODO Auto-generated method stub
-		this.eatCount++;
-	}
-
-	@Override
-	public int getEatCount() {
-		// TODO Auto-generated method stub
-		return this.eatCount;
-	}
-
-	@Override
-	public boolean getChanges() {
-		// TODO Auto-generated method stub
-		return coordChanged;
-	}
-
-	@Override
-	public void setSuspended() {
-		// TODO Auto-generated method stub
-		this.threadSuspended=true;
-	}
-
-	@Override
-	public void setResumed() {
-		// TODO Auto-generated method stub		
-		this.threadSuspended=false;
-		this.notify();// to wakeup the Animals 
-	}
-
-	@Override
-	synchronized public void setChanges(boolean state) {
-		// TODO Auto-generated method stub
-	     coordChanged = state	;
-	}
-
-
-	@Override
-	public String getColor() {
-		// TODO Auto-generated method stub
-		return colorstr;
-	}	
-	@Override
-	public void loadImages(String nm) {
-		// TODO Auto-generated method stub	
-		if(this.col==Color.red){
-    	try
-    	{
-			this.img1 = ImageIO.read(new File(PICTURE_PATH+nm+"r_1.png"));
-			this.img2 = ImageIO.read(new File(PICTURE_PATH+nm+"r_2.png"));
-		} 
-    	catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Unable to load the image!");
-		}
     	}
-		else if(this.col==Color.blue)
+		else if(this.col == Color.blue)
 		{
 	    	try
 	    	{
-				this.img1 = ImageIO.read(new File(PICTURE_PATH+nm+"b_1.png"));
-				this.img2 = ImageIO.read(new File(PICTURE_PATH+nm+"b_2.png"));
+				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "b_1.png"));
+				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "b_2.png"));
 			} 
-	    	catch (IOException e) {
+	    	catch (IOException e)
+	    	{
 				e.printStackTrace();
 				System.out.println("Unable to load the image!");
 			}
 		}
-		else{
+		else
+		{
 	    	try
 	    	{
-				this.img1 = ImageIO.read(new File(PICTURE_PATH+nm+"n_1.png"));
-				this.img2 = ImageIO.read(new File(PICTURE_PATH+nm+"n_2.png"));
+				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "n_1.png"));
+				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "n_2.png"));
 			} 
-	    	catch (IOException e) {
+	    	catch (IOException e)
+	    	{
 				e.printStackTrace();
 				System.out.println("Unable to load the image!");
 			}
@@ -357,24 +331,24 @@ public abstract class Animal extends Mobile implements IEdible,IDrawable,IAnimal
 		
 	}
 	@Override
-	public void drawObject(Graphics g) {
+	public void drawObject(Graphics g)
+	{
 	   g.setColor(col);
-	   if(x_dir==1) // giraffe goes to the right side
-	   {
-		g.drawImage(img1, getLocation().getX()-size/2, getLocation().getY()-size/10, size/2, size, pan);
-	   }
-		else{ // giraffe goes to the left side
-		g.drawImage(img2, getLocation().getX(), getLocation().getY()-size/10, size/2, size, pan);}
+	   if(x_dir == 1) //goes to the right side
+		   g.drawImage(img1, getLocation().getX() - size/2, getLocation().getY() - size/10, size/2, size, panel);
+	   else //goes to the left side
+		   g.drawImage(img2, getLocation().getX(), getLocation().getY() - size/10, size/2, size, panel);
 	}
 
 	public boolean setSize(int _size)
 	{
-		Boolean res=true;
-		if(_size>0)
-			this.size=_size;
-		else{
-			res=false;
-		}
+		Boolean res = true;
+		if(_size > 0)
+			this.size = _size;
+		else
+			res = false;
 		return res;
 	}
+	
+	synchronized public void stop() {thread.interrupt();}
 } //abstract class Animal extends Mobile implements IEdible

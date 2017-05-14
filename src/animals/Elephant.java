@@ -24,10 +24,10 @@ public class Elephant extends AnimalThatChews
 	
 	//myctor
 	
-	public Elephant(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
+	public Elephant(int Size, int HSpeed, int VSpeed, String color, ZooPanel panel, Point location)
 	{
-		 super(Size, HSpeed,VSpeed,color,panel,location); 
-		 this.setWeight(size*10);
+		 super(Size, HSpeed, VSpeed, color, panel, location); 
+		 this.setWeight(size * 10);
 		 this.loadImages("elf_");
 	}
 	

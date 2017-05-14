@@ -17,10 +17,10 @@ import java.awt.image.BufferedImage;
 public class Turtle extends AnimalThatChews
 {
 	private int Age;
-	public Turtle(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
+	public Turtle(int Size, int HSpeed, int VSpeed, String color, ZooPanel panel, Point location)
 	{
-		 super(Size, HSpeed,VSpeed,color,panel,location); 
-		 this.setWeight(0.5*size);
+		 super(Size, HSpeed, VSpeed, color, panel, location); 
+		 this.setWeight(0.5 * size);
 		 this.loadImages("trt_"); 
 	}
 	
@@ -59,7 +59,7 @@ public class Turtle extends AnimalThatChews
 	 */
 	public boolean setAge(int _Age)
 	{
-		boolean res=true;
+		boolean res = true;
 		if(_Age < 0 || Age > 500)
 			res = false;
 		this.Age = _Age;

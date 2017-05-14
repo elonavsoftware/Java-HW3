@@ -13,10 +13,10 @@ public class Giraffe extends AnimalThatChews
 {
 	private double neckLength;
 	
-	public Giraffe(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location)
+	public Giraffe(int Size, int HSpeed, int VSpeed, String color ,ZooPanel panel, Point location)
 	{
 		 super(Size, HSpeed,VSpeed,color,panel,location);
-		 this.setWeight(size*2.2);
+		 this.setWeight(size * 2.2);
 		 this.loadImages("grf_"); 
 	}
 	
