@@ -1,6 +1,12 @@
 package plants;
+
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import javax.imageio.ImageIO;
 import utilities.MessageUtility;
 import mobility.ILocatable;
 import mobility.Point;
@@ -11,24 +17,33 @@ import graphics.IDrawable;
  * @author baroh
  *
  */
-public abstract class Plant implements IEdible, ILocatable,IDrawable
+public abstract class Plant implements IEdible, ILocatable, IDrawable
 {
+	private BufferedImage food = null;
 	//added these methods, care to implement it later!
 	@Override
-	public void loadImages(String nm) {
-		// TODO Auto-generated method stub
-		
+	public void loadImages(String nm)
+	{
+		try
+		{
+			food = ImageIO.read(new File(PICTURE_PATH + nm));
+		}
+		catch (IOException e)
+		{
+		    e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void drawObject(Graphics g) {
-		// TODO Auto-generated method stub
-		
+	public void drawObject(Graphics g)
+	{
+		if (food != null)
+			g.drawImage(food, 400, 300, 100, 100, null);
 	}
 
 	@Override
-	public String getColor() {
-		// TODO Auto-generated method stub
+	public String getColor()
+	{
 		return null;
 	}
 	///////////////////////////////////////////////////

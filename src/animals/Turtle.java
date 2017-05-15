@@ -21,7 +21,7 @@ public class Turtle extends AnimalThatChews
 	{
 		 super(Size, HSpeed, VSpeed, color, panel, location); 
 		 this.setWeight(0.5 * size);
-		 this.loadImages("trt_"); 
+		 this.loadImages("trt"); 
 	}
 	
 	/**

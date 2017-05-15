@@ -35,7 +35,7 @@ public class Bear extends AnimalThatRoars
 	{
 		 super(Size, HSpeed, VSpeed, color, panel, location); 
 		 this.setWeight(size * 1.5);
-		 this.loadImages("bea_"); //this is the bear folder.
+		 this.loadImages("bea"); //this is the bear folder.
 	}
 	
 	

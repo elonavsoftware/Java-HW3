@@ -160,7 +160,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		if(neweight < 0)
 			res=false;
 		this.weight = neweight;
-		MessageUtility.logSetter(name, "setWeight", neweight, res);
+		//MessageUtility.logSetter(name, "setWeight", neweight, res);
 		return res;
 	}
 	/**
@@ -233,15 +233,15 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 			{
 				synchronized(this)
 				{
-					if(this.threadSuspended == true) //sleep the Animals 
+					if(this.threadSuspended == true) //sleep the Animals
 						wait();
 				}
-				Thread.sleep(125);			
+				Thread.sleep(50);			
 				this.getLocation().setX(this.getLocation().getX() + horSpeed * x_dir);
 				this.getLocation().setY(this.getLocation().getY() + verSpeed * y_dir);
-			 	if(this.getLocation().getX() >= panel.getWidth() - size)
+			 	if(this.getLocation().getX() >= panel.getWidth() - size/10)
 			 		x_dir = -1;
-			 	else if(this.getLocation().getX() <= size)
+			 	else if(this.getLocation().getX() <= size/10)
 			 		x_dir = 1;
 			 	if(this.getLocation().getY() >= (int)(panel.getHeight() - 30 - (size * 9 / 10)))
 			 		y_dir = -1;
@@ -293,8 +293,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		{
 			try
 			{
-				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "r_1.png"));
-				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "r_2.png"));
+				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "_r_1.png"));
+				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "_r_2.png"));
 			} 
 			catch (IOException e)
 			{
@@ -306,8 +306,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		{
 	    	try
 	    	{
-				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "b_1.png"));
-				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "b_2.png"));
+				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "_b_1.png"));
+				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "_b_2.png"));
 			} 
 	    	catch (IOException e)
 	    	{
@@ -319,8 +319,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		{
 	    	try
 	    	{
-				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "n_1.png"));
-				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "n_2.png"));
+				this.img1 = ImageIO.read(new File(PICTURE_PATH + nm + "_n_1.png"));
+				this.img2 = ImageIO.read(new File(PICTURE_PATH + nm + "_n_2.png"));
 			} 
 	    	catch (IOException e)
 	    	{

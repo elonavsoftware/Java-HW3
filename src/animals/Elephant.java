@@ -28,7 +28,7 @@ public class Elephant extends AnimalThatChews
 	{
 		 super(Size, HSpeed, VSpeed, color, panel, location); 
 		 this.setWeight(size * 10);
-		 this.loadImages("elf_");
+		 this.loadImages("elf");
 	}
 	
 	

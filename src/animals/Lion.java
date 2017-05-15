@@ -34,7 +34,7 @@ public class Lion extends AnimalThatRoars
 	public Lion(int Size, int HSpeed, int VSpeed, String color, ZooPanel panel, Point location)
 	{
 		 super(Size, HSpeed, VSpeed, color, panel, location); 
-		 this.loadImages("lio_");  
+		 this.loadImages("lio");  
 	}
 	
 	

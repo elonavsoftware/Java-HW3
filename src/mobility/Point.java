@@ -1,7 +1,10 @@
 package mobility;
+
+import utilities.MessageUtility;
+
 /**
- * a Point Class , creating a point which contain x ,y 
- * each of x , y is a 2d position.
+ * a Point Class, creating a point which contain x, y 
+ * each of x, y is a 2d position.
  * @author Mahdi Asali 
  *
  */
@@ -40,6 +43,7 @@ public class Point
 		 {
 			 this.x = _x;
 			 res = true;
+			 MessageUtility.logSetter("Test", "SetX", this.x, res);
 		 }
 		 return res;
 	 }
@@ -55,6 +59,7 @@ public class Point
 		 {
 			 this.y = _y;
 			 res = true;
+			 //MessageUtility.logSetter("Test", "SetY", this.y, res);
 		 }
 		 return res;
 	 }

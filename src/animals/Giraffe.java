@@ -17,7 +17,7 @@ public class Giraffe extends AnimalThatChews
 	{
 		 super(Size, HSpeed,VSpeed,color,panel,location);
 		 this.setWeight(size * 2.2);
-		 this.loadImages("grf_"); 
+		 this.loadImages("grf"); 
 	}
 	
 	/**

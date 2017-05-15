@@ -16,6 +16,9 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import animals.Animal;
+import plants.Cabbage;
+import plants.Lettuce;
+import plants.Meat;
 
 public class ZooPanel extends JPanel implements ActionListener, Runnable
 {
@@ -24,13 +27,15 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	 */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage background;
-    final static String SafariImg = "C:\\Users\\USER\\Desktop\\pictures\\savanna.‪jpg";
+    final static String SafariImg = "C:\\Users\\USER\\Desktop\\pictures\\savanna.jpg";
 	static int Counter = 0;
-	private Boolean flag = false;
 	private HashSet<Animal> animal;
 	private Thread controller; // data member of class ZooPanel 
 	private String[] buttonNames = {"Add Animal", "Sleep", "Wake Up", "Clear", "Food", "Info", "Exit"};
 	private JButton[] button;
+	private Cabbage cabbage;
+	private Meat meat;
+	private Lettuce lettuce;
 	ZooFrame ZooFrm;
 	JDialog jdialog;
 	//Constructor
@@ -48,7 +53,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	{
 		int i, x = 0;
 		JPanel subpanel = new JPanel(); //adding to this sub panel the buttons to make it in SOUTH position.
-		this.setLayout(new BorderLayout() );
+		this.setLayout(new BorderLayout());
 		GridLayout GridL = new GridLayout(1, 7);
 		subpanel.setLayout(GridL);
 		for(i = 0; i < buttonNames.length; i++)
@@ -68,7 +73,10 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		{
 			try
 			{
-			    background = ImageIO.read(new File("C:\\Users\\USER\\Desktop\\pictures\\savanna.jpg"));
+				setLayout(null);
+				setBackground(null); //we clean the background
+				this.paintComponent(this.getGraphics());
+			    background = ImageIO.read(new File(SafariImg));
 			}
 			catch (IOException e)
 			{
@@ -78,18 +86,16 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		if(num == 1) //if we select the blue
 		{
 			setLayout(null);
-			flag = false;
-			setBackground(null);// we clean the background
+			setBackground(null); //we clean the background
 			this.paintComponent(this.getGraphics());
 			setBackground(Color.GREEN);			
+			background = null;
 		}
 		else if(num == 2) //if we select the image
 		{			
 			setLayout(null);
-			flag = true;
 			setBackground(null); //clean the Background
 			this.paintComponent(this.getGraphics());
-			flag = false;
 			setBackground(null); //set background none
 			background = null;
 		}
@@ -119,7 +125,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 				{
 					Counter++;
 					jdialog = new AddAnimalDialog(this.ZooFrm, this);
-					jdialog.setSize(800, 550);
+					jdialog.setSize(300, 250);
 				}
 				else
 				{
@@ -160,7 +166,32 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		}
 		else if(e.getSource() == button[4]) //food
 		{
-			
+			int mc = JOptionPane.QUESTION_MESSAGE;
+			String[] opts = {"Meat", "Cabbage", "Lettuce"};
+			int ch = JOptionPane.showOptionDialog (null, "Please choose food", "Food for animals", 0, mc, null, opts, opts[0]);
+			System.out.println(ch);
+			switch(ch)
+			{
+				//Meat
+				case 0:
+					meat = new Meat();
+					break;
+					
+				//Cabbage
+				case 1:
+					cabbage = new Cabbage();
+					break;
+					
+				//Lettuce
+				case 2:
+					lettuce = new Lettuce();
+					break;
+			}
+			/*
+			Object[] options = {"Meat, Cabbage", "Lettuce"};
+			int result = JOptionPane.showOptionDialog (ZooFrm, "Choose", "Title", 0, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			System.out.println(result);
+			*/
 		}
 		else if(e.getSource() == button[5]) //info
 		{
@@ -174,12 +205,21 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	public void paintComponent(java.awt.Graphics g)
 	{
 	    super.paintComponent(g);
-	    Iterator<Animal> i = animal.iterator(); //the beginning of iterator 
+	    Iterator<Animal> i = animal.iterator(); //the beginning of iterator
+	    
 	    while(i.hasNext())
     		i.next().drawObject(g);
+	    if (meat != null)
+	    	meat.drawObject(g);
+	    else if (cabbage != null)
+	    	cabbage.drawObject(g);
+	    else if (lettuce != null)
+	    	lettuce.drawObject(g);
 	    if(background != null)
 	    	g.drawImage(background, 0, 0, this);
 	    revalidate();
 	    repaint(); //added
+	    
+
     }
 } //class ZooPanel extends JPanel implements ActionListener, Runnable
