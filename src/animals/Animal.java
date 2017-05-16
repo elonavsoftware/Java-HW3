@@ -65,8 +65,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		x_dir = 1;
 		y_dir = 1;
 		coordChanged = false;
-	     thread = new Thread(this);
-	     thread.start();
+	    thread = new Thread(this);
+	    thread.start();
 		this.setLocation(location);
 		this.setSize(Size);
 		this.horSpeed = HSpeed;
@@ -125,7 +125,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		boolean res = false;
 		if(_diet != null)
 		{
-			res=true;
+			res = true;
 		}
 		this.diet = _diet;
 		MessageUtility.logSetter(name, "setDiet", _diet, res);
@@ -181,7 +181,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		boolean res = false;
 		boolean x = this.diet.canEat(type.getFoodtype());
 		if(x == true)
-			res=this.diet.eat(this, type);
+			res = this.diet.eat(this, type);
 		MessageUtility.logBooleanFunction(name, "eat", type, res);
 		return res;
 	}
@@ -238,22 +238,90 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 				}			
 				Thread.sleep(50);			
 				//asking if there are food
-				/*if(this.panel.isFood())
+				if(this.panel.isFood())
 				{
-					System.out.print("FOOD FOOD FOOD!!\n");
-					horSpeed=8;
-					verSpeed=8;
-					//checking if we in the center .
-					if((Math.abs(getLocation().getX()-320) <= 10) && (Math.abs(getLocation().getY()-160) <= 10))
-					{			//g.drawImage(food,320,160, 100, 100, null);
+					if (this instanceof Lion || this instanceof Bear) //????
+					{
+						double v_old, v_new, v_hor = horSpeed, v_ver = verSpeed, k, v_hor_new = horSpeed, v_ver_new = verSpeed;
+						System.out.print("FOOD FOOD FOOD!!\n");
+						v_old = Math.sqrt(v_hor*v_hor + v_ver*v_ver);
+						
+						v_new = v_old;
+						v_new = Math.sqrt(v_hor_new*v_hor_new + v_ver_new*v_ver_new);
+						/////////////
+						v_ver_new = v_hor_new * Math.abs( (this.getLocation().getY() - panel.getHeight()/2) / (this.getLocation().getY() - panel.getWidth()/2));
+						k = v_ver_new;
+						//////////////
+						v_ver_new = v_hor_new * k;
+						v_new = Math.sqrt(v_hor_new*k * v_hor_new*k + v_hor_new*v_hor_new);
+						v_new = v_hor_new * Math.sqrt(k*k+1);
+						v_hor_new = v_old / Math.sqrt(k*k+1);
+						
+						this.getLocation().setX(this.getLocation().getX() +(int)v_hor_new*x_dir);
+						this.getLocation().setY(this.getLocation().getY() +(int)v_ver_new*y_dir);
 
-					   // animal eats food ...
-						System.out.println("EATED the food");
-						panel.killPlants();
-						horSpeed=1;
-						verSpeed=1;
+						if((Math.abs(this.getLocation().getX()-this.panel.getWidth()/2) <= 10) && (Math.abs(this.getLocation().getY()-this.panel.getHeight()/2) <= 10))
+						{
+							System.out.println("EATED the food");
+							panel.killPlants();
+						}
+						/*
+						horSpeed=8;
+						verSpeed=8;
+						//checking if we in the center .
+						if((Math.abs(getLocation().getX()-320) <= 10) && (Math.abs(getLocation().getY()-160) <= 10))
+						{			//g.drawImage(food,320,160, 100, 100, null);
+
+						   // animal eats food ...
+							System.out.println("EATED the food");
+							panel.killPlants();
+							horSpeed = 1;
+							verSpeed = 1;
+						}
+						*/
 					}
-				}*/
+					if (this instanceof Elephant || this instanceof Giraffe || this instanceof Turtle) //????
+					{
+						double v_old, v_new, v_hor = horSpeed, v_ver = verSpeed, k, v_hor_new = horSpeed, v_ver_new = verSpeed;
+						System.out.print("FOOD FOOD FOOD!!\n");
+						v_old = Math.sqrt(v_hor*v_hor + v_ver*v_ver);
+						
+						v_new = v_old;
+						v_new = Math.sqrt(v_hor_new*v_hor_new + v_ver_new*v_ver_new);
+						/////////////
+						v_ver_new = v_hor_new * Math.abs( (this.getLocation().getY() - panel.getHeight()/2) / (this.getLocation().getY() - panel.getWidth()/2));
+						k = v_ver_new;
+						//////////////
+						v_ver_new = v_hor_new * k;
+						v_new = Math.sqrt(v_hor_new*k * v_hor_new*k + v_hor_new*v_hor_new);
+						v_new = v_hor_new * Math.sqrt(k*k+1);
+						v_hor_new = v_old / Math.sqrt(k*k+1);
+						
+						this.getLocation().setX(this.getLocation().getX() +(int)v_hor_new*x_dir);
+						this.getLocation().setY(this.getLocation().getY() +(int)v_ver_new*y_dir);
+
+						if((Math.abs(this.getLocation().getX()-this.panel.getWidth()/2) <= 10) && (Math.abs(this.getLocation().getY()-this.panel.getHeight()/2) <= 10))
+						{
+							System.out.println("EATED the food");
+							panel.killPlants();
+						}
+						/*
+						System.out.print("FOOD FOOD FOOD!!\n");
+						horSpeed=8;
+						verSpeed=8;
+						//checking if we in the center .
+						if((Math.abs(getLocation().getX()-320) <= 10) && (Math.abs(getLocation().getY()-160) <= 10))
+						{			
+
+						   // animal eats food ...
+							System.out.println("EATED the food");
+							panel.killPlants();
+							horSpeed = 1;
+							verSpeed = 1;
+						}
+						*/
+					}
+				}
 				this.getLocation().setX(this.getLocation().getX() + horSpeed * x_dir);
 				this.getLocation().setY(this.getLocation().getY() + verSpeed * y_dir);
 			 	if(this.getLocation().getX() >= panel.getWidth() - size/10)

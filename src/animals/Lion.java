@@ -42,7 +42,7 @@ public class Lion extends AnimalThatRoars
 	 * 
 	 * @param name
 	 */
-	/*public Lion(String name, Color clr,ZooPanel pan)
+	/*public Lion(String name, Color clr, ZooPanel pan)
 	{
 		super(name, new Point(20, 0),clr,pan);
 		scarCount = 0;
@@ -58,17 +58,17 @@ public class Lion extends AnimalThatRoars
 	/**
 	 * eat function to check if the animal can eat specific food which is reiceved as argument 'type'.
 	 */
-	/*public boolean eat(IEdible type)
+	public boolean eat(IEdible type)
 	{		
-		boolean res=false;
-		res=super.eat(type);
+		boolean res = false;
+		res = super.eat(type);
 		if(res)
 		{
 			this.setScars();
 		}
 		MessageUtility.logBooleanFunction(name, "eat", type, res); //added by me
 		return res;
-	}*/
+	}
 	/**
 	 * setScars of lion function , counter is inccremented by 1 if rand equals 1. 
 	 * @return res - result true/false.
