@@ -235,8 +235,25 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 				{
 					if(this.threadSuspended == true) //sleep the Animals
 						wait();
-				}
+				}			
 				Thread.sleep(50);			
+				//asking if there are food
+				/*if(this.panel.isFood())
+				{
+					System.out.print("FOOD FOOD FOOD!!\n");
+					horSpeed=8;
+					verSpeed=8;
+					//checking if we in the center .
+					if((Math.abs(getLocation().getX()-320) <= 10) && (Math.abs(getLocation().getY()-160) <= 10))
+					{			//g.drawImage(food,320,160, 100, 100, null);
+
+					   // animal eats food ...
+						System.out.println("EATED the food");
+						panel.killPlants();
+						horSpeed=1;
+						verSpeed=1;
+					}
+				}*/
 				this.getLocation().setX(this.getLocation().getX() + horSpeed * x_dir);
 				this.getLocation().setY(this.getLocation().getY() + verSpeed * y_dir);
 			 	if(this.getLocation().getX() >= panel.getWidth() - size/10)

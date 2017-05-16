@@ -20,6 +20,8 @@ import graphics.IDrawable;
 public abstract class Plant implements IEdible, ILocatable, IDrawable
 {
 	private BufferedImage food = null;
+
+	
 	//added these methods, care to implement it later!
 	@Override
 	public void loadImages(String nm)
@@ -38,7 +40,7 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable
 	public void drawObject(Graphics g)
 	{
 		if (food != null)
-			g.drawImage(food, 400, 300, 100, 100, null);
+			g.drawImage(food,320,160, 100, 100, null);
 	}
 
 	@Override
@@ -65,6 +67,8 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable
 	 */
 	public Plant()
 	{
+		//Thread Th=new Thread();
+		//Th.start();
 		Random rand = new Random();
 		int x = rand.nextInt(30);
 		int y = rand.nextInt(12);
