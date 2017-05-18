@@ -39,7 +39,7 @@ public class Point
 	 public boolean setX(int _x)
 	 {
 		 boolean res = false;
-		 if(x >= 0 && x <= 800)
+		 //if(x >= 0 && x <= 800)
 		 {
 			 this.x = _x;
 			 res = true;
@@ -55,7 +55,7 @@ public class Point
 	 public boolean setY(int _y)
 	 {
 		 boolean res = false;
-		 if(y >= 0 && y <= 600)
+		 //if(y >= 0 && y <= 600)
 		 {
 			 this.y = _y;
 			 res = true;

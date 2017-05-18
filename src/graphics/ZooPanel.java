@@ -41,6 +41,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	ZooFrame ZooFrm;
 	JDialog jdialog;
 	private Boolean flag=false;
+	private JPanel subpanel;
 	//Constructor
 	public ZooPanel(ZooFrame zooframe)
 	{
@@ -69,17 +70,17 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	public void createbtn()
 	{
 		int i, x = 0;
-		JPanel subpanel = new JPanel(); //adding to this sub panel the buttons to make it in SOUTH position.
+	    subpanel = new JPanel(); //adding to this sub panel the buttons to make it in SOUTH position.
 		this.setLayout(new BorderLayout());
 		GridLayout GridL = new GridLayout(1, 7);
 		subpanel.setLayout(GridL);
 		for(i = 0; i < buttonNames.length; i++)
 		{			
 			button[i] = new JButton(buttonNames[i]);// the Button name
-			button[i].setPreferredSize(new Dimension(110, 23));
-			button[i].setBounds(x, 610, 110, 23);
+			//button[i].setPreferredSize(new Dimension(110, 23));
+			//button[i].setBounds(x, 610, 110, 23);
 			button[i].addActionListener(this); //to set the button in Action listener			
-			x += 100; //this is about coordinate x in the panel (the place of button)
+			//x += 100; //this is about coordinate x in the panel (the place of button)
 			subpanel.add(button[i]);  
 		}		
 		this.add(subpanel, BorderLayout.SOUTH);
@@ -89,14 +90,14 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		if(num == 0) //if we select the image
 		{
 				flag=true;
-				setLayout(null);
+				//setLayout(null);
 				setBackground(null); //we clean the background
 				this.paintComponent(this.getGraphics());
 		}
 		if(num == 1) //if we select the green
 		{
 			flag = false;
-			setLayout(null);
+			//setLayout(null);
 			setBackground(null); //we clean the background
 			this.paintComponent(this.getGraphics());
 			setBackground(Color.GREEN);			
@@ -104,9 +105,9 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		else if(num == 2) //if we select the image
 		{			
 			flag = false;
-			setLayout(null);
+			//setLayout(null);
 			setBackground(null); //clean the Background
-			setBackground(null); //set background none
+			//setBackground(null); //set background none
 		}
 	}
 
@@ -230,11 +231,11 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	    if(flag) //flag == true
 	    {
 	    	Dimension size = this.getSize();
-	    	setPreferredSize(size);
-	    	setMinimumSize(size);
-	    	setMaximumSize(size);
-	    	setSize(size);
-	    	setLayout(null);
+	    	//setPreferredSize(size);
+	    	//setMinimumSize(size);
+	    	//setMaximumSize(size);
+	    	//setSize(size);
+	    	//setLayout(null);
 	    	g.drawImage(SafariImg, 0, 0,size.width, size.height, this);
 	    } //to set Background Image
 	    while(i.hasNext())
