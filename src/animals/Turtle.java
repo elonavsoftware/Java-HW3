@@ -22,6 +22,10 @@ public class Turtle extends AnimalThatChews
 		 super(Size, HSpeed, VSpeed, color, panel, location); 
 		 this.setWeight(0.5 * size);
 		 this.loadImages("trt"); 
+	  	 IDiet _diet = new Herbivore();
+		 this.setDiet(_diet);
+		this.setName("Turtle");
+
 	}
 	
 	/**

@@ -1,4 +1,5 @@
 package plants;
+import graphics.ZooPanel;
 import utilities.MessageUtility;
 /**
  * @author Elon Avisror
@@ -6,8 +7,10 @@ import utilities.MessageUtility;
  */
 public class Cabbage extends Plant
 {
-	public Cabbage()
-	{
+		ZooPanel mypanel;
+		public Cabbage(ZooPanel mypan)
+		{	
+			super(mypan);
 		MessageUtility.logConstractor("Cabbage", "Cabbage");
 		this.loadImages("cabbage.png");
 	}

@@ -1,5 +1,7 @@
 package graphics;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -54,7 +56,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 		JLabel HorizontalspeedLbl= new JLabel("Enter Horizontal Speed (Between 1-10):");		
 		JLabel VerticalspeedLbl= new JLabel("Enter Vertical Speed (Between 1-10):");		
 		JLabel colorLabel = new JLabel("Choose Color:");
-        AnimalSizeTextBox = new JTextField("Value");
+        AnimalSizeTextBox = new JTextField("50");
 
         
 		this.c1 = new JComboBox<String>(Animals);		
@@ -89,6 +91,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 		this.add(ColorPanel);
 		this.add(ButtonPanel);
 		////////////////////////////////////////////////////
+
 		this.setVisible(true);
 		this.setSize(250, 180);  
 	}

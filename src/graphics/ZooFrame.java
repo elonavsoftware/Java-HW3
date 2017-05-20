@@ -1,4 +1,6 @@
 package graphics;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -54,6 +56,7 @@ public class ZooFrame extends JFrame implements ActionListener
 	{      
         ZooFrame frame = new ZooFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         frame.setSize(800, 600);
         frame.setVisible(true);
 	}

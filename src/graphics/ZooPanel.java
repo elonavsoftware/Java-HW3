@@ -14,7 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+
 import animals.Animal;
+import food.IEdible;
 import plants.Cabbage;
 import plants.Lettuce;
 import plants.Meat;
@@ -29,7 +32,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
    //final static String SafariImg = "C:\\Users\\USER\\Desktop\\pictures\\savanna.jpg";
 	private Image SafariImg =new ImageIcon("savanna.jpg").getImage();
 
-	static int Counter = 0;
+   protected int Counter = 0;
 	private HashSet<Animal> animal;
 	private Thread controller; //data member of class ZooPanel 
 	private String[] buttonNames = {"Add Animal", "Sleep", "Wake Up", "Clear", "Food", "Info", "Exit"};
@@ -37,9 +40,21 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	private Cabbage cabbage;
 	private Meat meat;
 	private Lettuce lettuce;
-	private HashSet<Plant> plants;
+	private IEdible food;
+	private HashSet<IEdible> plants;
 	ZooFrame ZooFrm;
 	JDialog jdialog;
+	
+	//Info Table
+	private String[][]info1=new String[6][6];
+	private JTable table;
+    private int totaleEat;// the total of eat Worm 
+    private int count;
+
+	private String[]info2={"Animal","Color","Size","HorSpeed","VerSpeed","eat Counter"};
+	////////////////////////////////////////////////////////////////////////////////////////
+	
+	
 	private Boolean flag=false;
 	private JPanel subpanel;
 	//Constructor
@@ -51,8 +66,9 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		button = new JButton[buttonNames.length]; //array of JButton		
 		createbtn();
 		animal = new HashSet<Animal>(); //iterator of animals
-		plants= new HashSet<Plant>();//iterator of plants cabbage lettuce meat.
-		
+		plants= new HashSet<IEdible>();//iterator of plants cabbage lettuce meat.
+		count=0;
+		totaleEat=0;
 		this.ZooFrm = zooframe;		
 	}
 	
@@ -60,7 +76,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	public Boolean isFood()
 	{
 		Boolean res = false;
-		Iterator<Plant> i = plants.iterator();
+		Iterator<IEdible> i = plants.iterator();
 		if(i.hasNext())
 		{							
 			res = true;
@@ -126,6 +142,43 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			repaint();
 		}
 	}
+	
+	
+	// Function for the Info Button
+	public void Table()
+	{
+		fullupInfo1();
+		table=new JTable(info1,info2);
+		//table.setBounds(50, 50, 300, 300);
+		//setLayout(new BorderLayout());
+		add(table.getTableHeader(), BorderLayout.PAGE_START);
+		add(table, BorderLayout.CENTER);
+		this.revalidate();
+		
+	}
+	private void fullupInfo1(){
+		int i=0;
+		Iterator<Animal> k=animal.iterator();
+		totaleEat=0;
+		while(k.hasNext()){
+			Animal s=k.next();
+			
+					info1[i][0]=s.getName();
+					info1[i][1]=s.getColor();
+					info1[i][2]=""+s.getSize();;
+					info1[i][3]=""+s.getHorSpeed();
+					info1[i][4]=""+s.getVerSpeed();
+					info1[i][5]=""+s.getEatCount();
+					
+					totaleEat+=s.getEatCount();
+
+					i++;
+		}
+		info1[5][0]="Total";
+		info1[5][5]=""+totaleEat;
+		
+	}
+
 	public void killPlants()
 	{
 		plants.clear();	
@@ -137,7 +190,6 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			{
 				if(Counter < 10)
 				{
-					Counter++;
 					jdialog = new AddAnimalDialog(this.ZooFrm, this);
 					jdialog.setSize(300, 250);
 				}
@@ -191,32 +243,46 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			{
 				//Meat
 				case 0:
-					meat = new Meat();
-					plants.add(meat);
+					//clear Board from food.
+					plants.clear();			
+					//creating new food
+					food=new Meat(this);
+					plants.add(food);
 					break;
 					
 				//Cabbage
 				case 1:
-					cabbage = new Cabbage();
-					plants.add(cabbage);
+					//clear Board from food.
+					plants.clear();			
+					//creating new food
+					food=new Cabbage(this);
+					plants.add(food);
 					break;
 					
 				//Lettuce
 				case 2:
-					lettuce = new Lettuce();
-					plants.add(lettuce);
+					//clear Board from food.
+					plants.clear();			
+					//creating new food
+					food=new Lettuce(this);
+					plants.add(food);
 					break;
 			}
-			/*
-			Object[] options = {"Meat, Cabbage", "Lettuce"};
-			int result = JOptionPane.showOptionDialog (ZooFrm, "Choose", "Title", 0, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-			System.out.println(result);
-			*/
 		}
 		else if(e.getSource() == button[5]) //info
 		{
-			
-		}
+			count++;// number of Cliking in the button info 
+			if(count==1){// if the cliking equal to 1 we work the function table 
+				Table();
+			}
+			else// to remove the table 
+			{
+				count=0;
+				this.remove(table);//to remove the JTable from panel
+				this.remove(table.getTableHeader());
+				this.revalidate();
+				repaint();
+			}		}
 		else if(e.getSource() == button[6]) //exit button
 		{
 			System.exit(0);
@@ -226,33 +292,23 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	{
 	    super.paintComponent(g);
 	    Iterator<Animal> i = animal.iterator(); //the beginning of iterator
-	    Iterator<Plant> j = plants.iterator(); //the beginning of iterator
+	    Iterator<IEdible> j = plants.iterator(); //the beginning of iterator
 
 	    if(flag) //flag == true
 	    {
 	    	Dimension size = this.getSize();
-	    	//setPreferredSize(size);
-	    	//setMinimumSize(size);
-	    	//setMaximumSize(size);
-	    	//setSize(size);
-	    	//setLayout(null);
 	    	g.drawImage(SafariImg, 0, 0,size.width, size.height, this);
 	    } //to set Background Image
+	    
+	    /*for(animal an :   )
+	    {
+	    	
+	    }*/
 	    while(i.hasNext())
     		i.next().drawObject(g);
 	    while(j.hasNext())
 	    	j.next().drawObject(g);
-	    
-	   /*
-	   	if (meat != null)
-	    	meat.drawObject(g);
-	    else if (cabbage != null)
-	    	cabbage.drawObject(g);
-	    else if (lettuce != null)
-	    	lettuce.drawObject(g);
-	    */
-	    revalidate();
-	    repaint(); //added
+
     }
 
 	

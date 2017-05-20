@@ -13,12 +13,14 @@ import mobility.Point;
 import food.EFoodType;
 import food.IEdible;
 import graphics.IDrawable;
+import graphics.ZooPanel;
 /**
  * @author baroh
  *
  */
 public abstract class Plant implements IEdible, ILocatable, IDrawable
 {
+	private ZooPanel panel;
 	private BufferedImage food = null;
 
 	
@@ -40,7 +42,7 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable
 	public void drawObject(Graphics g)
 	{
 		if (food != null)
-			g.drawImage(food,320,160, 100, 100, null);
+			g.drawImage(food,this.panel.getWidth()/2,this.panel.getHeight()/2, 50, 50, panel);
 	}
 
 	@Override
@@ -65,8 +67,9 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable
 	/**
 	 * 
 	 */
-	public Plant()
+	public Plant(ZooPanel mypanel)
 	{
+		this.panel=mypanel;
 		//Thread Th=new Thread();
 		//Th.start();
 		Random rand = new Random();

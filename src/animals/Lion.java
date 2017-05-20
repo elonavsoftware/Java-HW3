@@ -35,6 +35,9 @@ public class Lion extends AnimalThatRoars
 	{
 		 super(Size, HSpeed, VSpeed, color, panel, location); 
 		 this.loadImages("lio");  
+		this.setDiet(new Carnivore());
+		this.setName("Lion");
+
 	}
 	
 	

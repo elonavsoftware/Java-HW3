@@ -1,8 +1,11 @@
 package animals;
 import diet.IDiet;
 import diet.Omnivore;
+import food.EFoodType;
 import graphics.ZooPanel;
 import mobility.Point;
+import plants.Cabbage;
+import plants.Meat;
 import utilities.MessageUtility;
 
 import java.awt.Color;
@@ -34,8 +37,12 @@ public class Bear extends AnimalThatRoars
 	public Bear(int Size, int HSpeed, int VSpeed, String color ,ZooPanel panel, Point location)
 	{
 		 super(Size, HSpeed, VSpeed, color, panel, location); 
+		 IDiet _diet = new Omnivore();
+		 this.setDiet(_diet);
 		 this.setWeight(size * 1.5);
 		 this.loadImages("bea"); //this is the bear folder.
+			this.setName("Bear");
+
 	}
 	
 	

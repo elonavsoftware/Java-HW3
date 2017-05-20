@@ -1,4 +1,5 @@
 package plants;
+import graphics.ZooPanel;
 import utilities.MessageUtility;
 /**
  * @author Elon Avisror
@@ -6,8 +7,10 @@ import utilities.MessageUtility;
  */
 public class Meat extends Plant
 {
-	public Meat()
-	{
+	ZooPanel mypanel;
+	public Meat(ZooPanel mypan)
+	{	
+		super(mypan);
 		MessageUtility.logConstractor("Meat", "Meat");
 		this.loadImages("meat.gif");
 	}

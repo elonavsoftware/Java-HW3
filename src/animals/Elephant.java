@@ -1,6 +1,7 @@
 package animals;
 import utilities.MessageUtility;
 import diet.IDiet;
+import diet.Omnivore;
 import graphics.ZooPanel;
 import mobility.Point;
 
@@ -27,8 +28,12 @@ public class Elephant extends AnimalThatChews
 	public Elephant(int Size, int HSpeed, int VSpeed, String color, ZooPanel panel, Point location)
 	{
 		 super(Size, HSpeed, VSpeed, color, panel, location); 
+		IDiet _diet = new Herbivore();
+		this.setDiet(_diet);
 		 this.setWeight(size * 10);
 		 this.loadImages("elf");
+		this.setName("Elephant");
+
 	}
 	
 	

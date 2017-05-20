@@ -1,6 +1,7 @@
 package animals;
 import mobility.Mobile;
 import mobility.Point;
+import plants.Cabbage;
 import food.EFoodType;
 import food.IEdible;
 import graphics.IAnimalBehavior;
@@ -39,8 +40,10 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	protected int eatCount;
 	protected ZooPanel panel;
 	protected boolean threadSuspended;	 
-
+	
 	protected BufferedImage img1, img2;
+
+	
 
 	protected String colorstr; //added
 	/**
@@ -90,11 +93,16 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		this.setName(name);
 		this.setLocation(location);
 		if(color == "Red")
-			this.col = Color.RED;
+			//this.col = Color.RED;
+		    colorstr="Red";
 		else if(color == "Blue")
-			this.col = Color.BLUE;
+			//this.col = Color.BLUE;
+		    colorstr="Blue";
+
 		else
-			this.col = null; //natural
+			//this.col = null; //natural
+	        colorstr="Natural";
+
 		this.panel = panel;
 	}
 	
@@ -240,8 +248,13 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 				//asking if there are food
 				if(this.panel.isFood())
 				{
+
+				
+					//if(this.eat(food))
+					if(this.diet.canEat(EFoodType.MEAT))
+
+					{
 					double hor_new = horSpeed, ver_new = verSpeed, ver_old = verSpeed, hor_old = horSpeed;
-					System.out.print("FOOD FOOD FOOD!!\n");
 					double v_old = Math.sqrt(hor_old*hor_old + ver_old*ver_old);
                     try
                     {
@@ -291,6 +304,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 						{
 							System.out.println("EATED the food");
 							panel.killPlants();
+							this.eatCount++;					
 						}
 						else if (Math.abs(this.getLocation().getX()-this.panel.getWidth()/2) <= 10) //x
                         	this.getLocation().setX(this.getLocation().getX() +(int)(hor_new*x_dir));
@@ -303,6 +317,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 						}
                     }
                 	finally {}
+					}
+					
 				}
 				System.out.println("Panel width"+panel.getWidth()+",Panel Height"+panel.getHeight());
 				this.getLocation().setX(this.getLocation().getX() + horSpeed * x_dir);
@@ -315,7 +331,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 			 		y_dir = -1;
 			 	else if(this.getLocation().getY() - size/2 <= 0) //up
 			 		y_dir = 1;
-			 	
+
 			 	this.getDiet(); //
 			}
 			catch (InterruptedException e)
@@ -330,7 +346,12 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		
 		}
 	}
-
+	
+	//added Methods.
+	 public int getHorSpeed() { return horSpeed; }
+	 public int getVerSpeed() { return verSpeed; }
+	 
+	 
 	@Override
 	public String getAnimalName() {return name;}
 
@@ -360,7 +381,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	synchronized public void setChanges(boolean state) {coordChanged = state;}
 
 	@Override
-	public String getColor() {return colorstr;}	
+	public String getColor() {return this.colorstr;}	
 	@Override
 	public void loadImages(String nm)
 	{
