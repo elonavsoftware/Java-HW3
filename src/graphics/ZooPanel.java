@@ -126,33 +126,51 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		animal.add(s);
 		Counter++; //to increase the counter of add animal 
 	}
-
+	public boolean isChanges(){
+		boolean res=false;
+		for(Animal an:animal)
+		{
+			if(an.getChanges())
+			{
+				an.setChanges(false);
+				res=true;
+			}
+		}
+		return res;
+	}
 	@Override
 	public void run()
 	{
-		while(true)
+	//don't forget to add setChanges && GetChanges
+	while(true)
+	{
+		if(isChanges())
 		{
 			repaint();
-			if(animal != null)
+		}
+		if(animal != null)
+		{
+			boolean flag = false;
+			for(Animal predator: animal)
 			{
-				boolean flag = false;
-				for(Animal predator: animal)
+				for(Animal prey: animal)
 				{
-					for(Animal prey: animal)
+					if (predator != prey && predator.eat(prey) && Math.abs(predator.getLocation().getX()-prey.getLocation().getX())<=10 &&Math.abs(predator.getLocation().getY()-prey.getLocation().getY())<=10 &&(predator.getWeight())>= 2*(prey.getWeight()) )
 					{
-						if (predator != prey && predator.eat(prey))
-						{
-							System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-							flag = true;
-							break;
-						}
-					}
-					if(flag)
+						System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						prey.stop();
+						animal.remove(prey);
+						predator.eatInc();
+						flag = true;
 						break;
+					}
 				}
+				if(flag)
+					break;
 			}
 		}
 	}
+}
 	
 	
 	// Function for the Info Button
@@ -267,6 +285,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			plants.clear();
 			
 			Counter = 0; //reset counter to 0 so we can add new animals
+			repaint();
 		}
 		else if(e.getSource() == button[4]) //food
 		{

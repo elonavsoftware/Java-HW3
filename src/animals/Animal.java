@@ -64,9 +64,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	{		
 		x_dir = 1;
 		y_dir = 1;
-		coordChanged = false;
-	    thread = new Thread(this);
-	    thread.start();
 		this.setLocation(location);
 		this.setSize(Size);
 		this.horSpeed = HSpeed;
@@ -78,6 +75,9 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		else
 			this.col = null; //natural
 		this.panel = panel;
+		coordChanged = false;
+	    thread = new Thread(this);
+	    thread.start();
 	}
 	/**
 	 * Animal Constructor
@@ -235,7 +235,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		{
 			try
 			{
-				System.out.println("Panel width" + panel.getWidth() + ",Panel Height" + panel.getHeight());
+				coordChanged  = true;
 				this.getLocation().setX(this.getLocation().getX() + horSpeed * x_dir);
 				this.getLocation().setY(this.getLocation().getY() + verSpeed * y_dir);
 			 	if(this.getLocation().getX() + size/2 >= panel.getWidth()) //-->
@@ -376,7 +376,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 			}
 			catch (InterruptedException e)
 			{
-				//e.printStackTrace();
+				//e.printStackTrace();				
 				return;
 			}
             catch (ArithmeticException e)
