@@ -24,7 +24,7 @@ public class Carnivore implements IDiet
 			animal.makeSound();
 			if(animal instanceof Lion)
 				((Lion)animal).setScars();
-			res=true;
+			res = true;
 		}
 		return res;
  	}

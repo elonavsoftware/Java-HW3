@@ -36,13 +36,12 @@ public class Bear extends AnimalThatRoars
 	
 	public Bear(int Size, int HSpeed, int VSpeed, String color ,ZooPanel panel, Point location)
 	{
-		 super(Size, HSpeed, VSpeed, color, panel, location); 
-		 IDiet _diet = new Omnivore();
-		 this.setDiet(_diet);
-		 this.setWeight(size * 1.5);
-		 this.loadImages("bea"); //this is the bear folder.
-			this.setName("Bear");
-
+		super(Size, HSpeed, VSpeed, color, panel, location); 
+		IDiet _diet = new Omnivore();
+		this.setDiet(_diet);
+		this.setWeight(size * 1.5);
+		this.loadImages("bea"); //this is the bear folder.
+		this.setName("Bear");
 	}
 	
 	

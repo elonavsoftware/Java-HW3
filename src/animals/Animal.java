@@ -2,15 +2,15 @@ package animals;
 import mobility.Mobile;
 import mobility.Point;
 import plants.Cabbage;
+import plants.Lettuce;
+import plants.Meat;
 import food.EFoodType;
 import food.IEdible;
 import graphics.IAnimalBehavior;
 import graphics.IDrawable;
 import graphics.ZooPanel;
-
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -40,11 +40,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	protected int eatCount;
 	protected ZooPanel panel;
 	protected boolean threadSuspended;	 
-	
 	protected BufferedImage img1, img2;
-
-	
-
 	protected String colorstr; //added
 	/**
 	 * 
@@ -94,15 +90,14 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		this.setLocation(location);
 		if(color == "Red")
 			//this.col = Color.RED;
-		    colorstr="Red";
+		    colorstr = "Red";
 		else if(color == "Blue")
 			//this.col = Color.BLUE;
-		    colorstr="Blue";
+		    colorstr = "Blue";
 
 		else
 			//this.col = null; //natural
-	        colorstr="Natural";
-
+	        colorstr = "Natural";
 		this.panel = panel;
 	}
 	
@@ -145,7 +140,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	 */
 	public IDiet getDiet()
 	{
-		MessageUtility.logGetter(name, "getDiet",this.diet);
+		MessageUtility.logGetter(name, "getDiet", this.diet);
 		return this.diet;
 	}
 	/**
@@ -166,7 +161,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	{
 		boolean res = true;
 		if(neweight < 0)
-			res=false;
+			res = false;
 		this.weight = neweight;
 		//MessageUtility.logSetter(name, "setWeight", neweight, res);
 		return res;
@@ -174,7 +169,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	/**
 	 * 
 	 */
-	public String toString() {return "[" + this.getClass().getSimpleName() + "]" + "("+name+")";}
+	public String toString() {return "[" + this.getClass().getSimpleName() + "]" + "(" + name + ")" ;}
 	/**
 	 * 
 	 */
@@ -239,6 +234,17 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		{
 			try
 			{
+				System.out.println("Panel width" + panel.getWidth() + ",Panel Height" + panel.getHeight());
+				this.getLocation().setX(this.getLocation().getX() + horSpeed * x_dir);
+				this.getLocation().setY(this.getLocation().getY() + verSpeed * y_dir);
+			 	if(this.getLocation().getX() + size/2 >= panel.getWidth()) //-->
+			 		x_dir = -1;
+			 	else if(this.getLocation().getX() - size/2 <= 0) //<--
+			 		x_dir = 1;
+			 	if(this.getLocation().getY() + size/2 + 30 >= panel.getHeight()) //down
+			 		y_dir = -1;
+			 	else if(this.getLocation().getY() - size/2 - 5 <= 0) //up
+			 		y_dir = 1;
 				synchronized(this)
 				{
 					if(this.threadSuspended == true) //sleep the Animals
@@ -248,91 +254,124 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 				//asking if there are food
 				if(this.panel.isFood())
 				{
-
-				
 					//if(this.eat(food))
-					if(this.diet.canEat(EFoodType.MEAT))
-
+					if(this.panel.getFood() instanceof Meat && (this instanceof Lion || this instanceof Bear))
 					{
-					double hor_new = horSpeed, ver_new = verSpeed, ver_old = verSpeed, hor_old = horSpeed;
-					double v_old = Math.sqrt(hor_old*hor_old + ver_old*ver_old);
-                    try
-                    {
-                    	
-                        double k = Math.abs((getLocation().getY() - panel.getHeight()/2) / (getLocation().getX() - panel.getWidth()/2));
-                        double h_ns = v_old / Math.sqrt(k * k + 1);
-                        double v_ns = h_ns * k;
+						double hor_new = horSpeed, ver_new = verSpeed, ver_old = verSpeed, hor_old = horSpeed;
+						double v_old = Math.sqrt(hor_old * hor_old + ver_old * ver_old);
+						try
+						{
+							double k = Math.abs((getLocation().getY() - panel.getHeight()/2) / (getLocation().getX() - panel.getWidth()/2));
+							double h_ns = v_old / Math.sqrt(k * k + 1);
+							double v_ns = h_ns * k;
 
-                        if(h_ns > 10) h_ns = 10;
-                        else if(h_ns < 1)
-                        {
-                            if(getLocation().getY() != (panel.getWidth()/2))
-                            {
-                                h_ns = 1;
-                            }
-                            else{
-                                h_ns = 0;
-                            }
-                        }
-                        if(v_ns > 10) v_ns = 10;
-                        else if(v_ns < 1)
-                        {
-                            if(getLocation().getX() != (panel.getHeight()/2))
-                            {
-                                v_ns = 1;
-                            }
-                            else
-                            {
-                                v_ns = 0;
-                            }
-                        }
+							if(h_ns > 10)
+								h_ns = 10;
+							else if(h_ns < 1)
+							{
+								if(getLocation().getY() != (panel.getWidth()/2))
+									h_ns = 1;
+								else
+									h_ns = 0;
+							}
+							if(v_ns > 10)
+								v_ns = 10;
+							else if(v_ns < 1)
+							{
+								if(getLocation().getX() != (panel.getHeight()/2))
+									v_ns = 1;
+								else
+									v_ns = 0;
+							}
 
-                        
-                        if (getLocation().getY() > panel.getHeight()/2)
-                            y_dir = -1;
-                        else
-                        	y_dir = 1;
+							if (getLocation().getY() > panel.getHeight()/2)
+								y_dir = -1;
+							else
+								y_dir = 1;
 
-                        if (getLocation().getX() > panel.getWidth()/2)
-                        	x_dir = -1;
-                        else
-                        	x_dir = 1;
-
-							
+							if (getLocation().getX() > panel.getWidth()/2)
+								x_dir = -1;
+							else
+								x_dir = 1;
                        
-						if((Math.abs(this.getLocation().getX()-this.panel.getWidth()/2) <= 10) && (Math.abs(this.getLocation().getY()-this.panel.getHeight()/2) <= 10))
-						{
-							System.out.println("EATED the food");
-							panel.killPlants();
-							this.eatCount++;					
+							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10))
+							{
+								panel.killPlants();
+								this.eatCount++;					
+							}
+							else if (Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) //x
+								this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
+							else if (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10) //y
+								this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
+							else
+							{
+							this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
+								this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
+							}
 						}
-						else if (Math.abs(this.getLocation().getX()-this.panel.getWidth()/2) <= 10) //x
-                        	this.getLocation().setX(this.getLocation().getX() +(int)(hor_new*x_dir));
-						else if (Math.abs(this.getLocation().getY()-this.panel.getHeight()/2) <= 10)
-							this.getLocation().setY(this.getLocation().getY() +(int)(ver_new*y_dir));
-						else
+						finally {}
+					}	
+					//if(this.eat(food))
+					if((this.panel.getFood() instanceof Lettuce || this.panel.getFood() instanceof Cabbage) && (this instanceof Turtle || this instanceof Giraffe || this instanceof Elephant))
+					{
+						System.out.println(this.diet.canEat(EFoodType.MEAT));
+						double hor_new = horSpeed, ver_new = verSpeed, ver_old = verSpeed, hor_old = horSpeed;
+						double v_old = Math.sqrt(hor_old * hor_old + ver_old * ver_old);
+						try
 						{
-							this.getLocation().setX(this.getLocation().getX() +(int)(hor_new*x_dir));
-							this.getLocation().setY(this.getLocation().getY() +(int)(ver_new*y_dir));
-						}
-                    }
-                	finally {}
-					}
-					
-				}
-				System.out.println("Panel width"+panel.getWidth()+",Panel Height"+panel.getHeight());
-				this.getLocation().setX(this.getLocation().getX() + horSpeed * x_dir);
-				this.getLocation().setY(this.getLocation().getY() + verSpeed * y_dir);
-			 	if(this.getLocation().getX() + size/2 >= panel.getWidth()) //-->
-			 		x_dir = -1;
-			 	else if(this.getLocation().getX() - size/2 <= 0) //<--
-			 		x_dir = 1;
-			 	if(this.getLocation().getY() + size/2 + 10 >= panel.getHeight()) //down
-			 		y_dir = -1;
-			 	else if(this.getLocation().getY() - size/2 <= 0) //up
-			 		y_dir = 1;
+							double k = Math.abs((getLocation().getY() - panel.getHeight()/2) / (getLocation().getX() - panel.getWidth()/2));
+							double h_ns = v_old / Math.sqrt(k * k + 1);
+							double v_ns = h_ns * k;
 
-			 	this.getDiet(); //
+							if(h_ns > 10)
+								h_ns = 10;
+							else if(h_ns < 1)
+							{
+								if(getLocation().getY() != (panel.getWidth()/2))
+									h_ns = 1;
+								else
+									h_ns = 0;
+							}
+							if(v_ns > 10)
+								v_ns = 10;
+							else if(v_ns < 1)
+							{
+								if(getLocation().getX() != (panel.getHeight()/2))
+									v_ns = 1;
+								else
+									v_ns = 0;
+							}
+
+							if (getLocation().getY() > panel.getHeight()/2)
+								y_dir = -1;
+							else
+								y_dir = 1;
+
+							if (getLocation().getX() > panel.getWidth()/2)
+								x_dir = -1;
+							else
+								x_dir = 1;
+
+						
+                   
+							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10))
+							{
+								panel.killPlants();
+								this.eatCount++;					
+							}
+							else if (Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) //x
+								this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
+							else if (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10) //y
+								this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
+							else
+							{
+								this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
+								this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
+							}
+						}
+						finally {}
+					}	
+				}
 			}
 			catch (InterruptedException e)
 			{

@@ -24,7 +24,7 @@ public class Omnivore implements IDiet
 				a.eat(animal, food);
 				res = true;		
 			}
-		    else if(food.getFoodtype()==EFoodType.MEAT)
+		    else if(food.getFoodtype() == EFoodType.MEAT)
 			{
 				Carnivore a = new Carnivore();
 				a.eat(animal, food);

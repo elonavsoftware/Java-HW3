@@ -69,7 +69,7 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable
 	 */
 	public Plant(ZooPanel mypanel)
 	{
-		this.panel=mypanel;
+		this.panel = mypanel;
 		//Thread Th=new Thread();
 		//Th.start();
 		Random rand = new Random();

@@ -15,7 +15,7 @@ public class ZooFrame extends JFrame implements ActionListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String[] names = {"Exit","Image","Green","None","Help"};
+	private String[] names = {"Exit", "Image", "Green", "None", "Help"};
     private JMenu m1, m2, m3;
     private JMenuItem[] mi;
     private JMenuBar mb;

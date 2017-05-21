@@ -7,10 +7,10 @@ import utilities.MessageUtility;
  */
 public class Cabbage extends Plant
 {
-		ZooPanel mypanel;
-		public Cabbage(ZooPanel mypan)
-		{	
-			super(mypan);
+	ZooPanel mypanel;
+	public Cabbage(ZooPanel mypan)
+	{	
+		super(mypan);
 		MessageUtility.logConstractor("Cabbage", "Cabbage");
 		this.loadImages("cabbage.png");
 	}

@@ -127,25 +127,25 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 			size = Integer.parseInt(AnimalSizeTextBox.getText());
 			if(animal == "Bear")
 			{
-				dialogPanel.addanimal(new Bear(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(150,150)));
+				dialogPanel.addanimal(new Bear(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0, 0)));
 			}
 			else if(animal == "Girrafe")
 			{		
-				dialogPanel.addanimal(new Giraffe(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0,0)));
+				dialogPanel.addanimal(new Giraffe(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0, 0)));
 
 			}
 			else if(animal == "Lion")
 			{
-				dialogPanel.addanimal(new Lion(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0,0)));
+				dialogPanel.addanimal(new Lion(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0, 0)));
 			}
 			else if(animal == "Elephant")
 			{
-				dialogPanel.addanimal(new Elephant(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0,0)));
+				dialogPanel.addanimal(new Elephant(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0, 0)));
 
 			}
 			else if(animal == "Turtle")
 			{
-				dialogPanel.addanimal(new Turtle(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0,0)));
+				dialogPanel.addanimal(new Turtle(size, hSpeed, vSpeed, clr, this.dialogPanel, new Point(0, 0)));
 
 			}
 			this.dispose();
