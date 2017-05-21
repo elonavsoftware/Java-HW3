@@ -69,7 +69,7 @@ public class Lion extends AnimalThatRoars
 		{
 			this.setScars();
 		}
-		MessageUtility.logBooleanFunction(name, "eat", type, res); //added by me
+		//MessageUtility.logBooleanFunction(name, "eat", type, res); //added by me
 		return res;
 	}
 	/**
@@ -86,7 +86,7 @@ public class Lion extends AnimalThatRoars
 			this.scarCount++;
 			res = true;
 		}
-		MessageUtility.logSetter(name, "setScars", tempscar, res);
+		//MessageUtility.logSetter(name, "setScars", tempscar, res);
 		return res;
 	}
 	@Override
@@ -95,7 +95,7 @@ public class Lion extends AnimalThatRoars
 	 */
 	public EFoodType getFoodtype()
 	{
-		MessageUtility.logGetter(name, "getFoodType", EFoodType.NOTFOOD);
+//		/MessageUtility.logGetter(name, "getFoodType", EFoodType.NOTFOOD);
 		return EFoodType.NOTFOOD;
 	}
 	/**

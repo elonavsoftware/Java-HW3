@@ -18,6 +18,4 @@ public abstract class AnimalThatRoars extends Animal
 	 */
 	//public AnimalThatRoars(String name, Point location,  Color clr,ZooPanel pan) { super(name, location, clr, pan); }
 	public AnimalThatRoars(int Size,int HSpeed, int VSpeed, String color ,ZooPanel panel,Point location) { super(Size, HSpeed,VSpeed,color,panel,location); }
-	public void makeSound() { roar(); }
-	public abstract void roar();
 }//abstract class AnimalThatRoars extends Animal

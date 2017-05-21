@@ -21,9 +21,9 @@ public abstract class AnimalThatChews extends Animal
 	/**
 	 * makeSound function
 	 */
-	public void makeSound() { chew(); }
+	//public void makeSound() { chew(); }
 	/**
 	 * an abstracted function - chew
 	 */
-	public abstract void chew();
+
 } //abstract class AnimalThatChews extends Animal

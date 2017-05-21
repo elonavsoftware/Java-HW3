@@ -35,9 +35,8 @@ public class Herbivore implements IDiet
 		boolean res = false;
 		if(this.canEat(food.getFoodtype()))
 		{
-			double currweight = animal.getWeight();
-			animal.setWeight(currweight * 0.07 + currweight);
-			animal.makeSound();
+			//double currweight = animal.getWeight();
+			//animal.setWeight(currweight * 0.07 + currweight);
 			res = true;
 		}
 		return res;

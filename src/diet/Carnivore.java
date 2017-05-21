@@ -19,9 +19,8 @@ public class Carnivore implements IDiet
 		boolean res = false;
 		if(this.canEat(food.getFoodtype()))
 		{
-			double currweight = animal.getWeight();
-			animal.setWeight(currweight*0.1+currweight);
-			animal.makeSound();
+			//double currweight = animal.getWeight();
+			//animal.setWeight(currweight*0.1+currweight);
 			if(animal instanceof Lion)
 				((Lion)animal).setScars();
 			res = true;

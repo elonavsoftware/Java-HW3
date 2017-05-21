@@ -89,7 +89,7 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable
 	@Override
 	public EFoodType getFoodtype()
 	{
-		MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", EFoodType.VEGETABLE);
+		//MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", EFoodType.VEGETABLE);
 		return EFoodType.VEGETABLE;
 	}
 
@@ -165,7 +165,7 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable
 			this.weight = weight;
 		else
 			this.weight = 0;
-		MessageUtility.logSetter(this.getClass().getSimpleName(), "setWeight", weight, isSuccess);
+		//MessageUtility.logSetter(this.getClass().getSimpleName(), "setWeight", weight, isSuccess);
 		return isSuccess;
 	}
 

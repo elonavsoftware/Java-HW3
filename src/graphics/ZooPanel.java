@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +19,7 @@ import food.IEdible;
 import plants.Cabbage;
 import plants.Lettuce;
 import plants.Meat;
+import plants.Plant;
 
 public class ZooPanel extends JPanel implements ActionListener, Runnable
 {
@@ -35,44 +35,37 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	private String[] buttonNames = {"Add Animal", "Sleep", "Wake Up", "Clear", "Food", "Info", "Exit"};
 	private JButton[] button;
 	private IEdible food;
-	private HashSet<IEdible> plants;
 	ZooFrame ZooFrm;
 	JDialog jdialog;
 	//Info Table
 	private String[][] info1 = new String[11][6];
-	private String[] info2 = {"Animal", "Color" ,"Size" ,"HorSpeed" ,"VerSpeed" ,"Eat Counter"};
+	private String[] info2 = {"Animal", "Color" ,"Weight" ,"HorSpeed" ,"VerSpeed" ,"Eat Counter"};
 	private JTable table;
     private int totalEat;// the total of eat Worm 
     private int count;
 	////////////////////////////////////////////////////////////////////////////////////////
-	
-	
 	private Boolean flag = false;
 	private JPanel subpanel;
 	//Constructor
 	public ZooPanel(ZooFrame zooframe)
 	{
 		//create a main thread which control the main panel
-		controller = new Thread(this);
-		controller.start();
 		button = new JButton[buttonNames.length]; //array of JButton		
 		createbtn();
 		animal = new ArrayList<Animal>(); //iterator of animals
-		plants = new HashSet<IEdible>();//iterator of plants cabbage lettuce meat
 		count = 0;
 		totalEat = 0;
 		this.ZooFrm = zooframe;		
+		controller = new Thread(this);
+		controller.start();
 	}
 	
 	//this function check's weither there are food or not
 	public Boolean isFood()
 	{
 		Boolean res = false;
-		Iterator<IEdible> i = plants.iterator();
-		if(i.hasNext())
-		{							
-			res = true;
-		}		
+		if(food!=null)
+			res=true;
 		return res;
 	}
 	
@@ -86,10 +79,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		for(i = 0; i < buttonNames.length; i++)
 		{			
 			button[i] = new JButton(buttonNames[i]);// the Button name
-			//button[i].setPreferredSize(new Dimension(110, 23));
-			//button[i].setBounds(x, 610, 110, 23);
 			button[i].addActionListener(this); //to set the button in Action listener			
-			//x += 100; //this is about coordinate x in the panel (the place of button)
 			subpanel.add(button[i]);  
 		}		
 		this.add(subpanel, BorderLayout.SOUTH);
@@ -99,7 +89,6 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		if(num == 0) //if we select the image
 		{
 				flag = true;
-				//setLayout(null);
 				setBackground(null); //we clean the background
 				this.paintComponent(this.getGraphics());
 		}
@@ -127,7 +116,10 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		Counter++; //to increase the counter of add animal 
 	}
 	public boolean isChanges(){
+		
 		boolean res=false;
+		/*if(animal==null)
+			return false;*/
 		for(Animal an:animal)
 		{
 			if(an.getChanges())
@@ -138,52 +130,53 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		}
 		return res;
 	}
-	@Override
-	public void run()
-	{
-	//don't forget to add setChanges && GetChanges
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@Override
+public void run(){
 	while(true)
 	{
-		if(isChanges())
-		{
-			repaint();
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if(animal != null)
+		if(isChanges()){repaint();} 
+		boolean flag = false;
+		for(Animal predator: animal)
 		{
-			boolean flag = false;
-			for(Animal predator: animal)
+			for(Animal prey: animal)
 			{
-				for(Animal prey: animal)
+				if (predator != prey && predator.eat(prey) && Math.abs(predator.getLocation().getX()-prey.getLocation().getX())<=50 &&Math.abs(predator.getLocation().getY()-prey.getLocation().getY())<=50 &&(predator.getWeight())>= 2*(prey.getWeight()) )
 				{
-					if (predator != prey && predator.eat(prey) && Math.abs(predator.getLocation().getX()-prey.getLocation().getX())<=10 &&Math.abs(predator.getLocation().getY()-prey.getLocation().getY())<=10 &&(predator.getWeight())>= 2*(prey.getWeight()) )
-					{
-						System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-						prey.stop();
-						animal.remove(prey);
-						predator.eatInc();
-						flag = true;
-						break;
-					}
-				}
-				if(flag)
+					prey.stop();
+					animal.remove(prey);
+					predator.eatInc();
+					cleanTable(); //clean the table. (To reUPDATE the fields.)
+					fullupInfo1(); //refill the fields.
+					this.Counter--; //we have to reupdate the counter because animal removed
+					flag = true;
 					break;
+				}
 			}
-		}
+			if(flag)break;}
 	}
 }
-	
-	
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Function for the Info Button
 	public void Table()
 	{
 		fullupInfo1();
 		table = new JTable(info1, info2);
-		//table.setBounds(50, 50, 300, 300);
-		//setLayout(new BorderLayout());
 		add(table.getTableHeader(), BorderLayout.PAGE_START);
 		add(table, BorderLayout.CENTER);
-		this.revalidate();
-		
+		this.revalidate();	
 	}
 	private void fullupInfo1()
 	{
@@ -195,7 +188,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			Animal s = k.next();
 			info1[i][0] = s.getName();
 			info1[i][1] = s.getColor();
-			info1[i][2] = "" + s.getSize();;
+			info1[i][2] = "" + s.getWeight();;
 			info1[i][3] = "" + s.getHorSpeed();
 			info1[i][4] = "" + s.getVerSpeed();
 			info1[i][5] = "" + s.getEatCount();
@@ -206,14 +199,18 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		info1[10][5] = "" + totalEat;
 		
 	}
-
+	public void cleanTable(){
+	int rows=table.getRowCount();
+	int c=table.getColumnCount();
+	for(int i=0;i<rows;i++)
+		for(int j=0;j<c;j++)
+			info1[i][j]="";
+	}
 	public void clearTable()
 	{
-		table = new JTable(info1, info2);
-		//table.setBounds(50, 50, 300, 300);
-		//setLayout(new BorderLayout());
-		add(table.getTableHeader(), BorderLayout.PAGE_START);
-		add(table, BorderLayout.CENTER);
+		//table = new JTable(info1, info2);
+		//add(table.getTableHeader(), BorderLayout.PAGE_START);
+		//add(table, BorderLayout.CENTER);
 		this.revalidate();
 		totalEat = 0;
 		for (int i = 0; i < Counter + 1; i++)
@@ -232,7 +229,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	
 	public synchronized void killPlants()
 	{
-		plants.clear();	
+		food=null;	
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -281,10 +278,10 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 				i.next().stop(); //enable
 			}
 			//killing the threads of Plants
-			animal.clear();	//clearing the board
-			plants.clear();
-			
+			animal.clear();	//clearing the board			
 			Counter = 0; //reset counter to 0 so we can add new animals
+			food=null;
+			cleanTable();
 			repaint();
 		}
 		else if(e.getSource() == button[4]) //food
@@ -297,29 +294,20 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			{
 				//Meat
 				case 0:
-					//clear Board from food.
-					plants.clear();			
-					//creating new food
 					food = new Meat(this);
-					plants.add(food);
+					repaint();
 					break;
 					
 				//Cabbage
 				case 1:
-					//clear Board from food.
-					plants.clear();			
-					//creating new food
 					food = new Cabbage(this);
-					plants.add(food);
+					repaint();
 					break;
 					
 				//Lettuce
 				case 2:
-					//clear Board from food.
-					plants.clear();	
-					//creating new food
 					food = new Lettuce(this);
-					plants.add(food);
+					repaint();
 					break;
 			}
 		}
@@ -343,7 +331,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			else
 			{
 				if(count == 1) //if the clicking equal to 1 we work the function table
-					clearTable();
+					Table();
 				else
 				{
 					count = 0;
@@ -364,31 +352,23 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	public void paintComponent(java.awt.Graphics g)
 	{
 	    super.paintComponent(g);
-	    //Iterator<Animal> i = animal.iterator(); //the beginning of iterator
-	    Iterator<IEdible> j = plants.iterator(); //the beginning of iterator
 	    if(flag) //flag == true
 	    {
 	    	Dimension size = this.getSize();
 	    	g.drawImage(SafariImg, 0, 0, size.width, size.height, this);
 	    } //to set Background Image
 	    
-	    /*for(animal an :   )
+	    for(Animal myanimals: animal)
 	    {
-	    	
-	    }*/
-	    for(Animal predator: animal)
-	    {
-	    	predator.drawObject(g);
+	    	myanimals.drawObject(g);
 	    }
-	    /*while(i.hasNext())
-    		i.next().drawObject(g);*/
-	    while(j.hasNext())
-	    	j.next().drawObject(g);
+	    if(food!=null)
+	    	food.drawObject(g);
+
     }
 	public IEdible getFood()
 	{
 		return food; 
 	}
 
-	
 } //class ZooPanel extends JPanel implements ActionListener, Runnable

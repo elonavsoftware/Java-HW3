@@ -15,7 +15,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import diet.IDiet;
@@ -79,31 +78,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	    thread = new Thread(this);
 	    thread.start();
 	}
-	/**
-	 * Animal Constructor
-	 * @param name
-	 * @param location
-	 */
-	public Animal(String name, Point location, String color, ZooPanel panel)
-	{
-		MessageUtility.logConstractor("Animal", name);
-		this.setName(name);
-		this.setLocation(location);
-		if(color == "Red")
-			//this.col = Color.RED;
-		    colorstr = "Red";
-		else if(color == "Blue")
-			//this.col = Color.BLUE;
-		    colorstr = "Blue";
-
-		else
-			//this.col = null; //natural
-	        colorstr = "Natural";
-		this.panel = panel;
-	}
-	
-
-	
 	//Methods
 	/**
 	 * 	setName function
@@ -150,7 +124,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	 */
 	public double getWeight()
 	{
-		MessageUtility.logGetter(name, "getWeight", weight); 
+		//MessageUtility.logGetter(name, "getWeight", weight); 
 		return weight;
 	}
 	/**
@@ -164,7 +138,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		if(neweight < 0)
 			res = false;
 		this.weight = neweight;
-		//MessageUtility.logSetter(name, "setWeight", neweight, res);
 		return res;
 	}
 	/**
@@ -174,7 +147,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	/**
 	 * 
 	 */
-	public abstract void makeSound();
 	/**
 	 * eat function
 	 * @param type 
@@ -186,7 +158,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		boolean x = this.diet.canEat(type.getFoodtype());
 		if(x == true)
 			res = this.diet.eat(this, type);
-		MessageUtility.logBooleanFunction(name, "eat", type, res);
+		//MessageUtility.logBooleanFunction(name, "eat", type, res);
 		return res;
 	}
 	/**
@@ -224,7 +196,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	 */
 	public EFoodType getFoodtype()
 	{
-		MessageUtility.logGetter(name, "getFoodtype", EFoodType.MEAT);
+		//MessageUtility.logGetter(name, "getFoodtype", EFoodType.MEAT);
 		return EFoodType.MEAT;
 	}
 	 
@@ -342,7 +314,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 								else
 									v_ns = 0;
 							}
-
 							if (getLocation().getY() > panel.getHeight()/2)
 								y_dir = -1;
 							else
@@ -352,13 +323,15 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 								x_dir = -1;
 							else
 								x_dir = 1;
-
-						
-                   
-							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10))
+							/*if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 30) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 30))
 							{
 								panel.killPlants();
 								this.eatCount++;					
+							}*/
+							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= EAT_DISTANCE) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= EAT_DISTANCE))
+							{
+								panel.killPlants();
+								this.eatCount++;	
 							}
 							else if (Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) //x
 								this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
@@ -376,12 +349,11 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 			}
 			catch (InterruptedException e)
 			{
-				//e.printStackTrace();				
 				return;
 			}
             catch (ArithmeticException e)
             {
-            	System.out.println(e.getMessage());
+            	//do nothing
             }
 		
 		}
