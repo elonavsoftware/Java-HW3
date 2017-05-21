@@ -1,4 +1,5 @@
 package animals;
+
 import mobility.Mobile;
 import mobility.Point;
 import plants.Cabbage;
@@ -14,9 +15,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
-
 import diet.IDiet;
 import utilities.MessageUtility;
 
@@ -169,7 +170,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	/**
 	 * 
 	 */
-	public String toString() {return "[" + this.getClass().getSimpleName() + "]" + "(" + name + ")" ;}
+	public String toString() {return "[" + this.getClass().getSimpleName() + "]" + "(" + name + ")";}
 	/**
 	 * 
 	 */
@@ -252,7 +253,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 				}			
 				Thread.sleep(50);			
 				//asking if there are food
-				if(this.panel.isFood())
+				if(this.panel.isFood()) //is food on the panel
 				{
 					//if(this.eat(food))
 					if(this.panel.getFood() instanceof Meat && (this instanceof Lion || this instanceof Bear))
@@ -312,7 +313,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 						finally {}
 					}	
 					//if(this.eat(food))
-					if((this.panel.getFood() instanceof Lettuce || this.panel.getFood() instanceof Cabbage) && (this instanceof Turtle || this instanceof Giraffe || this instanceof Elephant))
+					if((this.panel.getFood() instanceof Lettuce || this.panel.getFood() instanceof Cabbage) && (this instanceof Turtle || this instanceof Giraffe || this instanceof Elephant || this instanceof Bear))
 					{
 						System.out.println(this.diet.canEat(EFoodType.MEAT));
 						double hor_new = horSpeed, ver_new = verSpeed, ver_old = verSpeed, hor_old = horSpeed;

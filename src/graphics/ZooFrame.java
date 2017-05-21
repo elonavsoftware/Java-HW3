@@ -33,7 +33,7 @@ public class ZooFrame extends JFrame implements ActionListener
 		m3 = new JMenu("Help");
 		mi = new JMenuItem[names.length];
 
-		for(int i = 0 ;i<names.length; i++)
+		for(int i = 0 ; i < names.length; i++)
 		{
 		    mi[i] = new JMenuItem(names[i]);
 		    mi[i].addActionListener(this);
@@ -56,7 +56,6 @@ public class ZooFrame extends JFrame implements ActionListener
 	{      
         ZooFrame frame = new ZooFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         frame.setSize(800, 600);
         frame.setVisible(true);
 	}
@@ -67,17 +66,17 @@ public class ZooFrame extends JFrame implements ActionListener
 			destroy();
 		else if(e.getSource() == mi[1]) //image
 			zooPanel.setBackgr(0);
-		else if(e.getSource() == mi[2])
+		else if(e.getSource() == mi[2]) //green
 			zooPanel.setBackgr(1);
-		else if(e.getSource() == mi[3])
+		else if(e.getSource() == mi[3]) //none
 			zooPanel.setBackgr(2);
-		else if(e.getSource() == mi[4])
+		else if(e.getSource() == mi[4]) //help
 			printHelp();
 
 	}
 	public void destroy()
 	{
-		System.exit(0);
+		System.exit(0); //exit all
 	}
 	public void printHelp()
 	{

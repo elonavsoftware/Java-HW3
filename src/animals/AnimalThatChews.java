@@ -6,7 +6,7 @@ import graphics.ZooPanel;
 import mobility.Point;
 /**
  * an abstracted class that extends animal class.
- * @author elon
+ * @author Elon Avisror
  *
  */
 public abstract class AnimalThatChews extends Animal

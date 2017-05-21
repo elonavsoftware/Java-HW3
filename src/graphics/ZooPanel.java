@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
@@ -27,10 +28,9 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	 */
 	public final static String PICTURE_PATH = "pictures\\";
 	private static final long serialVersionUID = 1L;
-	//final static String SafariImg = "C:\\Users\\USER\\Desktop\\pictures\\savanna.jpg";
 	private Image SafariImg = new ImageIcon(PICTURE_PATH + "savanna.jpg").getImage();
 	protected int Counter = 0;
-	private HashSet<Animal> animal;
+	private ArrayList<Animal> animal;
 	private Thread controller; //data member of class ZooPanel 
 	private String[] buttonNames = {"Add Animal", "Sleep", "Wake Up", "Clear", "Food", "Info", "Exit"};
 	private JButton[] button;
@@ -52,19 +52,19 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	//Constructor
 	public ZooPanel(ZooFrame zooframe)
 	{
-		//create a main thread which control the main panel.
+		//create a main thread which control the main panel
 		controller = new Thread(this);
 		controller.start();
 		button = new JButton[buttonNames.length]; //array of JButton		
 		createbtn();
-		animal = new HashSet<Animal>(); //iterator of animals
-		plants = new HashSet<IEdible>();//iterator of plants cabbage lettuce meat.
+		animal = new ArrayList<Animal>(); //iterator of animals
+		plants = new HashSet<IEdible>();//iterator of plants cabbage lettuce meat
 		count = 0;
 		totalEat = 0;
 		this.ZooFrm = zooframe;		
 	}
 	
-	//this function check's weither there are food or not.
+	//this function check's weither there are food or not
 	public Boolean isFood()
 	{
 		Boolean res = false;
@@ -133,6 +133,24 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 		while(true)
 		{
 			repaint();
+			if(animal != null)
+			{
+				boolean flag = false;
+				for(Animal predator: animal)
+				{
+					for(Animal prey: animal)
+					{
+						if (predator != prey && predator.eat(prey))
+						{
+							System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+							flag = true;
+							break;
+						}
+					}
+					if(flag)
+						break;
+				}
+			}
 		}
 	}
 	
@@ -327,7 +345,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	public void paintComponent(java.awt.Graphics g)
 	{
 	    super.paintComponent(g);
-	    Iterator<Animal> i = animal.iterator(); //the beginning of iterator
+	    //Iterator<Animal> i = animal.iterator(); //the beginning of iterator
 	    Iterator<IEdible> j = plants.iterator(); //the beginning of iterator
 	    if(flag) //flag == true
 	    {
@@ -339,8 +357,12 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	    {
 	    	
 	    }*/
-	    while(i.hasNext())
-    		i.next().drawObject(g);
+	    for(Animal predator: animal)
+	    {
+	    	predator.drawObject(g);
+	    }
+	    /*while(i.hasNext())
+    		i.next().drawObject(g);*/
 	    while(j.hasNext())
 	    	j.next().drawObject(g);
     }
