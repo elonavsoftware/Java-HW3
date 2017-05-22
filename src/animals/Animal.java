@@ -15,19 +15,18 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import diet.IDiet;
-import utilities.MessageUtility;
 
 /**
- * animal class - present all the animals.
- * @author Mahdi
+ * animal class - present all the animals
+ * @author Mahdi Asali
  *
  */
+
 public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior, Runnable
 {
-	//Added Attributes
+	/*Added Attributes*/
 	protected final int EAT_DISTANCE = 30;
 	protected int size;
 	protected Color col;
@@ -41,30 +40,19 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	protected ZooPanel panel;
 	protected boolean threadSuspended;	 
 	protected BufferedImage img1, img2;
-	protected String colorstr; //added
-	/**
-	 * 
-	 */
+	protected String colorStr;
 	protected String name;
-	/**
-	 * 
-	 */
 	private double weight;
-	/**
-	 * 
-	 */
 	private IDiet diet;
 	
 	
-	//Constructors
-
-	//my ctor
-	public Animal(int Size, int HSpeed, int VSpeed, String color, ZooPanel panel, Point location)
+	/*Constructor*/
+	public Animal(int size, int HSpeed, int VSpeed, String color, ZooPanel panel, Point location)
 	{		
 		x_dir = 1;
 		y_dir = 1;
 		this.setLocation(location);
-		this.setSize(Size);
+		this.setSize(size);
 		this.horSpeed = HSpeed;
 		this.verSpeed = VSpeed;
 		if(color == "Red")
@@ -78,79 +66,69 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	    thread = new Thread(this);
 	    thread.start();
 	}
+	
+	
 	//Methods
 	/**
 	 * 	setName function
 	 * @param _name
-	 * @return res
+	 * @return res = result
 	 */
-	public boolean setName(String _name)
+	public boolean setName(String name)
 	{
 		boolean res = true;
-		if(_name == null)
+		if(name == null)
 			res = false;
-		this.name = _name;
-		MessageUtility.logSetter(name, "setName", _name, res);
+		this.name = name;
 		return res;
 	}
+	
 	/**
 	 * setDiet function
 	 * @param _diet
-	 * @return res
+	 * @return res = result
 	 */
-	public boolean setDiet(IDiet _diet)
+	public boolean setDiet(IDiet diet)
 	{
 		boolean res = false;
-		if(_diet != null)
-		{
+		if(diet != null)
 			res = true;
-		}
-		this.diet = _diet;
-		MessageUtility.logSetter(name, "setDiet", _diet, res);
+		this.diet = diet;
 		return res;
 	}
+	
 	/**
 	 * getDiet function
 	 * @return this.diet
 	 */
-	public IDiet getDiet()
-	{
-		MessageUtility.logGetter(name, "getDiet", this.diet);
-		return this.diet;
-	}
+	public IDiet getDiet() {return this.diet;}
+	
 	/**
 	 * getWeight
-	 * @return weight
+	 * @return this.weight
 	 */
-	public double getWeight()
-	{
-		//MessageUtility.logGetter(name, "getWeight", weight); 
-		return weight;
-	}
+	public double getWeight() {return weight;}
+	
 	/**
-	 * setWeight - set Weight function.
+	 * setWeight - set Weight function
 	 * @param neweight
-	 * @return res - result.
+	 * @return res = result
 	 */
-	public boolean setWeight(double neweight)
+	public boolean setWeight(double weight)
 	{
 		boolean res = true;
-		if(neweight < 0)
+		if(weight < 0)
 			res = false;
-		this.weight = neweight;
+		this.weight = weight;
 		return res;
 	}
-	/**
-	 * 
-	 */
-	public String toString() {return "[" + this.getClass().getSimpleName() + "]" + "(" + name + ")";}
-	/**
-	 * 
-	 */
+	
+	public String toString() {return ("[" + this.getClass().getSimpleName() + "]" + "(" + name + ")");}
+	
 	/**
 	 * eat function
 	 * @param type 
-	 * @return res - result
+	 * @return res = result
 	 */
 	public boolean eat(IEdible type)
 	{
@@ -158,49 +136,35 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		boolean x = this.diet.canEat(type.getFoodtype());
 		if(x == true)
 			res = this.diet.eat(this, type);
-		//MessageUtility.logBooleanFunction(name, "eat", type, res);
 		return res;
 	}
+	
 	/**
 	 * getName
 	 * @return this.name
 	 */
-	public String getName()
-	{
-		MessageUtility.logGetter(name, "getName", name);
-		return this.name;
-	}
+	public String getName() {return this.name;}
+	
 	/**
 	 * move function
+	 * @return distance
 	 */
 	public double move(Point p)
 	{
 		double distance = super.move(p);
-		boolean flag2 = false;
 		if(Point.cheackBounderies(p))
 		{
-			boolean flag = false;
-			if(distance != 0)
-				flag = true;
-			flag2 = flag;
 			double getweight = this.getWeight();
 			this.setWeight(getweight - (distance * getweight * 0.00025));			
 		}
-		MessageUtility.logBooleanFunction(name, "move", p, flag2);
 		return distance;
 	}	
 	
-	@Override
 	/**
-	 * getFoodtype - function getting the food type of animal.
+	 * getFoodtype - function getting the food type of animal
 	 */
-	public EFoodType getFoodtype()
-	{
-		//MessageUtility.logGetter(name, "getFoodtype", EFoodType.MEAT);
-		return EFoodType.MEAT;
-	}
-	 
-	@Override
+	public EFoodType getFoodtype() {return EFoodType.MEAT;}
+	
 	public void run()
 	{
 		while(true)
@@ -224,172 +188,81 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 						wait();
 				}			
 				Thread.sleep(50);			
-				//asking if there are food
-				if(this.panel.isFood()) //is food on the panel
+				
+				if(this.panel.isFood()) //asking if there are food on the panel
 				{
-					//if(this.eat(food))
+					/*1*/
 					if(this.panel.getFood() instanceof Meat && (this instanceof Lion || this instanceof Bear))
-					{
-						double hor_new = horSpeed, ver_new = verSpeed, ver_old = verSpeed, hor_old = horSpeed;
-						double v_old = Math.sqrt(hor_old * hor_old + ver_old * ver_old);
-						try
-						{
-							double k = Math.abs((getLocation().getY() - panel.getHeight()/2) / (getLocation().getX() - panel.getWidth()/2));
-							double h_ns = v_old / Math.sqrt(k * k + 1);
-							double v_ns = h_ns * k;
-
-							if(h_ns > 10)
-								h_ns = 10;
-							else if(h_ns < 1)
-							{
-								if(getLocation().getY() != (panel.getWidth()/2))
-									h_ns = 1;
-								else
-									h_ns = 0;
-							}
-							if(v_ns > 10)
-								v_ns = 10;
-							else if(v_ns < 1)
-							{
-								if(getLocation().getX() != (panel.getHeight()/2))
-									v_ns = 1;
-								else
-									v_ns = 0;
-							}
-
-							if (getLocation().getY() > panel.getHeight()/2)
-								y_dir = -1;
-							else
-								y_dir = 1;
-
-							if (getLocation().getX() > panel.getWidth()/2)
-								x_dir = -1;
-							else
-								x_dir = 1;
-                       
-							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= EAT_DISTANCE) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= EAT_DISTANCE))
-							{
-								panel.killPlants();
-								this.eatCount++;					
-							}
-							else if (Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) //x
-								this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
-							else if (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10) //y
-								this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
-							else
-							{
-							this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
-								this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
-							}
-						}
-						finally {}
-					}	
-					//if(this.eat(food))
+						mathFood();
+					
+					/*2*/
 					if((this.panel.getFood() instanceof Lettuce || this.panel.getFood() instanceof Cabbage) && (this instanceof Turtle || this instanceof Giraffe || this instanceof Elephant || this instanceof Bear))
-					{
-						System.out.println(this.diet.canEat(EFoodType.MEAT));
-						double hor_new = horSpeed, ver_new = verSpeed, ver_old = verSpeed, hor_old = horSpeed;
-						double v_old = Math.sqrt(hor_old * hor_old + ver_old * ver_old);
-						try
-						{
-							double k = Math.abs((getLocation().getY() - panel.getHeight()/2) / (getLocation().getX() - panel.getWidth()/2));
-							double h_ns = v_old / Math.sqrt(k * k + 1);
-							double v_ns = h_ns * k;
-
-							if(h_ns > 10)
-								h_ns = 10;
-							else if(h_ns < 1)
-							{
-								if(getLocation().getY() != (panel.getWidth()/2))
-									h_ns = 1;
-								else
-									h_ns = 0;
-							}
-							if(v_ns > 10)
-								v_ns = 10;
-							else if(v_ns < 1)
-							{
-								if(getLocation().getX() != (panel.getHeight()/2))
-									v_ns = 1;
-								else
-									v_ns = 0;
-							}
-							if (getLocation().getY() > panel.getHeight()/2)
-								y_dir = -1;
-							else
-								y_dir = 1;
-
-							if (getLocation().getX() > panel.getWidth()/2)
-								x_dir = -1;
-							else
-								x_dir = 1;
-							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= EAT_DISTANCE) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= EAT_DISTANCE))
-							{
-								panel.killPlants();
-								this.eatCount++;	
-							}
-							else if (Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) //x
-								this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
-							else if (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10) //y
-								this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
-							else
-							{
-								this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
-								this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
-							}
-						}
-						finally {}
-					}	
+						mathFood();
 				}
 			}
 			catch (InterruptedException e)
 			{
 				return;
 			}
-            catch (ArithmeticException e)
+            catch (ArithmeticException e) //divide by zero
             {
             	//do nothing
             }
-		
 		}
 	}
+
+	/**
+	 * 
+	 * @return this.horSpeed
+	 */
+	public int getHorSpeed() {return this.horSpeed;}
 	
-	//added Methods.
-	 public int getHorSpeed() { return horSpeed; }
-	 public int getVerSpeed() { return verSpeed; }
-	 
-	 
-	@Override
-	public String getAnimalName() {return name;}
-
-	@Override
-	public int getSize() {return size;}
-
-	@Override
+	/**
+	 * 
+	 * @return this.verSpeed
+	 */
+	public int getVerSpeed() {return this.verSpeed;}
+	
+	/**
+	 * 
+	 * @return this.name
+	 */
+	public String getAnimalName() {return this.name;}
+	
+	/**
+	 * 
+	 * @return this.size
+	 */
+	public int getSize() {return this.size;}
+	
 	public void eatInc() {this.eatCount++;}
-
-	@Override
-	public int getEatCount() {return this.eatCount;}
-
-	@Override
-	public boolean getChanges() {return coordChanged;}
-
-	@Override
-	public void setSuspended() {this.threadSuspended = true;}
 	
-	@Override
-	public synchronized void setResumed()
+	/**
+	 * 
+	 * @return this.eatCount
+	 */
+	public int getEatCount() {return this.eatCount;}
+	
+	/**
+	 * 
+	 * @return this.coordChanged
+	 */
+	public boolean getChanges() {return this.coordChanged;}
+	
+	public void setSuspended() {this.threadSuspended = true;} //true
+	
+	public synchronized void setResumed() //false
 	{
 		this.threadSuspended = false;
-		notify(); //to wakeup the Animals 
+		notify(); //to wake-up the Animals 
 	}
-
-	@Override
 	synchronized public void setChanges(boolean state) {coordChanged = state;}
-
-	@Override
-	public String getColor() {return this.colorstr;}	
-	@Override
+	
+	/**
+	 * @return this.colorStr
+	 */
+	public String getColor() {return this.colorStr;}
+	
 	public void loadImages(String nm)
 	{
 		if(this.col == Color.red)
@@ -431,9 +304,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 				System.out.println("Unable to load the image!");
 			}
 		}
-		
 	}
-	@Override
+	
 	public void drawObject(Graphics g)
 	{
 	   g.setColor(col);
@@ -442,16 +314,77 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 	   else //goes to the left side
 		   g.drawImage(img2, getLocation().getX(), getLocation().getY() - size/2, size/2, size, panel);
 	}
-
-	public boolean setSize(int _size)
+	
+	/**
+	 * 
+	 * @param _size
+	 * @return res = result
+	 */
+	public boolean setSize(int size)
 	{
 		Boolean res = true;
-		if(_size > 0)
-			this.size = _size;
+		if(size > 0)
+			this.size = size;
 		else
 			res = false;
 		return res;
 	}
 	
 	synchronized public void stop() {thread.interrupt();}
-} //abstract class Animal extends Mobile implements IEdible
+	
+	/*Move food direction*/
+	public void mathFood()
+	{
+		double hor_new = horSpeed, ver_new = verSpeed, ver_old = verSpeed, hor_old = horSpeed;
+		double v_old = Math.sqrt(hor_old * hor_old + ver_old * ver_old);
+		try
+		{
+			double k = Math.abs((getLocation().getY() - panel.getHeight()/2) / (getLocation().getX() - panel.getWidth()/2));
+			double h_ns = v_old / Math.sqrt(k * k + 1);
+			double v_ns = h_ns * k;
+
+			if(h_ns > 10)
+				h_ns = 10;
+			else if(h_ns < 1)
+			{
+				if(getLocation().getY() != (panel.getWidth()/2))
+					h_ns = 1;
+				else
+					h_ns = 0;
+			}
+			if(v_ns > 10)
+				v_ns = 10;
+			else if(v_ns < 1)
+			{
+				if(getLocation().getX() != (panel.getHeight()/2))
+					v_ns = 1;
+				else
+					v_ns = 0;
+			}
+			if (getLocation().getY() > panel.getHeight()/2)
+				y_dir = -1;
+			else
+				y_dir = 1;
+
+			if (getLocation().getX() > panel.getWidth()/2)
+				x_dir = -1;
+			else
+				x_dir = 1;
+			if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= EAT_DISTANCE) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= EAT_DISTANCE))
+			{
+				panel.killPlants();
+				this.eatCount++;	
+			}
+			else if (Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) //x
+				this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
+			else if (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10) //y
+				this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
+			else
+			{
+				this.getLocation().setX(this.getLocation().getX() + (int)(hor_new * x_dir));
+				this.getLocation().setY(this.getLocation().getY() + (int)(ver_new * y_dir));
+			}
+		}
+		finally {}
+	}
+} //abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior, Runnable

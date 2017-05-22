@@ -1,5 +1,11 @@
 package graphics;
 
+/**
+ * 
+ * @author Elon Avisror
+ *
+ */
+
 public interface IAnimalBehavior
 {
     public String getAnimalName();

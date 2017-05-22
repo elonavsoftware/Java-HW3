@@ -1,17 +1,20 @@
 package diet;
+
 import animals.Animal;
 import food.EFoodType;
 import food.IEdible;
+
 /**
  * Omnivore class
- * @author Elon
+ * @author Elon Avisror
  *
  */
+
 public class Omnivore implements IDiet
 {
-	@Override
 	/**
-	 * eat function receive animal food as arguments and check if animal can eat food which received.
+	 * eat function receive animal food as arguments and check if animal can eat food which received
+	 * @return res = result
 	 */
 	public boolean eat(Animal animal, IEdible food)
 	{	
@@ -33,12 +36,15 @@ public class Omnivore implements IDiet
 		}
 		return res;
 	}
-	@Override
-	public String toString() {return "[" + this.getClass().getSimpleName() + "]";}	
-	
-	@Override
+
 	/**
-	 * canEat checks if the food which recieved is meat if yes then return true else false;
+	 * @return string
+	 */
+	public String toString() {return ("[" + this.getClass().getSimpleName() + "]");}	
+	
+	/**
+	 * canEat checks if the food which received is meat if yes then return true, else false
+	 * @return res result
 	 */
 	public boolean canEat(EFoodType food)
 	{

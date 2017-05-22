@@ -1,39 +1,37 @@
 package mobility;
+
 /**
  * Mobile class which extends the ILocatable interface
- * @author Mahdi
+ * @author Mahdi Asali
  *
  */
+
 public abstract class Mobile implements ILocatable
 {
-	/**
-	 * 
-	 */
 	private Point location; //Current location
-
+	private double totalDistance; //Distance the object traveled > 0
+	
 	/**
-	 * 
-	 */
-	private double totalDistance;//Distance the object traveled >0.
-	//Methods.
-	/**
-	 * Mobile Ctor
+	 * Mobile default constructor
 	 */
 	public Mobile() {}
+	
 	/**
-	 * Mobile Ctor
+	 * Mobile constructor
 	 * @param location
 	 */
 	public Mobile(Point location) {this.location=new Point(location);} //New copy of 'Point'.
+	
 	/**
-	 * addTotalDistance fuction increment the total distance by 1.
+	 * addTotalDistance function increment the total distance by 1
 	 * @param _totalDistance
 	 */
 	public void addTotalDistance(double _totalDistance) {this.totalDistance += _totalDistance;}
+	
 	/**
 	 * calcDistance - calculate the distance between two points as Petagoras method.
 	 * @param p
-	 * @return
+	 * @return distance
 	 */
 	public double calcDistance(Point p)
 	{
@@ -41,28 +39,29 @@ public abstract class Mobile implements ILocatable
 		distance = Math.sqrt((Math.pow(this.location.getY() - p.getY(), 2) + Math.pow(this.location.getX() - p.getX(), 2)));
 		return distance;
 	}
+	
 	/**
 	 * move function updates the total distance and calculate the distance of the received argument 
-	 * @param p
-	 * @return
+	 * @param p = point
+	 * @return distance
 	 */
 	public double move(Point p)
 	{
-		double dis=this.calcDistance(p);
-		this.addTotalDistance(dis);
-		return dis;
+		double distance = this.calcDistance(p);
+		this.addTotalDistance(distance);
+		return distance;
 	}
-	@Override
+
 	/**
-	 * getLocation returns the current point location.
+	 * getLocation returns the current point location
+	 * @return this.location
 	 */
 	public Point getLocation() {return this.location;}
 
-	@Override
 	/**
 	 * setLocation updates the new location 
 	 * @param other
-	 * @return res
+	 * @return res = result
 	 */
 	public boolean setLocation(Point other)
 	{
@@ -74,8 +73,10 @@ public abstract class Mobile implements ILocatable
 		}
 		return res;
 	}
+	
 	/**
 	 * getDistance
+	 * @return this.totalDistance
 	 */
 	public double getDistance(){return this.totalDistance;}
 } //abstract class Mobile implements ILocatable

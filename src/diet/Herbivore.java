@@ -1,18 +1,21 @@
 package diet;
+
 import animals.Animal;
 import diet.IDiet;
 import food.EFoodType;
 import food.IEdible;
+
 /**
- * Herbivore class .
- * @author Mahdi
+ * Herbivore class
+ * @author Mahdi Asali
  *
  */
+
 public class Herbivore implements IDiet
 {
-	@Override
 	/**
-	 * canEat checks if the food which recieved is meat if yes then return true else false;
+	 * canEat checks if the food which received is meat if yes then return true, else false
+	 * @return res = result
 	 */
 	public boolean canEat(EFoodType food)
 	{
@@ -21,24 +24,21 @@ public class Herbivore implements IDiet
 			res = true;
 		return res;
 	}
-	@Override
+
 	/**
-	 * 
+	 * @return string
 	 */
-	public String toString() {return "[" + this.getClass().getSimpleName() + "]";}
-	@Override
+	public String toString() {return ("[" + this.getClass().getSimpleName() + "]");}
+
 	/**
-	 * eat function receive animal food as arguments and check if animal can eat food which received.
+	 * eat function receive animal food as arguments and check if animal can eat food which received
+	 * @return res = result
 	 */
 	public boolean eat(Animal animal, IEdible food)
 	{
 		boolean res = false;
 		if(this.canEat(food.getFoodtype()))
-		{
-			//double currweight = animal.getWeight();
-			//animal.setWeight(currweight * 0.07 + currweight);
 			res = true;
-		}
 		return res;
 	}
 } //class Herbivore implements IDiet

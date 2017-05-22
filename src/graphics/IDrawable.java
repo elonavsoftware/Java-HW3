@@ -1,5 +1,12 @@
 package graphics;
+
 import java.awt.Graphics;
+
+/**
+ * 
+ * @author Elon Avisror
+ *
+ */
 
 public interface IDrawable
 {

@@ -4,9 +4,10 @@ import java.awt.Graphics;
 
 /**
  * EIdible interface
- * @author Elon
+ * @author Elon Avisror
  *
  */
+
 public interface IEdible
 {
 	public EFoodType getFoodtype();
