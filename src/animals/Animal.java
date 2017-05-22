@@ -28,7 +28,7 @@ import utilities.MessageUtility;
 public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior, Runnable
 {
 	//Added Attributes
-	protected final int EAT_DISTANCE = 5;
+	protected final int EAT_DISTANCE = 30;
 	protected int size;
 	protected Color col;
 	protected int horSpeed;
@@ -267,7 +267,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 							else
 								x_dir = 1;
                        
-							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 10) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 10))
+							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= EAT_DISTANCE) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= EAT_DISTANCE))
 							{
 								panel.killPlants();
 								this.eatCount++;					
@@ -323,11 +323,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 								x_dir = -1;
 							else
 								x_dir = 1;
-							/*if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= 30) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= 30))
-							{
-								panel.killPlants();
-								this.eatCount++;					
-							}*/
 							if((Math.abs(this.getLocation().getX() - this.panel.getWidth()/2) <= EAT_DISTANCE) && (Math.abs(this.getLocation().getY() - this.panel.getHeight()/2) <= EAT_DISTANCE))
 							{
 								panel.killPlants();

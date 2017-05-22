@@ -32,13 +32,10 @@ public class ZooFrame extends JFrame implements ActionListener
 		m2 = new JMenu("Background");
 		m3 = new JMenu("Help");
 		mi = new JMenuItem[names.length];
-
-		for(int i = 0 ; i < names.length; i++)
-		{
+		for(int i = 0 ; i < names.length; i++){
 		    mi[i] = new JMenuItem(names[i]);
 		    mi[i].addActionListener(this);
 		}
-
 		m1.add(mi[0]);
 		m2.add(mi[1]);
 		m2.addSeparator();
@@ -52,16 +49,14 @@ public class ZooFrame extends JFrame implements ActionListener
 		setJMenuBar(mb);
 	}
 	static ZooPanel MyZooPanel;
-	public static void main(String[] args)
-	{      
+	public static void main(String[] args){      
         ZooFrame frame = new ZooFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setVisible(true);
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
+	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == mi[0]) //exit
 			destroy();
 		else if(e.getSource() == mi[1]) //image
@@ -72,14 +67,11 @@ public class ZooFrame extends JFrame implements ActionListener
 			zooPanel.setBackgr(2);
 		else if(e.getSource() == mi[4]) //help
 			printHelp();
-
 	}
-	public void destroy()
-	{
+	public void destroy(){
 		System.exit(0); //exit all
 	}
-	public void printHelp()
-	{
+	public void printHelp(){
 		JOptionPane.showMessageDialog(this, "Home Work 3\nGUI @ Threads");
 	}
 

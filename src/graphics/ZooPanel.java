@@ -200,11 +200,14 @@ public void run(){
 		
 	}
 	public void cleanTable(){
+	if(table!=null)
+	{
 	int rows=table.getRowCount();
 	int c=table.getColumnCount();
 	for(int i=0;i<rows;i++)
 		for(int j=0;j<c;j++)
 			info1[i][j]="";
+	}
 	}
 	public void clearTable()
 	{
