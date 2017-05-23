@@ -3,6 +3,7 @@
 package utilities;
 
 /**
+ * Program class, in this case empty one
  * @author Elon Avisror & Mahdi Asali
  *
  */

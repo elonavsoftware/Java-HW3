@@ -9,7 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /**
- * 
+ * ZooFrame class, extends JFrame and implements ActionListener, the main frame of the zoo
  * @author Elon Avisror
  *
  */

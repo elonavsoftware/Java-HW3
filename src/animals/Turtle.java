@@ -6,7 +6,7 @@ import graphics.ZooPanel;
 import mobility.Point;
 
 /**
- * Turtle Class contain's type, name, weight, position(X, Y) ,distance of the Turtle Object
+ * Lion class, extends AnimalThatChews class
  * @author Mahdi Asali
  *
  */

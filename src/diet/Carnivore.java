@@ -42,7 +42,7 @@ public class Carnivore implements IDiet
 	{
 		boolean res = false;		
 		if(food == EFoodType.MEAT)
-			res=true;
+			res = true;
 		return res;
 	}
 } //class Carnivore implements IDiet

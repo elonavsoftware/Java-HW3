@@ -4,7 +4,7 @@ import graphics.ZooPanel;
 import mobility.Point;
 
 /**
- * an abstracted class that extends animal class.
+ * an abstracted class that extends animal class
  * @author Elon Avisror
  *
  */

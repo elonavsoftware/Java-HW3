@@ -6,7 +6,7 @@ import graphics.ZooPanel;
 import mobility.Point;
 
 /**
- * Giraffe class
+ * Giraffe class, extends AnimalThatChews class
  * @author Elon Avisror
  *
  */

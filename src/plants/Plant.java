@@ -14,6 +14,7 @@ import graphics.IDrawable;
 import graphics.ZooPanel;
 
 /**
+ * Plant abstract class, implements IEdible, ILocatable, IDrawable
  * @author Elon Avisror
  *
  */

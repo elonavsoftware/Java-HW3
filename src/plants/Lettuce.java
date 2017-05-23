@@ -3,6 +3,7 @@ package plants;
 import graphics.ZooPanel;
 
 /**
+ * Lettuce class, extends Plant
  * @author Elon Avisror
  *
  */

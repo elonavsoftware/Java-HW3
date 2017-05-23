@@ -3,6 +3,7 @@ package plants;
 import graphics.ZooPanel;
 
 /**
+ * Meat class, extends Plant
  * @author Elon Avisror
  *
  */

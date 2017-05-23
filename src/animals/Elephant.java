@@ -6,7 +6,7 @@ import mobility.Point;
 import diet.Herbivore;
 
 /**
- * Elephant class
+ * Elephant class, extends AnimalThatChews class
  * @author Mahdi Asali
  *
  */

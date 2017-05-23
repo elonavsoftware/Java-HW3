@@ -1,7 +1,7 @@
 package graphics;
 
 /**
- * 
+ * IAnimalBehaviorthe interface, that assume how animals behave
  * @author Elon Avisror
  *
  */
@@ -15,5 +15,5 @@ public interface IAnimalBehavior
 	public boolean getChanges();
 	public void setSuspended();
 	public void setResumed();
-	public void setChanges (boolean state);
+	public void setChanges(boolean state);
 } //interface IAnimalBehavior

@@ -24,7 +24,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 	private JTextField AnimalSizeTextBox;
 	
 	/**
-	 * 
+	 * AddAnimalDialog class, extends JDialog and implements ActionListener 
 	 * @param parent
 	 * @param panel
 	 */

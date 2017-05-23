@@ -3,7 +3,7 @@ package graphics;
 import java.awt.Graphics;
 
 /**
- * 
+ * IDrawable interface, that draw in the panel and zoo
  * @author Elon Avisror
  *
  */

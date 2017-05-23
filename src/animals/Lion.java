@@ -7,7 +7,7 @@ import mobility.Point;
 import diet.Carnivore;
 
 /**
- * Lion class related to animal and AnimalThatRoars
+ * Lion class, extends AnimalThatRoars class
  * @author Mahdi Asali
  *
  */

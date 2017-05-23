@@ -22,7 +22,7 @@ import plants.Lettuce;
 import plants.Meat;
 
 /**
- * 
+ * ZooPanel class, extends JPanel and implements ActionListener, Runnable, the main panel of the zoo
  * @author Elon Avisror
  *
  */
@@ -153,26 +153,30 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 			if(isChanges())
 				repaint();
 			boolean flag = false;
-			for(Animal predator: animal)
+			synchronized(this)
 			{
-				for(Animal prey: animal)
+				for(Animal predator: animal)
 				{
-					if (predator != prey && predator.eat(prey) && Math.abs(predator.getLocation().getX() - prey.getLocation().getX()) <= 50 &&Math.abs(predator.getLocation().getY() - prey.getLocation().getY()) <= 50 && (predator.getWeight()) >= 2 * (prey.getWeight()))
+					for(Animal prey: animal)
 					{
-						prey.stop();
-						animal.remove(prey);
-						predator.eatInc();
-						cleanTable(); //clean the table. (To reUPDATE the fields)
-						fullUpInfo1(); //refill the fields
-						this.Counter--; //we have to re-update the counter because animal removed
-						flag = true;
-						break;
+						if (predator != prey && predator.eat(prey) && Math.abs(predator.getLocation().getX() - prey.getLocation().getX()) <= 50 &&Math.abs(predator.getLocation().getY() - prey.getLocation().getY()) <= 50 && (predator.getWeight()) >= 2 * (prey.getWeight()))
+						{
+							prey.stop();
+							animal.remove(prey);
+							predator.eatInc();
+							cleanTable(); //clean the table. (To reUPDATE the fields)
+							fullUpInfo1(); //refill the fields
+							this.Counter--; //we have to re-update the counter because animal removed
+							flag = true;
+							break;
+						}
 					}
+					if(flag)break;
 				}
-				if(flag)break;
 			}
 		}
 	}
+
 
 	/*Function for the Info Button*/
 	public void Table()
@@ -330,16 +334,22 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	    	Dimension size = this.getSize();
 	    	g.drawImage(SafariImg, 0, 0, size.width, size.height, this);
 	    } //to set Background Image
-	    
-	    for(Animal myanimals: animal)
-	    	myanimals.drawObject(g);
-	    if(food != null)
-	    	food.drawObject(g);
+	    try
+	    {
+		    for(Animal myanimals: animal)
+		    	myanimals.drawObject(g);
+		    if(food != null)
+		    	food.drawObject(g);
+	    }
+	    catch(Exception e) //draw exception
+	    {
+	    	return;
+	    }
     }
 	
 	/**
 	 * 
 	 * @return res = result
 	 */
-	public IEdible getFood() {return this.food; }
+	public IEdible getFood() {return this.food;}
 } //class ZooPanel extends JPanel implements ActionListener, Runnable

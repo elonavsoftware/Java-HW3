@@ -6,7 +6,7 @@ import graphics.ZooPanel;
 import mobility.Point;
 
 /**
- * Bear class ,extends 'AnimalThatRoars' class.
+ * Bear class, extends AnimalThatRoars class
  * @author Elon Avisror
  *
  */
