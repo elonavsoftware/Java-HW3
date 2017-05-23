@@ -21,7 +21,7 @@ public class ZooFrame extends JFrame implements ActionListener
     private JMenu m1, m2, m3;
     private JMenuItem[] mi;
     private JMenuBar mb;
-	static ZooPanel MyZooPanel; //???
+	static ZooPanel MyZooPanel;
     ZooFrame zooFrame;
     ZooPanel zooPanel;
     

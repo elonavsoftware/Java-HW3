@@ -58,7 +58,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 		this.VspeedCombo = new JComboBox<String>(VerticalSpeed);		
 
 		TypeAndComboPanel.add(AnimalTypeLbl); //adding the label 
-		TypeAndComboPanel.add(c1); //adding the Combo box 
+		TypeAndComboPanel.add(c1); //adding the combo box
 		
 		AnimalSizePanel.add(AnimalSizeLbl);
 		AnimalSizePanel.add(AnimalSizeTextBox);
@@ -126,8 +126,9 @@ public class AddAnimalDialog extends JDialog implements ActionListener
 		}
 		else if(e.getSource() == Cancel) //exit
 		{
-			dialogPanel.Counter = dialogPanel.Counter - 1; 
-			//do nothing.
+			dialogPanel.Counter = dialogPanel.Counter - 1;
+			
+			/*do nothing*/
 			this.dispose();
 		}
 	}

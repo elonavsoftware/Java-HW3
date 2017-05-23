@@ -45,7 +45,7 @@ public class ZooPanel extends JPanel implements ActionListener, Runnable
 	private String[][] info1 = new String[11][6];
 	private String[] info2 = {"Animal", "Color" ,"Weight" ,"HorSpeed" ,"VerSpeed" ,"Eat Counter"};
 	private JTable table;
-    private int totalEat;// the total of eat Worm 
+    private int totalEat; //the total of eat Worm 
     private int count;
 	private Boolean flag = false;
 	private JPanel subpanel;
