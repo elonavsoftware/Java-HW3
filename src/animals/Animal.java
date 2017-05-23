@@ -56,11 +56,21 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 		this.horSpeed = HSpeed;
 		this.verSpeed = VSpeed;
 		if(color == "Red")
+		{
 			this.col = Color.RED;
+			this.colorStr = "Red";
+		}
 		else if(color == "Blue")
+		{
 			this.col = Color.BLUE;
+			this.colorStr = "Blue";
+		}
 		else
+		{
 			this.col = null; //natural
+			this.colorStr = "Natural";
+		}
+		
 		this.panel = panel;
 		coordChanged = false;
 	    thread = new Thread(this);
