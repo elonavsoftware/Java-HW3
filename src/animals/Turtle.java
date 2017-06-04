@@ -6,7 +6,7 @@ import graphics.ZooPanel;
 import mobility.Point;
 
 /**
- * Lion class, extends AnimalThatChews class
+ * Turtle class, extends AnimalThatChews class
  * @author Mahdi Asali
  *
  */
