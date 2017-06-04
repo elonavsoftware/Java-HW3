@@ -11,6 +11,12 @@ import animals.Lion;
 import animals.Turtle;
 import mobility.Point;
 
+/***
+ * AddAnimalDialog class, extends JDialog implements ActionListener, that add animals to the zoo
+ * @author Elon Avisror
+ *
+ */
+
 public class AddAnimalDialog extends JDialog implements ActionListener 
 { 
 	private static final long serialVersionUID = 1L;
